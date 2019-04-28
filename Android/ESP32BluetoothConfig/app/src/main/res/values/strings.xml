@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ESP32BluetoothConfig</string>
+    <string name="ble_not_supported">La conexión con dispositivos BLE no es soportada por este dispositivos.</string>
+    <string name="title_activity_bluetooth_list">BluetoothList</string>
+    <string name="button_disconnect">Desconectar</string>
+    <string name="button_connect">Conectar</string>
+    <string name="title_devices">Dispositivos</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="scan">Iniciar Escaneo</string>
+    <string name="stopScan">Finalizar Escaneo</string>
+    <string name="scanning">Escaneando...</string>
+</resources>
