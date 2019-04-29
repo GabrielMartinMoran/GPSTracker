@@ -127,7 +127,14 @@ public class DeviceListFragment extends Fragment implements AbsListView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        //Cancelamos la busqueda de dispositivos
+        try {
+            getActivity().unregisterReceiver(BTHelper.getBroadcastReceiver());
+        }
+        catch (Exception e){
+            //Si se selecciona un elemento de los apareados y nunca se inicio la busqueda de dispositivos
+        }
+        BTHelper.getAdapter().cancelDiscovery();
         Log.d("DEVICELIST", "onItemClick position: " + position +
                 " id: " + id + " name: " + BTHelper.getDeviceItemList().get(position).getDeviceName() + "\n");
         if (null != mListener) {
@@ -135,14 +142,8 @@ public class DeviceListFragment extends Fragment implements AbsListView.OnItemCl
             // fragment is attached to one) that an item has been selected.
             mListener.onFragmentInteraction(BTHelper.getDeviceItemList().get(position).getDeviceName());
         }
-        boolean couldConnect = BTHelper.connectToDevice(BTHelper.getDeviceItemList().get(position));
-        if(couldConnect){
-            //Volvemos a la activity anterior
-            ((Activity)context).finish();
-        }else{
-            Toast.makeText(context, "Ocurrio un error al tratar de conectarse al dispositivo!",
-                    Toast.LENGTH_LONG).show();
-        }
+        //Le pasamos el contexto para que finalice la actividad en caso de que pueda conectarse
+        BTHelper.connectToDevice(BTHelper.getDeviceItemList().get(position), context);
     }
 
     /**

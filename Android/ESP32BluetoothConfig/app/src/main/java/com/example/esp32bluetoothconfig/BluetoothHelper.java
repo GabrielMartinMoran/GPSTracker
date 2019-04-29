@@ -1,5 +1,6 @@
 package com.example.esp32bluetoothconfig;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -7,10 +8,12 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+
 public class BluetoothHelper {
 
     /*
@@ -31,8 +36,9 @@ public class BluetoothHelper {
     */
 
     //La UUID debe conicidir con la del dispositivo a conectarse
-    private final String BT_UUID_STR = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
-    private final UUID SERVICE_UUID = UUID.fromString(BT_UUID_STR);
+    private final UUID SERVICE_UUID = UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E");
+    private final UUID TX_UUID = UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E");
+    private final UUID RX_UUID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
 
     private Context context;
     private BluetoothAdapter BTAdapter;
@@ -42,8 +48,56 @@ public class BluetoothHelper {
     private BroadcastReceiver bReciever;
     private ConnectThread connectedThread;
     private BluetoothGatt mBluetoothGatt;
+    private GattClientCallback gattClientCallback;
 
-    private class GattClientCallback extends BluetoothGattCallback { }
+    private class GattClientCallback extends BluetoothGattCallback {
+
+        Context contextToFinishActivity;
+        GattClientCallback(Context contextToFinishActivity){
+            this.contextToFinishActivity = contextToFinishActivity;
+        }
+
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            mBluetoothGatt.discoverServices();
+            if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                ((Activity)contextToFinishActivity).runOnUiThread(new Runnable() {
+                    public void run() {
+                        showToastNotification("No se pudo establecer la conexión con el dispositivo. " +
+                                "El dispositivo no se encuentra conectado");
+                        mBluetoothGatt.disconnect();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            ((Activity)contextToFinishActivity).runOnUiThread(new Runnable() {
+                public void run() {
+                    BluetoothGattService mCustomService = null;
+                    BluetoothGattCharacteristic txCharacteristic = null;
+                    BluetoothGattCharacteristic rxCharacteristic = null;
+                    try {
+                        //Corroboramos que existan las caracteristicas que necesitamos
+                        mCustomService = mBluetoothGatt.getService(SERVICE_UUID);
+                        txCharacteristic = mCustomService.getCharacteristic(TX_UUID);
+                        rxCharacteristic = mCustomService.getCharacteristic(RX_UUID);
+                        if(txCharacteristic == null || rxCharacteristic == null){
+                            throw new Exception();
+                        }
+                    }catch (Exception e){
+                        showToastNotification("No se pudo establecer la conexión con el dispositivo. " +
+                                "Las caracteristicas requeridas no coinciden.");
+                        mBluetoothGatt.disconnect();
+                        return;
+                    }
+                    showToastNotification("Se ha establecido la conexión con el dispositivo.");
+                    ((Activity)contextToFinishActivity).finish();
+                }
+            });
+        }
+    }
 
 
     public BluetoothHelper(Context context){
@@ -116,55 +170,16 @@ public class BluetoothHelper {
         }
     }
 
-    /**
-     *
-     * @param device
-     * @return Devuelve true si pudo conectarse al dispositivo, y false en caso de que no
-     */
-    public boolean connectToDevice(DeviceItem device){
+    public void connectToDevice(DeviceItem device, Context contextToFinishActivity){
         BluetoothDevice btDevice = BTAdapter.getRemoteDevice(device.getAddress());
-        //connectedThread = new ConnectThread(btDevice, SERVICE_UUID);
-        GattClientCallback gattClientCallback = new GattClientCallback();
+        gattClientCallback = new GattClientCallback(contextToFinishActivity);
         mBluetoothGatt = btDevice.connectGatt(context, false, gattClientCallback);
-        //Esperamos 3 segundos para que se inicialize y poder buscar los servicios
-        boolean servicesDiscovered = false;
-        int timesTried = 0;
-        while(timesTried < 3 && !servicesDiscovered){
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            servicesDiscovered = mBluetoothGatt.discoverServices();
-            timesTried ++;
-        }
-        if(!servicesDiscovered){
-            showToastNotification("No se pudo establecer la conexión con el dispositivo.");
-            disconnect();
-        }
-        return servicesDiscovered;
+        mBluetoothGatt.connect();
     }
 
     public void disconnect(){
-        connectedThread.cancel();
-        connectedThread = null;
-        mBluetoothGatt = null;
+        mBluetoothGatt.disconnect();
     }
-
-
-    /*public void sendData(String data) throws IOException {
-        sendData(data.getBytes());
-    }*/
-
-    /*public void sendData(byte[] data) throws IOException {
-        if(connectedThread == null){
-            throw new IOException("No device connected");
-        }
-        ByteArrayOutputStream output = new ByteArrayOutputStream(4);
-        output.write(data);
-        OutputStream outputStream = connectedThread.getSocket().getOutputStream();
-        outputStream.write(output.toByteArray());
-    }*/
 
     public int receiveData() throws IOException{
         if(connectedThread == null){
@@ -182,7 +197,6 @@ public class BluetoothHelper {
             showToastNotification("Ocurrio un error al tratar de enviar el mensaje! No se ha podido establecer conexión con el dispositivo.");
             return;
         }
-        //mBluetoothGatt.discoverServices();
         /*check if the service is available on the device*/
         BluetoothGattService mCustomService = mBluetoothGatt.getService(SERVICE_UUID);
         if(mCustomService == null){
@@ -190,7 +204,7 @@ public class BluetoothHelper {
             return;
         }
         /*get the read characteristic from the service*/
-        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"));
+        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(TX_UUID);
         mWriteCharacteristic.setValue(value.getBytes());//(value,android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8,0);
         if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
             //Log.w(TAG, "Failed to write characteristic");
