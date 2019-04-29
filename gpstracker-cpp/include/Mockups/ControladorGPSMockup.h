@@ -1,3 +1,4 @@
+#include <Arduino.h>
 
 class ControladorGPSMockup {
     private:
@@ -5,5 +6,6 @@ class ControladorGPSMockup {
         int pinTX = 0;
     public:
         ControladorGPSMockup(int pinTX, int pinRX);
+        String leerInformacion();
         ~ControladorGPSMockup();
 };
