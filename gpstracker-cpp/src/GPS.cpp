@@ -1,10 +1,6 @@
 #include "GPS.h"
 
 void GPS::actualizar(){
-    int latitudAux;
-    int longitudAux;
-    boolean NAux;
-    boolean WAux;
     String datos = controladorGPSMockup->leerInformacion();
     StringTokenizer tokens(datos, ",");
     if(tokens.nextToken() == "$PGRMC"){
