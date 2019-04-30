@@ -42,9 +42,7 @@ void setup()
     Serial.println(wifi->isNetworkAvaliable(networkToConnect->SSID));
 
     wifi->connect(networkToConnect->SSID, networkToConnect->password);
-
-    //wifi->connect("Fibertel WiFi589 2.4GHz", "00438829825");
-
+    
     delete sdManager;
     delete wifiConfig;
     delete wifi;

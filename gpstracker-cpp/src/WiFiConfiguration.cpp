@@ -2,13 +2,14 @@
 
 WiFiConfiguration::WiFiConfiguration()
 {
-    networks = new std::vector<WiFiNetwork*>();
+    networks = new std::vector<WiFiNetwork *>();
     sdManager = new SDManager();
 }
 
 WiFiConfiguration::~WiFiConfiguration()
 {
-    for (std::vector<WiFiNetwork*>::iterator elementPointer = networks->begin() ; elementPointer != networks->end(); ++elementPointer){
+    for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
+    {
         //*elementPointer devuelve un puntero a un WiFiNetwork, por eso se elimina el *elementPointer y no elementPointer directo
         delete *elementPointer;
     }
@@ -20,19 +21,28 @@ void WiFiConfiguration::loadConfiguration()
 {
     std::vector<String> *fileLines = sdManager->readFileLines("/WiFiConfig");
     Serial.println(fileLines->size());
-    for (std::vector<String>::iterator elementPointer = fileLines->begin() ; elementPointer != fileLines->end(); ++elementPointer){
+    for (std::vector<String>::iterator elementPointer = fileLines->begin(); elementPointer != fileLines->end(); ++elementPointer)
+    {
         StringTokenizer tokens(*elementPointer, DATA_SEPARATOR);
         String SSID;
         String password;
-        if(tokens.hasNext()) {
+        if (tokens.hasNext())
+        {
             SSID = tokens.nextToken();
-        }else
+            SSID.replace("\r", "");
+            SSID.replace("\n", "");
+        }
+        else
         {
             continue;
         }
-        if(tokens.hasNext()) {
+        if (tokens.hasNext())
+        {
             password = tokens.nextToken();
-        }else
+            password.replace("\r", "");
+            password.replace("\n", "");
+        }
+        else
         {
             continue;
         }
@@ -43,17 +53,21 @@ void WiFiConfiguration::loadConfiguration()
     delete fileLines;
 }
 
-void WiFiConfiguration::printConfiguratedNetworks(){
+void WiFiConfiguration::printConfiguratedNetworks()
+{
     Serial.println("Listando las redes configuradas:");
-    for (std::vector<WiFiNetwork*>::iterator elementPointer = networks->begin() ; elementPointer != networks->end(); ++elementPointer){
+    for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
+    {
         Serial.println((*elementPointer)->toString());
     }
 }
 
-unsigned int WiFiConfiguration::getConfiguredNetworks(){
+unsigned int WiFiConfiguration::getConfiguredNetworks()
+{
     return networks->size();
 }
 
-WiFiNetwork* WiFiConfiguration::getNetworkAtPosition(unsigned int index){
+WiFiNetwork *WiFiConfiguration::getNetworkAtPosition(unsigned int index)
+{
     return networks->at(index);
 }
