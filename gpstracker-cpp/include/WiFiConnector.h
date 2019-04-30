@@ -1,11 +1,14 @@
 #include <WiFi.h>
 #include <Arduino.h>
 
-#define MAX_CONNECTION_RETRIES 10
+#define MAX_CONNECTION_RETRIES 20
+#define TIME_TO_WAIT_BEFORE_RETRY 500
 
-class WifiConnector{
-    public:
-        WifiConnector();
-        void connect(char *SSID, char *password);
-        void getAvaliableNetworks();
+class WiFiConnector
+{
+  public:
+    WiFiConnector();
+    void connect(String SSID, String password);
+    void getAvaliableNetworks();
+    bool isNetworkAvaliable(String SSID);
 };

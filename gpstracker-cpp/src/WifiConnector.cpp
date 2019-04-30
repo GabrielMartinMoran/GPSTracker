@@ -1,18 +1,32 @@
 #include <WiFiConnector.h>
 
-WifiConnector::WifiConnector()
+WiFiConnector::WiFiConnector()
 {
     WiFi.mode(WIFI_STA);
     WiFi.disconnect();
 }
 
-void WifiConnector::connect(char *SSID, char *password)
+void WiFiConnector::connect(String SSID, String password)
 {
-    WiFi.begin(SSID, password);
+    char _SSID[SSID.length() + 1];
+    SSID.toCharArray(_SSID, SSID.length() + 1);
+    char _password[password.length() + 1];
+    password.toCharArray(_password, password.length() + 1);
+
+    Serial.println("WiFi module is trying to connect to:");
+    Serial.print("SSID: ");
+    Serial.println(_SSID);
+    Serial.print("Password: ");
+    Serial.println(_password);
+
+    WiFi.disconnect();
+    delay(500);
+
+    WiFi.begin(_SSID, _password);
     byte intentos = 0;
     while (WiFi.status() != WL_CONNECTED)
     {
-        delay(500);
+        delay(TIME_TO_WAIT_BEFORE_RETRY);
         Serial.print(".");
         intentos++;
         if (intentos > MAX_CONNECTION_RETRIES)
@@ -25,7 +39,7 @@ void WifiConnector::connect(char *SSID, char *password)
     return;
 }
 
-void WifiConnector::getAvaliableNetworks()
+void WiFiConnector::getAvaliableNetworks()
 {
     Serial.println("Avaliable Networks:");
     byte networkNumbers = WiFi.scanNetworks();
@@ -35,4 +49,19 @@ void WifiConnector::getAvaliableNetworks()
         Serial.println(WiFi.SSID(actualNetwork));
         actualNetwork++;
     }
+}
+
+bool WiFiConnector::isNetworkAvaliable(String SSID)
+{
+    byte networkNumbers = WiFi.scanNetworks();
+    byte actualNetwork = 0;
+    while (actualNetwork < networkNumbers)
+    {
+        if (WiFi.SSID(actualNetwork) == SSID)
+        {
+            return true;
+        }
+        actualNetwork++;
+    }
+    return false;
 }
