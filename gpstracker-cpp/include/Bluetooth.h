@@ -1,24 +1,44 @@
-/*
-    Based on Neil Kolban example for IDF: https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLE%20Tests/SampleServer.cpp
-    Ported to Arduino ESP32 by Evandro Copercini
-    updates by chegewara
-*/
 #include <BLEDevice.h>
-#include <BLEUtils.h>
 #include <BLEServer.h>
+//#include <BLEUtils.h>
+#include <BLE2902.h>
 #include <Arduino.h>
 
-// See the following for generating UUIDs:
-// https://www.uuidgenerator.net/
+#define SERVICE_UUID "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 
+#define LED_PIN 2
+#define DEVICE_BT_NAME "ESP32 GPS Tracker"
 
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+class Bluetooth
+{
+  private:
+    BLECharacteristic *pCharacteristic;
+    bool deviceConnected = false;
+    float txValue = 0;
 
-#define BLE_DEVICE_NAME "ESP32 - No micropython :("
+  public:
+    Bluetooth();
+    void startConnectionLoop();
+    void setConnectionStatus(bool value);
+    bool isConnected();
+};
 
-class Bluetooth{
+class BTServerCallbacks : public BLEServerCallbacks
+{
+  private:
+    Bluetooth *bluetooth;
+    void onConnect(BLEServer *pServer);
+    void onDisconnect(BLEServer *pServer);
 
-    public:
-        static void begin();
+  public:
+    BTServerCallbacks(Bluetooth *bluetooth);
+    ~BTServerCallbacks();
+};
+
+class BTWriteCallback : public BLECharacteristicCallbacks
+{
+  private:
+    void onWrite(BLECharacteristic *pCharacteristic);
 };
