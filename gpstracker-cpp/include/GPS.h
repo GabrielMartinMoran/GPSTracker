@@ -1,3 +1,6 @@
+#ifndef GPS_h
+#define GPS_h
+
 #include "Mockups/ControladorGPSMockup.h"
 #include "Utils/StringTokenizer.h"
 
@@ -28,3 +31,5 @@ public:
     byte getAnio();
     ~GPS();
 };
+
+#endif

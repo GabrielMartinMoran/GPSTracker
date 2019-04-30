@@ -1,3 +1,6 @@
+#ifndef ControladorGPSMockup_h
+#define ControladorGPSMockup_h
+
 #include <Arduino.h>
 
 class ControladorGPSMockup
@@ -11,3 +14,5 @@ public:
     String leerInformacion();
     ~ControladorGPSMockup();
 };
+
+#endif

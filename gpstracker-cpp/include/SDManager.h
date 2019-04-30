@@ -1,3 +1,5 @@
+#ifndef SDManager_h
+#define SDManager_h
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
@@ -25,3 +27,5 @@ public:
          */
     uint64_t getCardSize();
 };
+
+#endif

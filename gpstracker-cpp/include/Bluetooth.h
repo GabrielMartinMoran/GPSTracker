@@ -1,3 +1,6 @@
+#ifndef Bluetooth_h
+#define Bluetooth_h
+
 /*
     Based on Neil Kolban example for IDF: https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLE%20Tests/SampleServer.cpp
     Ported to Arduino ESP32 by Evandro Copercini
@@ -22,3 +25,5 @@ class Bluetooth
 public:
     static void begin();
 };
+
+#endif
