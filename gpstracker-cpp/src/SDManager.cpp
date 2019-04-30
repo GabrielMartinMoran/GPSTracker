@@ -1,42 +1,54 @@
 #include "SDManager.h"
 
-bool SDManager::isValidSD(){
-    if(!SD.begin()) {
+bool SDManager::isValidSD()
+{
+    if (!SD.begin())
+    {
         Serial.println("SD Card Mount Failed");
         return false;
     }
-    if(SD.cardType() == CARD_NONE) {
+    if (SD.cardType() == CARD_NONE)
+    {
         Serial.println("No SD card attached");
         return false;
     }
     return true;
 }
 
-void SDManager::listDir(const char * dirname, uint8_t levels) {
-    if(!isValidSD()){
+void SDManager::listDir(const char *dirname, uint8_t levels)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Listing directory: %s\n", dirname);
 
     File root = fs.open(dirname);
-    if(!root) {
+    if (!root)
+    {
         Serial.println("Failed to open directory");
         return;
     }
-    if(!root.isDirectory()) {
+    if (!root.isDirectory())
+    {
         Serial.println("Not a directory");
         return;
     }
 
     File file = root.openNextFile();
-    while(file) {
-        if(file.isDirectory()) {
+    while (file)
+    {
+        if (file.isDirectory())
+        {
             Serial.print(" DIR : ");
             Serial.println(file.name());
-            if(levels) {
-                listDir(file.name(), levels -1);
+            if (levels)
+            {
+                listDir(file.name(), levels - 1);
             }
-        } else {
+        }
+        else
+        {
             Serial.print(" FILE: ");
             Serial.print(file.name());
             Serial.print(" SIZE: ");
@@ -46,62 +58,79 @@ void SDManager::listDir(const char * dirname, uint8_t levels) {
     }
 }
 
-void SDManager::createDir(const char * path) {
-    if(!isValidSD()){
+void SDManager::createDir(const char *path)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Creating Dir: %s\n", path);
-    if(fs.mkdir(path)) {
+    if (fs.mkdir(path))
+    {
         Serial.println("Dir created");
-    } else {
+    }
+    else
+    {
         Serial.println("mkdir failed");
     }
 }
 
-void SDManager::removeDir(const char * path) {
-    if(!isValidSD()){
+void SDManager::removeDir(const char *path)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Removing Dir: %s\n", path);
-    if(fs.rmdir(path)) {
+    if (fs.rmdir(path))
+    {
         Serial.println("Dir removed");
-    } else {
+    }
+    else
+    {
         Serial.println("rmdir failed");
     }
 }
 
-void SDManager::readFile(const char * path) {
-    if(!isValidSD()){
+void SDManager::readFile(const char *path)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Reading file: %s\n", path);
 
     File file = fs.open(path);
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open file for reading");
         return;
     }
 
     Serial.print("Read from file: ");
-    while(file.available()) {
+    while (file.available())
+    {
         Serial.write(file.read());
     }
 }
 
-String SDManager::readLine(const char * path, unsigned int index) {
-    if(!isValidSD()){
+String SDManager::readLine(const char *path, unsigned int index)
+{
+    if (!isValidSD())
+    {
         return "ERR";
     }
     File file = fs.open(path);
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open file for reading");
         return "ERR";
-    }    
+    }
     unsigned int recNum = 1;
     while (file.available())
     {
         String list = file.readStringUntil('\r');
-        if(recNum == index)
+        if (recNum == index)
         {
             return list;
         }
@@ -110,68 +139,92 @@ String SDManager::readLine(const char * path, unsigned int index) {
     return "EOF";
 }
 
-void SDManager::writeFile(const char * path, const char * message) {
-    if(!isValidSD()){
+void SDManager::writeFile(const char *path, const char *message)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Writing file: %s\n", path);
 
     File file = fs.open(path, FILE_WRITE);
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open file for writing");
         return;
     }
-    if(file.print(message)) {
+    if (file.print(message))
+    {
         Serial.println("File written");
-    } else {
+    }
+    else
+    {
         Serial.println("Write failed");
     }
 }
 
-void SDManager::appendFile(const char * path, const String message) {
-    if(!isValidSD()){
+void SDManager::appendFile(const char *path, const String message)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Appending to file: %s\n", path);
 
     File file = fs.open(path, FILE_APPEND);
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open file for appending");
         return;
     }
-    if(file.print(message)) {
+    if (file.print(message))
+    {
         Serial.println("Message appended");
-    } else {
+    }
+    else
+    {
         Serial.println("Append failed");
     }
 }
 
-void SDManager::renameFile(const char * path1, const char * path2) {
-    if(!isValidSD()){
+void SDManager::renameFile(const char *path1, const char *path2)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Renaming file %s to %s\n", path1, path2);
-    if (fs.rename(path1, path2)) {
+    if (fs.rename(path1, path2))
+    {
         Serial.println("File renamed");
-    } else {
+    }
+    else
+    {
         Serial.println("Rename failed");
     }
 }
 
-void SDManager::deleteFile(const char * path) {
-    if(!isValidSD()){
+void SDManager::deleteFile(const char *path)
+{
+    if (!isValidSD())
+    {
         return;
     }
     Serial.printf("Deleting file: %s\n", path);
-    if(fs.remove(path)) {
+    if (fs.remove(path))
+    {
         Serial.println("File deleted");
-    } else {
+    }
+    else
+    {
         Serial.println("Delete failed");
     }
 }
 
-void SDManager::testFileIO(const char * path) {
-    if(!isValidSD()){
+void SDManager::testFileIO(const char *path)
+{
+    if (!isValidSD())
+    {
         return;
     }
     File file = fs.open(path);
@@ -179,13 +232,16 @@ void SDManager::testFileIO(const char * path) {
     size_t len = 0;
     uint32_t start = millis();
     uint32_t end = start;
-    if(file) {
+    if (file)
+    {
         len = file.size();
         size_t flen = len;
         start = millis();
-        while(len) {
+        while (len)
+        {
             size_t toRead = len;
-            if(toRead > 512) {
+            if (toRead > 512)
+            {
                 toRead = 512;
             }
             file.read(buf, toRead);
@@ -194,19 +250,23 @@ void SDManager::testFileIO(const char * path) {
         end = millis() - start;
         Serial.printf("%u bytes read for %u ms\n", flen, end);
         file.close();
-    } else {
+    }
+    else
+    {
         Serial.println("Failed to open file for reading");
     }
 
     file = fs.open(path, FILE_WRITE);
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open file for writing");
         return;
     }
 
     size_t i;
     start = millis();
-    for(i=0; i<2048; i++) {
+    for (i = 0; i < 2048; i++)
+    {
         file.write(buf, 512);
     }
     end = millis() - start;
@@ -214,6 +274,7 @@ void SDManager::testFileIO(const char * path) {
     file.close();
 }
 
-uint64_t SDManager::getCardSize(){
+uint64_t SDManager::getCardSize()
+{
     return SD.cardSize() / (1024 * 1024);
 }
