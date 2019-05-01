@@ -21,8 +21,8 @@ class SDManager {
         void readFileAndPrintContent(const char * path);
         String readLine(const char * path, unsigned int index);
         std::vector<String> *readFileLines(const char * path);
-        void writeFile(const char * path, const char * message);
-        void appendFile(const char * path, const String message);
+        void writeFile(const char * path, const String data);
+        void appendFile(const char * path, const String data);
         void renameFile(const char * path1, const char * path2);
         void deleteFile(const char * path);
         void testFileIO(const char * path);

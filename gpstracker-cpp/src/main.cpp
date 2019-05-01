@@ -7,11 +7,11 @@
 void setup()
 {
     Serial.begin(115200);
-    
-    WiFiConnector *wifi = new WiFiConnector();
-    
+
+    //WiFiConnector *wifi = new WiFiConnector();
+
     //Esperamos para que se inicialize el WiFi
-    delay(2000);
+    //delay(2000);
     /*
     Serial.print("RED DISPONIBLE: ");
     Serial.print(wifi->isNetworkAvaliable("Fibertel WiFi589 2.4GHz"));
@@ -27,25 +27,52 @@ void setup()
 
     Serial.println("Iniciando...");
 
-    SDManager *sdManager = new SDManager();
-
-    sdManager->isValidSD();
-
     WiFiConfiguration *wifiConfig = new WiFiConfiguration();
     wifiConfig->loadConfiguration();
+
+    pinMode(LED_BUILTIN, OUTPUT);
+    delay(2000);
+    if (touchRead(T4) < 50)
+    {
+        digitalWrite(LED_BUILTIN, HIGH);
+        Serial.println("Borrando archivo de configuracion de wifi");
+        wifiConfig->deleteConfigurationFile();
+        delay(1000);
+        digitalWrite(LED_BUILTIN, LOW);
+        return;
+    }
+
+    Serial.println("Redes configuradas luego de la inicialmente:");
     wifiConfig->printConfiguratedNetworks();
 
-    WiFiNetwork *networkToConnect = wifiConfig->getNetworkAtPosition(0);
-    Serial.println(networkToConnect->toString());
+    if (wifiConfig->getConfiguredNetworks() == 0)
+    {
+        wifiConfig->addNetwork("ABC", "123");
+        wifiConfig->addNetwork("DEF", "456");
+        wifiConfig->addNetwork("GHI", "789");
+    }
+    wifiConfig->addNetwork("WiFi_to_delete", "123456");
 
-    Serial.print("Is "+ networkToConnect->SSID + " network avaliable: ");
-    Serial.println(wifi->isNetworkAvaliable(networkToConnect->SSID));
+    Serial.println("\n\nRedes configuradas luego de la insercion:");
+    wifiConfig->printConfiguratedNetworks();
 
-    wifi->connect(networkToConnect->SSID, networkToConnect->password);
-    
-    delete sdManager;
+    for (size_t i = 0; i < wifiConfig->getConfiguredNetworks(); i++)
+    {
+        if (wifiConfig->getNetworkAtPosition(i)->SSID == "WiFi_to_delete")
+        {
+            wifiConfig->removeNetwork(i);
+            break;
+        }
+    }
+
+    Serial.println("\n\nRedes configuradas luego de la eliminacion de WiFi_to_delete:");
+    wifiConfig->printConfiguratedNetworks();
+
+    //WiFiNetwork *networkToConnect = wifiConfig->getNetworkAtPosition(0);
+    //wifi->connect(networkToConnect->SSID, networkToConnect->password);
+
     delete wifiConfig;
-    delete wifi;
+    //delete wifi;
 
     Serial.println("~~ Fin del setup ~~");
 }

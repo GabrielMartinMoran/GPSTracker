@@ -8,3 +8,7 @@ WiFiNetwork::WiFiNetwork(String SSID, String password){
 String WiFiNetwork::toString(){
     return "SSID: " + SSID + ", Password: " + password;
 }
+
+String WiFiNetwork::toCSVLine(){
+    return SSID + "," + password;
+}

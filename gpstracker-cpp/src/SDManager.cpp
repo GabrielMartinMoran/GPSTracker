@@ -20,7 +20,7 @@ bool SDManager::isValidSD()
         Serial.println("No SD card attached");
         return false;
     }
-    Serial.println("Detected SD is valid");
+    //Serial.println("Detected SD is valid");
     return true;
 }
 
@@ -133,17 +133,14 @@ std::vector<String> *SDManager::readFileLines(const char *path)
     File file = fs.open(path);
     if (!file)
     {
-        Serial.print("File ");
-        Serial.print(path);
-        Serial.println(" was not found.");
         return list;
     }
     while (file.available())
     {
         String data = file.readStringUntil('\r');
-        Serial.println("DATA READED: " + data);
         list->push_back(data);
     }
+    file.close();
     return list;
 }
 
@@ -156,7 +153,6 @@ String SDManager::readLine(const char *path, unsigned int index)
     File file = fs.open(path);
     if (!file)
     {
-        Serial.println("Failed to open file for reading");
         return "ERR";
     }
     unsigned int recNum = 1;
@@ -165,59 +161,61 @@ String SDManager::readLine(const char *path, unsigned int index)
         String list = file.readStringUntil('\r');
         if (recNum == index)
         {
+            file.close();
             return list;
         }
         recNum++; // Count the record
     }
+    file.close();
     return "EOF";
 }
 
-void SDManager::writeFile(const char *path, const char *message)
+void SDManager::writeFile(const char *path, const String data)
 {
     if (!isValidSD())
     {
         return;
     }
-    Serial.printf("Writing file: %s\n", path);
-
+    //Serial.printf("Writing file: %s\n", path);
     File file = fs.open(path, FILE_WRITE);
     if (!file)
     {
-        Serial.println("Failed to open file for writing");
+        file.close();
         return;
     }
-    if (file.print(message))
+    if (file.print(data))
     {
-        Serial.println("File written");
+        //Serial.println("File written");
     }
     else
     {
         Serial.println("Write failed");
     }
+    file.close();
 }
 
-void SDManager::appendFile(const char *path, const String message)
+void SDManager::appendFile(const char *path, const String data)
 {
     if (!isValidSD())
     {
         return;
     }
-    Serial.printf("Appending to file: %s\n", path);
-
     File file = fs.open(path, FILE_APPEND);
     if (!file)
     {
         Serial.println("Failed to open file for appending");
+        file.close();
         return;
     }
-    if (file.print(message))
+    if (file.print(data))
     {
-        Serial.println("Message appended");
+        //Serial.println("Message appended");
     }
     else
     {
         Serial.println("Append failed");
     }
+    file.close();
 }
 
 void SDManager::renameFile(const char *path1, const char *path2)
@@ -243,10 +241,9 @@ void SDManager::deleteFile(const char *path)
     {
         return;
     }
-    Serial.printf("Deleting file: %s\n", path);
     if (fs.remove(path))
     {
-        Serial.println("File deleted");
+        //Serial.println("File deleted");
     }
     else
     {

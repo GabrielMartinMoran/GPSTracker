@@ -19,8 +19,7 @@ WiFiConfiguration::~WiFiConfiguration()
 
 void WiFiConfiguration::loadConfiguration()
 {
-    std::vector<String> *fileLines = sdManager->readFileLines("/WiFiConfig");
-    Serial.println(fileLines->size());
+    std::vector<String> *fileLines = sdManager->readFileLines(WIFI_CONFIGURATION_FILENAME);
     for (std::vector<String>::iterator elementPointer = fileLines->begin(); elementPointer != fileLines->end(); ++elementPointer)
     {
         StringTokenizer tokens(*elementPointer, DATA_SEPARATOR);
@@ -70,4 +69,32 @@ unsigned int WiFiConfiguration::getConfiguredNetworks()
 WiFiNetwork *WiFiConfiguration::getNetworkAtPosition(unsigned int index)
 {
     return networks->at(index);
+}
+
+void WiFiConfiguration::removeNetwork(unsigned int index){
+    WiFiNetwork *networkToDelete;
+    networkToDelete = networks->at(index);
+    networks->erase (networks->begin() + index);
+    delete networkToDelete;
+    this->saveConfiguration();
+}
+
+void WiFiConfiguration::addNetwork(String SSID, String password){
+    networks->push_back(new WiFiNetwork(SSID, password));
+    this->saveConfiguration();
+}
+
+void WiFiConfiguration::saveConfiguration(){
+    String fileContent = "";
+    for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
+    {
+        fileContent += (*elementPointer)->toCSVLine();
+        fileContent += "\r";
+    }
+    this->deleteConfigurationFile();
+    sdManager->writeFile(WIFI_CONFIGURATION_FILENAME, fileContent);
+}
+
+void WiFiConfiguration::deleteConfigurationFile(){
+    sdManager->deleteFile(WIFI_CONFIGURATION_FILENAME);
 }
