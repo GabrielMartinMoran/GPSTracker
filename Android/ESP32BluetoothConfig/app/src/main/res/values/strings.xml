@@ -9,4 +9,5 @@
     <string name="scan">Iniciar Escaneo</string>
     <string name="stopScan">Finalizar Escaneo</string>
     <string name="scanning">Escaneando...</string>
+    <string name="title_activity_wi_fi_list">WiFiList</string>
 </resources>

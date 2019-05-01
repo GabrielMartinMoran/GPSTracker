@@ -75,8 +75,4 @@ public class BluetoothListActivity extends AppCompatActivity implements DeviceLi
             startActivityForResult(enableBT, BluetoothHelper.REQUEST_BLUETOOTH);
         }
     }
-
-    private void OnDeviceConnected(){
-        finish();
-    }
 }

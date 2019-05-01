@@ -14,6 +14,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity{
 
     Button openBLEListActivityBtn;
+    Button openWiFiListActivityBtn;
     Button sendButton;
     EditText textInput;
 
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 openBLEDevicesListActivity();
+            }
+        });
+
+        openWiFiListActivityBtn = (Button) findViewById(R.id.openWiFiListActivityBtn);
+        openWiFiListActivityBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openWiFiListListActivity();
             }
         });
 
@@ -53,6 +62,11 @@ public class MainActivity extends AppCompatActivity{
 
     public void openBLEDevicesListActivity() {
         Intent intent = new Intent(this, BluetoothListActivity.class);
+        startActivity(intent);
+    }
+
+    public void openWiFiListListActivity() {
+        Intent intent = new Intent(this, WiFiListActivity.class);
         startActivity(intent);
     }
 

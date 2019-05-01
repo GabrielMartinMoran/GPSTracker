@@ -47,8 +47,18 @@
         android:layout_width="100pt"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:text="Buscar dispositivos BLE"
+        android:background="@drawable/btn_rounded"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
+    <Button
+        android:id="@+id/openWiFiListActivityBtn"
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginTop="20dp"
+        android:text="Configurar redes WiFi"
         android:background="@drawable/btn_rounded"
         android:layout_gravity="center_vertical|center_horizontal"/>
 </LinearLayout>

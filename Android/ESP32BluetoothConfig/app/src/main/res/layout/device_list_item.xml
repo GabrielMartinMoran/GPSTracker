@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -26,16 +26,16 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/titleTextView"
+        android:layout_below="@+id/titleText"
         android:background="#E91E63" />
 
     <TextView
         android:id="@+id/macAddress"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_below="@+id/titleTextView"
-        android:layout_alignEnd="@+id/titleTextView"
-        android:layout_alignRight="@+id/titleTextView"
+        android:layout_below="@+id/titleText"
+        android:layout_alignEnd="@+id/titleText"
+        android:layout_alignRight="@+id/titleText"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
