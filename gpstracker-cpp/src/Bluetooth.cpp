@@ -1,60 +1,5 @@
 #include "Bluetooth.h"
 
-BTServerCallbacks::BTServerCallbacks(Bluetooth *bt)
-{
-    bluetooth = bt;
-}
-
-BTServerCallbacks::~BTServerCallbacks()
-{
-    delete bluetooth;
-}
-
-void BTServerCallbacks::onConnect(BLEServer *pServer)
-{
-    bluetooth->setConnectionStatus(true);
-};
-
-void BTServerCallbacks::onDisconnect(BLEServer *pServer)
-{
-    bluetooth->setConnectionStatus(false);
-}
-
-void BTWriteCallback::onWrite(BLECharacteristic *pCharacteristic)
-{
-    std::string rxValue = pCharacteristic->getValue();
-
-    if (rxValue.length() > 0)
-    {
-        Serial.println("*********");
-        Serial.print("Received Value: ");
-
-        for (int i = 0; i < rxValue.length(); i++)
-        {
-            Serial.print(rxValue[i]);
-        }
-
-        Serial.println();
-
-        // Do stuff based on the command received from the app
-        if (rxValue.compare("A") == 0)
-        {
-            Serial.print("Turning ON!");
-            digitalWrite(LED_PIN, HIGH);
-        }
-        else if (rxValue.compare("B") == 0)
-        {
-            Serial.print("Turning OFF!");
-            digitalWrite(LED_PIN, LOW);
-        }else{
-            Serial.print("Command not recognized!");
-        }
-
-        Serial.println();
-        Serial.println("*********");
-    }
-}
-
 Bluetooth::Bluetooth()
 {
     pinMode(LED_PIN, OUTPUT);
@@ -64,7 +9,7 @@ Bluetooth::Bluetooth()
 
     // Create the BLE Server
     BLEServer *pServer = BLEDevice::createServer();
-    pServer->setCallbacks(new BTServerCallbacks(this));
+    pServer->setCallbacks(new BluetoothServerCallbacks(this));
 
     // Create the BLE Service
     BLEService *pService = pServer->createService(SERVICE_UUID);
@@ -80,7 +25,8 @@ Bluetooth::Bluetooth()
         CHARACTERISTIC_UUID_RX,
         BLECharacteristic::PROPERTY_WRITE);
 
-    pCharacteristic->setCallbacks(new BTWriteCallback());
+    writeCallback = new BluetoothWriteCallback();
+    pCharacteristic->setCallbacks(writeCallback);
 
     // Start the service
     pService->start();
@@ -88,6 +34,23 @@ Bluetooth::Bluetooth()
     // Start advertising
     pServer->getAdvertising()->start();
     Serial.println("BLE Turned On!");
+}
+
+Bluetooth::~Bluetooth()
+{
+    delete writeCallback;
+    delete pCharacteristic;
+    
+}
+
+void Bluetooth::transmitData(String data){
+    if(!deviceConnected){
+        return;
+    }
+    char buffer[data.length() + 1];
+    data.toCharArray(buffer, data.length() + 1);
+    pCharacteristic->setValue(buffer);
+    pCharacteristic->notify(); // Send the value
 }
 
 void Bluetooth::startConnectionLoop()
@@ -134,4 +97,9 @@ void Bluetooth::setConnectionStatus(bool value)
 bool Bluetooth::isConnected()
 {
     return deviceConnected;
+}
+
+void Bluetooth::configureWriteCallback(BluetoothServer *btServer)
+{
+    writeCallback->configureServer(btServer);
 }

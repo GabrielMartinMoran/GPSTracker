@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
@@ -49,6 +50,8 @@ public class BluetoothHelper {
     private ConnectThread connectedThread;
     private BluetoothGatt mBluetoothGatt;
     private GattClientCallback gattClientCallback;
+
+    private String readBuffer;
 
     private class GattClientCallback extends BluetoothGattCallback {
 
@@ -93,9 +96,39 @@ public class BluetoothHelper {
                         return;
                     }
                     showToastNotification("Se ha establecido la conexión con el dispositivo.");
+                    //Configuramos el receptor para que reciba notificaciones
+                    mBluetoothGatt.setCharacteristicNotification(rxCharacteristic, true);
+                    BluetoothGattDescriptor descriptor = rxCharacteristic.getDescriptors().get(0);
+                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                    mBluetoothGatt.writeDescriptor(descriptor);
+
                     ((Activity)contextToFinishActivity).finish();
                 }
             });
+        }
+        /*
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt,
+                                          BluetoothGattCharacteristic characteristic, int status) {
+        }
+
+        @Override
+        public final void onCharacteristicRead(final BluetoothGatt gatt,
+                                               final BluetoothGattCharacteristic characteristic,
+                                               final int status) {
+            final byte[] data = characteristic.getValue();
+        }*/
+
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt,
+                                            BluetoothGattCharacteristic characteristic) {
+            final byte[] data = characteristic.getValue();
+            if(data == null){
+                readBuffer = "";
+            }else{
+                readBuffer = new String(data);
+            }
+
         }
     }
 
@@ -181,17 +214,6 @@ public class BluetoothHelper {
         mBluetoothGatt.disconnect();
     }
 
-    public int receiveData() throws IOException{
-        if(connectedThread == null){
-            throw new IOException("No device connected");
-        }
-        byte[] buffer = new byte[4];
-        ByteArrayInputStream input = new ByteArrayInputStream(buffer);
-        InputStream inputStream = connectedThread.getSocket().getInputStream();
-        inputStream.read(buffer);
-        return input.read();
-    }
-
     public void sendData(String value) {
         if (BTAdapter == null || mBluetoothGatt == null) {
             showToastNotification("Ocurrio un error al tratar de enviar el mensaje! No se ha podido establecer conexión con el dispositivo.");
@@ -203,6 +225,8 @@ public class BluetoothHelper {
             showToastNotification("Ocurrio un error al tratar de enviar el mensaje! No se pudo detectar el servicio al cual transmitir información.");
             return;
         }
+        //Ponemos en null el buffer de recibidos
+        readBuffer = null;
         /*get the read characteristic from the service*/
         BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(TX_UUID);
         mWriteCharacteristic.setValue(value.getBytes());//(value,android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8,0);
@@ -212,8 +236,36 @@ public class BluetoothHelper {
         }
     }
 
+    public String receiveData() {
+        if (BTAdapter == null || mBluetoothGatt == null) {
+            showToastNotification("Ocurrio un error al tratar de enviar el mensaje! No se ha podido establecer conexión con el dispositivo.");
+            return null;
+        }
+        /*check if the service is available on the device*/
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(SERVICE_UUID);
+        if(mCustomService == null){
+            showToastNotification("Ocurrio un error al tratar de enviar el mensaje! No se pudo detectar el servicio al cual transmitir información.");
+            return null;
+        }
+        int timesTried = 0;
+        String receivedData = null;
+        while(timesTried < 50 && readBuffer == null){
+            try{
+                Thread.sleep(50);
+            }catch (Exception e){
+            }
+            timesTried ++;
+        }
+        return readBuffer;
+    }
+
     public void showToastNotification(String message){
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    public String makeRequest(String data){
+        sendData(data);
+        return receiveData();
     }
 
 }

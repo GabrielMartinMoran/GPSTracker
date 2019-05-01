@@ -58,7 +58,13 @@ public class MainActivity extends AppCompatActivity{
 
     public void sendData() {
         String text = textInput.getText().toString();
-        GlobalObjectManager.bluetoothHelper.sendData(text);
+        String received = GlobalObjectManager.bluetoothHelper.makeRequest(text);
+        if(received == null){
+            received = "";
+        }
+        Log.d("RESPONSE", received);
+        Toast.makeText(this, received,
+                Toast.LENGTH_LONG).show();
         /*
         try {
             //GlobalObjectManager.bluetoothHelper.sendData(text);
