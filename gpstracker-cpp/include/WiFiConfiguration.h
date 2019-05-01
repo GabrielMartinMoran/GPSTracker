@@ -8,21 +8,25 @@
 #include <WiFiNetwork.h>
 
 #define DATA_SEPARATOR ","
+#define WIFI_CONFIGURATION_FILENAME "/WiFiConfig"
 
 class WiFiConfiguration : public Configuration
 {
+private:
+  SDManager *sdManager;
+  std::vector<WiFiNetwork *> *networks;
+  void saveConfiguration();
 
-  private:
-    SDManager *sdManager;
-    std::vector<WiFiNetwork *> *networks;
-
-  public:
-    WiFiConfiguration();
-    ~WiFiConfiguration();
-    void loadConfiguration();
-    void printConfiguratedNetworks();
-    unsigned int getConfiguredNetworks();
-    WiFiNetwork *getNetworkAtPosition(unsigned int index);
+public:
+  WiFiConfiguration();
+  ~WiFiConfiguration();
+  void loadConfiguration();
+  void printConfiguratedNetworks();
+  unsigned int getConfiguredNetworks();
+  WiFiNetwork *getNetworkAtPosition(unsigned int index);
+  void removeNetwork(unsigned int index);
+  void addNetwork(String SSID, String password);
+  void deleteConfigurationFile();
 };
 
 #endif

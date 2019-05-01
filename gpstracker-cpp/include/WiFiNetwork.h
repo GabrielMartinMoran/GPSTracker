@@ -10,6 +10,7 @@ class WiFiNetwork
     String password;
     WiFiNetwork(String SSID, String password);
     String toString();
+    String toCSVLine();
 };
 
 #endif
