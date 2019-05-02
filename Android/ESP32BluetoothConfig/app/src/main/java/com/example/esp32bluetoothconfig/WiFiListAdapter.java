@@ -78,7 +78,7 @@ public class WiFiListAdapter extends ArrayAdapter<String>{
 
         if ( item.toString() == "No Devices") {
             line.setVisibility(View.INVISIBLE);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+            RelativeLayout.LayoutParams params =    new RelativeLayout.LayoutParams
                     ((int) RelativeLayout.LayoutParams.WRAP_CONTENT, (int) RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.CENTER_VERTICAL);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -90,15 +90,17 @@ public class WiFiListAdapter extends ArrayAdapter<String>{
 
     //Elimina el Wifi en el indice "index" de la lista
     public void deleteRegistry(int index) {
+        String message;
         String request = "$DELETE_WIFI$" + itemsList.get(index);
         String response = GlobalObjectManager.bluetoothHelper.makeRequest(request);
         if(response != null && response.equals("200")){
             itemsList.remove(index);
             this.notifyDataSetChanged();
+            message = response;
         }else{
-            String message = "Ha ocurrido un error al tratar de eliminar la red WiFi: " + itemsList.get(index);
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            message = "Ha ocurrido un error al tratar de eliminar la red WiFi: " + itemsList.get(index);
         }
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }
