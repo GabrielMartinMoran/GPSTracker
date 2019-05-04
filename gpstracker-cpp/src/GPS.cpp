@@ -1,19 +1,20 @@
-#include "GPS.h"
+#include <GPS.h>
+#include <Utils/StringToNumber.h>
 
 void GPS::actualizar(){
-    String datos = controladorGPSMockup->leerInformacion();
+    std::string datos = controladorGPSMockup->leerInformacion();
     StringTokenizer tokens(datos, ",");
-    if(tokens.nextToken() == "$PGRMC"){
-        String tiempo = tokens.nextToken(); // Time of fix 22:54:46 UTC
+    if(tokens.nextToken().compare("$PGRMC")){
+        std::string tiempo = tokens.nextToken(); // Time of fix 22:54:46 UTC
         parsearTiempo(tiempo, &hora, &minuto, &segundo);
-        if(tokens.nextToken() == "A"){
-            latitud = tokens.nextToken().toFloat();
-            N = tokens.nextToken() == "N";
-            longitud = tokens.nextToken().toFloat();
-            W = tokens.nextToken() == "W";
+        if(tokens.nextToken().compare("A")){
+            latitud = StringToNumber<float>(tokens.nextToken());
+            N = tokens.nextToken().compare("N");
+            longitud = StringToNumber<float>(tokens.nextToken());
+            W = tokens.nextToken().compare("W");
             tokens.nextToken(); //Speed over ground, Knots
             tokens.nextToken(); //Course Made Good, True
-            String fecha = tokens.nextToken(); //Date of fix  19 November 1994
+            std::string fecha = tokens.nextToken(); //Date of fix  19 November 1994
             parsearTiempo(fecha, &dia, &mes, &anio);
             tokens.nextToken(); //Magnetic variation 20.3 deg East
             tokens.nextToken(); //mandatory checksum
@@ -21,33 +22,33 @@ void GPS::actualizar(){
     }
 }
 
-void GPS::parsearTiempo(String tiempo, byte *horaDia, byte *minutoMes, byte *sengundoAnio){
-    *horaDia = (byte) tiempo.substring(0,2).toInt();
-    *minutoMes = (byte) tiempo.substring(2,4).toInt();
-    *sengundoAnio = (byte) tiempo.substring(4,6).toInt();
+void GPS::parsearTiempo(std::string tiempo, uint8_t *horaDia, uint8_t *minutoMes, uint8_t *sengundoAnio){
+    *horaDia = StringToNumber<uint8_t>(tiempo.substr(0,2));
+    *minutoMes = StringToNumber<uint8_t>(tiempo.substr(2,4));
+    *sengundoAnio = StringToNumber<uint8_t>(tiempo.substr(4,6));
 }
 
-byte GPS::getHora(){
+uint8_t GPS::getHora(){
     return hora;
 }
 
-byte GPS::getMinuto(){
+uint8_t GPS::getMinuto(){
     return hora;
 }
 
-byte GPS::getSegundo(){
+uint8_t GPS::getSegundo(){
     return hora;
 }
 
-byte GPS::getDia(){
+uint8_t GPS::getDia(){
     return hora;
 }
 
-byte GPS::getMes(){
+uint8_t GPS::getMes(){
     return hora;
 }
 
-byte GPS::getAnio(){
+uint8_t GPS::getAnio(){
     return hora;
 }
 

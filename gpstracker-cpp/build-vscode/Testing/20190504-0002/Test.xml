@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-mingw32-make"
+	BuildStamp="20190504-0002-Experimental"
+	Name="INSANECRYSTAL"
+	Generator="ctest-3.14.3"
+	CompilerName="B:/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin/x86_64-w64-mingw32-g++.exe"
+	CompilerVersion="8.1.0"
+	OSName="Windows"
+	Hostname="InsaneCrystal"
+	OSRelease=" Professional"
+	OSVersion=" (Build 17763)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="5"
+	ProcessorCacheSize="-1"
+	NumberOfLogicalCPU="12"
+	NumberOfPhysicalCPU="6"
+	TotalVirtualMemory="32440"
+	TotalPhysicalMemory="32440"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3503"
+	>
+	<Testing>
+		<StartDateTime>May 04 00:10 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</StartDateTime>
+		<StartTestTime>1556939457</StartTestTime>
+		<TestList>
+			<Test>./test/Tests</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>Tests</Name>
+			<Path>./test</Path>
+			<FullName>./test/Tests</FullName>
+			<FullCommandLine>B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\test\Tests.exe</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0833186</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\test\Tests.exe</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJyVk01PwzAMhu/9FTmyQyO+TkgcgE0TQhtTO07rhELmRdGSuCTp4OfTrGNqYC3Dl7rN+9p5nCarjJFGEM2kORuQtUVN7m+K8SyfW8Y3YAtROv8rTXlZFgJRKPDgfDt1lhciZK+hJuU8WdweYkmyfcNrEjSu6Xi1eyGukvWTJov0EEsyVvjGVCMAs5UWjQZTi8GnVflDfNHodkVrhgc03qJSYCfIN1WZLEj2MiW7WB4TUAH+0azRauYlmlrfxPPTSXpydk60G/xrT42HePRMDZJu6+iT6VLBPEwt5miv0CFoNOGYPIzDlwnjFl0McoLhT5J2jT6Ey/Y55+8Vs5Ah+uCLKeI1OkMnvdzCtN78SjJh0HnJiQbnmIAIp9t5oOhpNAXBvhv1lW3pjg6nB7RvPl2/twdm0xV+mPj6dF8bYpmhcacaZ3aX56NhwN47afIF8iJHAA==</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>May 04 00:10 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</EndDateTime>
+		<EndTestTime>1556939457</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

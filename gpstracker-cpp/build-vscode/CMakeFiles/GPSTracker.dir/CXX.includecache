@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Example.h
+math.h
+-
+
+B:/GPSTracker/gpstracker/gpstracker-cpp/src/Example.cpp
+Example.h
+B:/GPSTracker/gpstracker/gpstracker-cpp/src/Example.h
+

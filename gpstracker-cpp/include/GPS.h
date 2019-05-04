@@ -1,28 +1,36 @@
-#include "Mockups/ControladorGPSMockup.h"
+#ifndef GPS_h
+#define GPS_h
+
+#include <iostream>
+#include "Mockups/GPSControllerMockup.h"
 #include "Utils/StringTokenizer.h"
 
-class GPS {
-    private:
-        ControladorGPSMockup *controladorGPSMockup;
-        byte hora = 0;
-        byte minuto = 0;
-        byte segundo = 0;
-        byte dia = 0;
-        byte mes = 0;
-        byte anio = 0;
-        float latitud = 0;
-        float longitud = 0;
-        boolean N = true;
-        boolean W = true;
-        void parsearTiempo(String tiempo, byte *horaDia, byte *minutoMes, byte *sengundoAnio);
-    public:
-        GPS(ControladorGPSMockup *controladorGPSMockup);
-        void actualizar();
-        byte getHora();
-        byte getMinuto();
-        byte getSegundo();
-        byte getDia();
-        byte getMes();
-        byte getAnio();
-        ~GPS();
+class GPS
+{
+private:
+    GPSControllerMockup *controladorGPSMockup;
+    uint8_t hora = 0;
+    uint8_t minuto = 0;
+    uint8_t segundo = 0;
+    uint8_t dia = 0;
+    uint8_t mes = 0;
+    uint8_t anio = 0;
+    float latitud = 0;
+    float longitud = 0;
+    bool N = true;
+    bool W = true;
+    void parsearTiempo(std::string tiempo, uint8_t *horaDia, uint8_t *minutoMes, uint8_t *sengundoAnio);
+
+public:
+    GPS(GPSControllerMockup *controladorGPSMockup);
+    void actualizar();
+    uint8_t getHora();
+    uint8_t getMinuto();
+    uint8_t getSegundo();
+    uint8_t getDia();
+    uint8_t getMes();
+    uint8_t getAnio();
+    ~GPS();
 };
+
+#endif

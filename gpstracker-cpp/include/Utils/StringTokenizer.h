@@ -5,19 +5,18 @@
 */
 #ifndef StringTokenizer_h
 #define StringTokenizer_h
-
-#include "Arduino.h"
+#include <iostream>
 
 class StringTokenizer
 {
   public:
-    StringTokenizer(String str, String del);
-    boolean hasNext();
-    String nextToken();
+    StringTokenizer(std::string str, std::string del);
+    bool hasNext();
+    std::string nextToken();
 
   private:
-    String _str;
-    String _del;
+    std::string _str;
+    std::string _del;
     int ptr;
 };
 

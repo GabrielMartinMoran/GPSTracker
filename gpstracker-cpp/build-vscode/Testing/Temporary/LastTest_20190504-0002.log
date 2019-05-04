@@ -1,0 +1,41 @@
+Start testing: May 04 00:10 Hora estándar de Argentina
+----------------------------------------------------------
+1/1 Testing: Tests
+1/1 Test: Tests
+Command: "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/test/Tests.exe"
+Directory: B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/test
+"Tests" start time: May 04 00:10 Hora estándar de Argentina
+Output:
+----------------------------------------------------------
+Running main() from B:\GPSTracker\gpstracker\gpstracker-cpp\googletest\googletest\src\gtest_main.cc
+[==========] Running 4 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from GPSControllerMockup
+[ RUN      ] GPSControllerMockup.getInformation
+[       OK ] GPSControllerMockup.getInformation (0 ms)
+[----------] 1 test from GPSControllerMockup (0 ms total)
+
+[----------] 1 test from ExampleTests
+[ RUN      ] ExampleTests.DemonstrateGTestMacros
+[       OK ] ExampleTests.DemonstrateGTestMacros (0 ms)
+[----------] 1 test from ExampleTests (0 ms total)
+
+[----------] 2 tests from SquareRootTest
+[ RUN      ] SquareRootTest.PositiveNos
+diagnostic message[       OK ] SquareRootTest.PositiveNos (0 ms)
+[ RUN      ] SquareRootTest.NegativeNos
+[       OK ] SquareRootTest.NegativeNos (0 ms)
+[----------] 2 tests from SquareRootTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 3 test suites ran. (0 ms total)
+[  PASSED  ] 4 tests.
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"Tests" end time: May 04 00:10 Hora estándar de Argentina
+"Tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 04 00:10 Hora estándar de Argentina

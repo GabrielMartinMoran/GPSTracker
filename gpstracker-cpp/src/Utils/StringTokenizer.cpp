@@ -6,14 +6,14 @@
 
 #include "Utils/StringTokenizer.h"
 
-StringTokenizer::StringTokenizer(String str, String del)
+StringTokenizer::StringTokenizer(std::string str, std::string del)
 {
     _str = str;
     _del = del;
     ptr = 0;
 }
 
-boolean StringTokenizer::hasNext()
+bool StringTokenizer::hasNext()
 {
     if (ptr < _str.length())
     {
@@ -25,7 +25,7 @@ boolean StringTokenizer::hasNext()
     }
 }
 
-String StringTokenizer::nextToken()
+std::string StringTokenizer::nextToken()
 {
     if (ptr >= _str.length())
     {
@@ -33,18 +33,18 @@ String StringTokenizer::nextToken()
         return "";
     }
 
-    String result = "";
-    int delIndex = _str.indexOf(_del, ptr);
+    std::string result = "";
+    int delIndex = _str.find(_del, ptr);
 
     if (delIndex == -1)
     {
-        result = _str.substring(ptr);
+        result = _str.substr(ptr);
         ptr = _str.length();
         return result;
     }
     else
     {
-        result = _str.substring(ptr, delIndex);
+        result = _str.substr(ptr, delIndex);
         ptr = delIndex + _del.length();
         return result;
     }
