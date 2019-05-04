@@ -97,8 +97,7 @@ public class WiFiListFragment extends Fragment{
     }
 
     public void addNetwork(String SSID) {
-        configuredNetworksList.add(SSID);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.add(SSID);
     }
 
     /**
