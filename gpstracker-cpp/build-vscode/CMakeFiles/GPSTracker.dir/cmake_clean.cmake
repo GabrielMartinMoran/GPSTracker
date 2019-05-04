@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GPSTracker.dir/src/Example.cpp.obj"
+  "CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj"
+  "CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj"
   "libGPSTracker.pdb"
   "libGPSTracker.a"
 )

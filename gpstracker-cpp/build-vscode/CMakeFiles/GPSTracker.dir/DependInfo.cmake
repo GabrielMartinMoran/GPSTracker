@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "B:/GPSTracker/gpstracker/gpstracker-cpp/src/Example.cpp" "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/CMakeFiles/GPSTracker.dir/src/Example.cpp.obj"
+  "B:/GPSTracker/gpstracker/gpstracker-cpp/src/GPSControllerMockup.cpp" "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj"
+  "B:/GPSTracker/gpstracker/gpstracker-cpp/src/StringEquals.cpp" "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -13,10 +15,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../src"
   "../googletest"
-  "../src/Utils"
-  "../src/Mockups"
-  "../include/Utils"
-  "../include/Mockups"
   )
 
 # Targets to which this target links.

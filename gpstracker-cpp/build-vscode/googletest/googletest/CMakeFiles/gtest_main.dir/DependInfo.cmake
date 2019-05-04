@@ -13,10 +13,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../src"
   "../googletest"
-  "../src/Utils"
-  "../src/Mockups"
-  "../include/Utils"
-  "../include/Mockups"
   "../googletest/googletest/include"
   "../googletest/googletest"
   )

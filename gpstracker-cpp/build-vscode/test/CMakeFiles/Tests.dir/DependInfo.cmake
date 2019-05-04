@@ -15,18 +15,18 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../src"
   "../googletest"
-  "../src/Utils"
-  "../src/Mockups"
-  "../include/Utils"
-  "../include/Mockups"
   "../googletest/googletest/include"
   "../googletest/googletest"
+  "../googletest/googlemock/include"
+  "../googletest/googlemock"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/googletest/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
+  "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/googletest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"
   "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/CMakeFiles/GPSTracker.dir/DependInfo.cmake"
+  "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/googletest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
   "B:/GPSTracker/gpstracker/gpstracker-cpp/build-vscode/googletest/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
 

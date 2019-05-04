@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <Utils/StringEquals.h>
+#include <StringEquals.h>
 
 TEST(StringEquals, equals)
 {

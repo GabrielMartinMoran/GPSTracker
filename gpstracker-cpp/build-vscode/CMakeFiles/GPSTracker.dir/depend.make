@@ -4,3 +4,9 @@
 CMakeFiles/GPSTracker.dir/src/Example.cpp.obj: ../include/Example.h
 CMakeFiles/GPSTracker.dir/src/Example.cpp.obj: ../src/Example.cpp
 
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj: ../include/GPSControllerMockup.h
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj: ../src/GPSControllerMockup.cpp
+
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj: ../include/StringEquals.h
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj: ../src/StringEquals.cpp
+

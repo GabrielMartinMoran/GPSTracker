@@ -296,19 +296,19 @@ cxxabi.h
 acxx_demangle.h
 -
 
-../include/Mockups/GPSControllerMockup.h
+../include/GPSControllerMockup.h
 iostream
 -
 
-../include/Utils/StringEquals.h
+../include/StringEquals.h
 iostream
 -
 
 B:/GPSTracker/gpstracker/gpstracker-cpp/test/GPSControllerMockupTests.cpp
 gtest/gtest.h
 -
-Mockups/GPSControllerMockup.h
+GPSControllerMockup.h
 -
-Utils/StringEquals.h
+StringEquals.h
 -
 

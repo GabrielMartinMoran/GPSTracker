@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <Mockups/GPSControllerMockup.h>
-#include <Utils/StringEquals.h>
+#include <GPSControllerMockup.h>
+#include <StringEquals.h>
 
 TEST(GPSControllerMockup, getInformation)
 {

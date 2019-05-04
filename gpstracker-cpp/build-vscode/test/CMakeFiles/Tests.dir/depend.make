@@ -44,8 +44,8 @@ test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../googletest/google
 test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-port.h
 test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-string.h
 test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-type-util.h
-test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../include/Mockups/GPSControllerMockup.h
-test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../include/Utils/StringEquals.h
+test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../include/GPSControllerMockup.h
+test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../include/StringEquals.h
 test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj: ../test/GPSControllerMockupTests.cpp
 
 test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../googletest/googletest/include/gtest/gtest-death-test.h
@@ -68,6 +68,6 @@ test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../googletest/googletest/in
 test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-port.h
 test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-string.h
 test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../googletest/googletest/include/gtest/internal/gtest-type-util.h
-test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../include/Utils/StringEquals.h
+test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../include/StringEquals.h
 test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj: ../test/StringEqualsTests.cpp
 

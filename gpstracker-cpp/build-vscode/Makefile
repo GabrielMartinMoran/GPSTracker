@@ -293,6 +293,60 @@ src/Example.cpp.s:
 	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/Example.cpp.s
 .PHONY : src/Example.cpp.s
 
+src/GPSControllerMockup.obj: src/GPSControllerMockup.cpp.obj
+
+.PHONY : src/GPSControllerMockup.obj
+
+# target to build an object file
+src/GPSControllerMockup.cpp.obj:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj
+.PHONY : src/GPSControllerMockup.cpp.obj
+
+src/GPSControllerMockup.i: src/GPSControllerMockup.cpp.i
+
+.PHONY : src/GPSControllerMockup.i
+
+# target to preprocess a source file
+src/GPSControllerMockup.cpp.i:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.i
+.PHONY : src/GPSControllerMockup.cpp.i
+
+src/GPSControllerMockup.s: src/GPSControllerMockup.cpp.s
+
+.PHONY : src/GPSControllerMockup.s
+
+# target to generate assembly for a file
+src/GPSControllerMockup.cpp.s:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.s
+.PHONY : src/GPSControllerMockup.cpp.s
+
+src/StringEquals.obj: src/StringEquals.cpp.obj
+
+.PHONY : src/StringEquals.obj
+
+# target to build an object file
+src/StringEquals.cpp.obj:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj
+.PHONY : src/StringEquals.cpp.obj
+
+src/StringEquals.i: src/StringEquals.cpp.i
+
+.PHONY : src/StringEquals.i
+
+# target to preprocess a source file
+src/StringEquals.cpp.i:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.i
+.PHONY : src/StringEquals.cpp.i
+
+src/StringEquals.s: src/StringEquals.cpp.s
+
+.PHONY : src/StringEquals.s
+
+# target to generate assembly for a file
+src/StringEquals.cpp.s:
+	$(MAKE) -f CMakeFiles\GPSTracker.dir\build.make CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.s
+.PHONY : src/StringEquals.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -317,6 +371,12 @@ help:
 	@echo ... src/Example.obj
 	@echo ... src/Example.i
 	@echo ... src/Example.s
+	@echo ... src/GPSControllerMockup.obj
+	@echo ... src/GPSControllerMockup.i
+	@echo ... src/GPSControllerMockup.s
+	@echo ... src/StringEquals.obj
+	@echo ... src/StringEquals.i
+	@echo ... src/StringEquals.s
 .PHONY : help
 
 

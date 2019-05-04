@@ -10,18 +10,14 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 file(GLOB Sources "src/*.cpp")
 file(GLOB Headers "include/*.h")
-file(GLOB Utils "include/Utils/*.h")
-file(GLOB UtilsSRC "src/Utils/*.cpp")
-file(GLOB Mockups "include/Mockups/*.h")
-file(GLOB MockupsSRC "src/Mockups/*.c")
 
-set(Sources src/Example.cpp)
-set(Headers include/Example.h)
+set(Sources src/Example.cpp src/StringEquals.cpp src/GPSControllerMockup.cpp)
+set(Headers include/Example.h include/StringEquals.h include/GPSControllerMockup.h)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
-set(includes include src googletest src/Utils src/Mockups include/Utils include/Mockups)
+set(includes include src googletest)
 
 include_directories(${includes})
 

@@ -70,17 +70,49 @@ CMakeFiles/GPSTracker.dir/src/Example.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GPSTracker.dir/src/Example.cpp.s"
 	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S B:\GPSTracker\gpstracker\gpstracker-cpp\src\Example.cpp -o CMakeFiles\GPSTracker.dir\src\Example.cpp.s
 
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj: CMakeFiles/GPSTracker.dir/flags.make
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj: CMakeFiles/GPSTracker.dir/includes_CXX.rsp
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj: ../src/StringEquals.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\GPSTracker.dir\src\StringEquals.cpp.obj -c B:\GPSTracker\gpstracker\gpstracker-cpp\src\StringEquals.cpp
+
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.i"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E B:\GPSTracker\gpstracker\gpstracker-cpp\src\StringEquals.cpp > CMakeFiles\GPSTracker.dir\src\StringEquals.cpp.i
+
+CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.s"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S B:\GPSTracker\gpstracker\gpstracker-cpp\src\StringEquals.cpp -o CMakeFiles\GPSTracker.dir\src\StringEquals.cpp.s
+
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj: CMakeFiles/GPSTracker.dir/flags.make
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj: CMakeFiles/GPSTracker.dir/includes_CXX.rsp
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj: ../src/GPSControllerMockup.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\GPSTracker.dir\src\GPSControllerMockup.cpp.obj -c B:\GPSTracker\gpstracker\gpstracker-cpp\src\GPSControllerMockup.cpp
+
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.i"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E B:\GPSTracker\gpstracker\gpstracker-cpp\src\GPSControllerMockup.cpp > CMakeFiles\GPSTracker.dir\src\GPSControllerMockup.cpp.i
+
+CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.s"
+	B:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S B:\GPSTracker\gpstracker\gpstracker-cpp\src\GPSControllerMockup.cpp -o CMakeFiles\GPSTracker.dir\src\GPSControllerMockup.cpp.s
+
 # Object files for target GPSTracker
 GPSTracker_OBJECTS = \
-"CMakeFiles/GPSTracker.dir/src/Example.cpp.obj"
+"CMakeFiles/GPSTracker.dir/src/Example.cpp.obj" \
+"CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj" \
+"CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj"
 
 # External object files for target GPSTracker
 GPSTracker_EXTERNAL_OBJECTS =
 
 libGPSTracker.a: CMakeFiles/GPSTracker.dir/src/Example.cpp.obj
+libGPSTracker.a: CMakeFiles/GPSTracker.dir/src/StringEquals.cpp.obj
+libGPSTracker.a: CMakeFiles/GPSTracker.dir/src/GPSControllerMockup.cpp.obj
 libGPSTracker.a: CMakeFiles/GPSTracker.dir/build.make
 libGPSTracker.a: CMakeFiles/GPSTracker.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libGPSTracker.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libGPSTracker.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\GPSTracker.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\GPSTracker.dir\link.txt --verbose=$(VERBOSE)
 

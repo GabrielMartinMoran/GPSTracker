@@ -112,7 +112,9 @@ test/Tests.exe: test/CMakeFiles/Tests.dir/GPSControllerMockupTests.cpp.obj
 test/Tests.exe: test/CMakeFiles/Tests.dir/StringEqualsTests.cpp.obj
 test/Tests.exe: test/CMakeFiles/Tests.dir/build.make
 test/Tests.exe: lib/libgtest_maind.a
+test/Tests.exe: lib/libgmock_maind.a
 test/Tests.exe: libGPSTracker.a
+test/Tests.exe: lib/libgmockd.a
 test/Tests.exe: lib/libgtestd.a
 test/Tests.exe: test/CMakeFiles/Tests.dir/linklibs.rsp
 test/Tests.exe: test/CMakeFiles/Tests.dir/objects1.rsp

@@ -21,11 +21,11 @@
 	TotalVirtualMemory="32440"
 	TotalPhysicalMemory="32440"
 	LogicalProcessorsPerPhysical="2"
-	ProcessorClockFrequency="3503"
+	ProcessorClockFrequency="3504"
 	>
 	<Testing>
-		<StartDateTime>May 04 00:10 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</StartDateTime>
-		<StartTestTime>1556939457</StartTestTime>
+		<StartDateTime>May 04 18:08 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</StartDateTime>
+		<StartTestTime>1557004080</StartTestTime>
 		<TestList>
 			<Test>./test/Tests</Test>
 		</TestList>
@@ -36,7 +36,7 @@
 			<FullCommandLine>B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\test\Tests.exe</FullCommandLine>
 			<Results>
 				<NamedMeasurement type="numeric/double" name="Execution Time">
-					<Value>0.0833186</Value>
+					<Value>0.0863752</Value>
 				</NamedMeasurement>
 				<NamedMeasurement type="numeric/double" name="Processors">
 					<Value>1</Value>
@@ -48,12 +48,12 @@
 					<Value>B:\GPSTracker\gpstracker\gpstracker-cpp\build-vscode\test\Tests.exe</Value>
 				</NamedMeasurement>
 				<Measurement>
-					<Value encoding="base64" compression="gzip">eJyVk01PwzAMhu/9FTmyQyO+TkgcgE0TQhtTO07rhELmRdGSuCTp4OfTrGNqYC3Dl7rN+9p5nCarjJFGEM2kORuQtUVN7m+K8SyfW8Y3YAtROv8rTXlZFgJRKPDgfDt1lhciZK+hJuU8WdweYkmyfcNrEjSu6Xi1eyGukvWTJov0EEsyVvjGVCMAs5UWjQZTi8GnVflDfNHodkVrhgc03qJSYCfIN1WZLEj2MiW7WB4TUAH+0azRauYlmlrfxPPTSXpydk60G/xrT42HePRMDZJu6+iT6VLBPEwt5miv0CFoNOGYPIzDlwnjFl0McoLhT5J2jT6Ey/Y55+8Vs5Ah+uCLKeI1OkMnvdzCtN78SjJh0HnJiQbnmIAIp9t5oOhpNAXBvhv1lW3pjg6nB7RvPl2/twdm0xV+mPj6dF8bYpmhcacaZ3aX56NhwN47afIF8iJHAA==</Value>
+					<Value encoding="base64" compression="gzip">eJyNU8FOwzAMvfcrcmSHRoDggsQB2DQhtDG147ROKHReFC2JS5IOPp9m3aZmtN18qVM/++XZTlJqLTQnigl9NSBrg4o8P2TjWTo3LN+AyXhh3T83zosi44hcggPrmq41eca99+lr0jyPFo9HW5JkT3hPPMbWjHe7A7GlqL40WsRHW5KxxC8mawDorTCoFegKDC4uixPwTY3bFU2dqYhG3yWTNlqQ5GNKdrYMIhQOgNre39oB5OqaKDu4jK4GE4eOyUHUnVO1+QW1MyglmAnmm7IIb9oCoBzcq16jUcwJ1OHFz+PP6mgpcamc0S9ThYS5H2yooxmhQ1Co/SY5GPs/E5YbPJnABQlnlTRr9Em4ba5iWg3QQILofN7J3gQxOkMrnNjCtLr8SjCu0TqREwXWMg7hQnVmHlX0EE2BswNRX9kGrrU5PUL7+tP1Ah0wE6/wR4cvvPtlE8M0DZkqObOnNB0Nvex9Jo3+ALlFeBQ=</Value>
 				</Measurement>
 			</Results>
 		</Test>
-		<EndDateTime>May 04 00:10 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</EndDateTime>
-		<EndTestTime>1556939457</EndTestTime>
+		<EndDateTime>May 04 18:08 Hora est[NON-UTF-8-BYTE-0xE1]ndar de Argentina</EndDateTime>
+		<EndTestTime>1557004080</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>

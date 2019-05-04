@@ -10,7 +10,25 @@
 math.h
 -
 
+../include/GPSControllerMockup.h
+iostream
+-
+
+../include/StringEquals.h
+iostream
+-
+
 B:/GPSTracker/gpstracker/gpstracker-cpp/src/Example.cpp
 Example.h
 B:/GPSTracker/gpstracker/gpstracker-cpp/src/Example.h
+
+B:/GPSTracker/gpstracker/gpstracker-cpp/src/GPSControllerMockup.cpp
+GPSControllerMockup.h
+B:/GPSTracker/gpstracker/gpstracker-cpp/src/GPSControllerMockup.h
+iostream
+-
+
+B:/GPSTracker/gpstracker/gpstracker-cpp/src/StringEquals.cpp
+StringEquals.h
+-
 
