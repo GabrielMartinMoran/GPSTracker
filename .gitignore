@@ -1,3 +1,4 @@
 *.ini
 .vscode
 __pycache__/
+gpstracker-cpp.code-workspace

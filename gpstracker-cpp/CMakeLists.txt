@@ -25,6 +25,6 @@ enable_testing()
 
 add_subdirectory(googletest)
 
-add_library(${This} STATIC ${Sources} ${Headers} ${Utils} ${Mockups} ${MockupsSRC})
+add_library(${This} STATIC ${Sources} ${Headers})
 
 add_subdirectory(test)
