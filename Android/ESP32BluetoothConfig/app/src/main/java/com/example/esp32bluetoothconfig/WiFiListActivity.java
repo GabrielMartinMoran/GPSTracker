@@ -51,9 +51,10 @@ public class WiFiListActivity extends AppCompatActivity implements AddNetworkDia
     @Override
     public void applyTexts(String SSID, String password) {
         String response = GlobalObjectManager.bluetoothHelper.makeRequest("$ADD_WIFI$" + SSID + "," + password);
-        Toast.makeText(getBaseContext(), response, Toast.LENGTH_LONG).show();
-        if(response == "200"){
+        if(response.equals("200")){
             mWiFiListFragment.addNetwork(SSID);
+        }else{
+            Toast.makeText(getBaseContext(), "Ha ocurrido un error al tratar de agregar la red WiFi", Toast.LENGTH_LONG).show();
         }
     }
 
