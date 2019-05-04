@@ -9,4 +9,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".WiFiListActivity"></RelativeLayout>
+    tools:context=".WiFiListActivity">
+
+    <Button
+        android:id="@+id/addNetworkButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="+"
+        android:textSize="40dp"
+        android:textColor="#fff"
+        android:background="@drawable/circular_btn">
+    </Button>
+
+</RelativeLayout>

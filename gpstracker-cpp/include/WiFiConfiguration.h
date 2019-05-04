@@ -16,6 +16,7 @@ private:
   SDManager *sdManager;
   std::vector<WiFiNetwork *> *networks;
   void saveConfiguration();
+  bool addNetworkToMemory(std::string SSIDNetworkCSV);
 
 public:
   WiFiConfiguration();
@@ -25,8 +26,11 @@ public:
   unsigned int getConfiguredNetworks();
   WiFiNetwork *getNetworkAtPosition(unsigned int index);
   void removeNetwork(unsigned int index);
-  void addNetwork(String SSID, String password);
+  void addNetwork(std::string SSID, std::string password);
+  bool addNetworkFromCSVLine(std::string SSIDNetworkCSV);
   void deleteConfigurationFile();
+  std::string listNetworks();
+  bool deleteNetwork(std::string SSID);
 };
 
 #endif

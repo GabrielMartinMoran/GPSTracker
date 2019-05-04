@@ -28,7 +28,6 @@ void setup()
     Serial.println("Iniciando...");
 
     WiFiConfiguration *wifiConfig = new WiFiConfiguration();
-    wifiConfig->loadConfiguration();
 
     pinMode(LED_BUILTIN, OUTPUT);
     delay(2000);

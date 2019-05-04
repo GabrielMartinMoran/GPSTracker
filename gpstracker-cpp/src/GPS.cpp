@@ -2,7 +2,7 @@
 #include <Utils/StringToNumber.h>
 
 void GPS::actualizar(){
-    std::string datos = controladorGPSMockup->leerInformacion();
+    std::string datos = controladorGPSMockup->getInformation();
     StringTokenizer tokens(datos, ",");
     if(tokens.nextToken().compare("$PGRMC")){
         std::string tiempo = tokens.nextToken(); // Time of fix 22:54:46 UTC

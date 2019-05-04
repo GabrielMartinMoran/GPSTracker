@@ -18,11 +18,13 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WiFiListFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
     private static Context context;
+    private ArrayList<String> configuredNetworksList;
 
     /**
      * The fragment's ListView/GridView.
@@ -55,14 +57,13 @@ public class WiFiListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<String> networksMockupList = new ArrayList<>();
-        networksMockupList.add("WiFi Network - 01");
-        networksMockupList.add("WiFi Network - 02");
-        networksMockupList.add("WiFi Network - 03");
-        networksMockupList.add("WiFi Network - 04");
-        networksMockupList.add("WiFi Network - 05");
+        loadConfiguredNetworsList();
+        mAdapter = new WiFiListAdapter(getActivity(), configuredNetworksList);
+    }
 
-        mAdapter = new WiFiListAdapter(getActivity(), networksMockupList);
+    public void loadConfiguredNetworsList() {
+        String networkStrList = GlobalObjectManager.bluetoothHelper.makeRequest("$LIST_WIFI$");
+        configuredNetworksList = new ArrayList<String>(Arrays.asList(networkStrList.split("\\s*,\\s*")));
     }
 
     @Override
@@ -93,6 +94,11 @@ public class WiFiListFragment extends Fragment{
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    public void addNetwork(String SSID) {
+        configuredNetworksList.add(SSID);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**

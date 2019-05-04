@@ -123,9 +123,9 @@ void SDManager::readFileAndPrintContent(const char *path)
     }
 }
 
-std::vector<String> *SDManager::readFileLines(const char *path)
+std::vector<std::string> *SDManager::readFileLines(const char *path)
 {
-    std::vector<String> *list = new std::vector<String>();
+    std::vector<std::string> *list = new std::vector<std::string>();
     if (!isValidSD())
     {
         return list;
@@ -137,7 +137,7 @@ std::vector<String> *SDManager::readFileLines(const char *path)
     }
     while (file.available())
     {
-        String data = file.readStringUntil('\r');
+        std::string data = file.readStringUntil('\r').c_str();
         list->push_back(data);
     }
     file.close();
@@ -170,7 +170,7 @@ String SDManager::readLine(const char *path, unsigned int index)
     return "EOF";
 }
 
-void SDManager::writeFile(const char *path, const String data)
+void SDManager::writeFile(const char *path, const std::string data)
 {
     if (!isValidSD())
     {
@@ -183,7 +183,7 @@ void SDManager::writeFile(const char *path, const String data)
         file.close();
         return;
     }
-    if (file.print(data))
+    if (file.print(data.c_str()))
     {
         //Serial.println("File written");
     }

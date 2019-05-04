@@ -43,13 +43,13 @@ Bluetooth::~Bluetooth()
     
 }
 
-void Bluetooth::transmitData(String data){
+void Bluetooth::transmitData(std::string data){
     if(!deviceConnected){
         return;
     }
-    char buffer[data.length() + 1];
-    data.toCharArray(buffer, data.length() + 1);
-    pCharacteristic->setValue(buffer);
+    //char buffer[data.length() + 1];
+    //data.toCharArray(buffer, data.length() + 1);
+    pCharacteristic->setValue(data);
     pCharacteristic->notify(); // Send the value
 }
 

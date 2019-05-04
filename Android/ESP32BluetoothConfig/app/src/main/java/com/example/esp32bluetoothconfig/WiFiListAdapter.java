@@ -103,4 +103,9 @@ public class WiFiListAdapter extends ArrayAdapter<String>{
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
+    public void setList(List items){
+        itemsList = items;
+        this.notifyDataSetChanged();
+    }
+
 }

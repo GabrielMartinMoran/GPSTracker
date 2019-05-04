@@ -7,7 +7,7 @@ void BluetoothWriteCallback::configureServer(BluetoothServer *btServer)
 
 void BluetoothWriteCallback::onWrite(BLECharacteristic *pCharacteristic)
 {
-    String rxValue = pCharacteristic->getValue().c_str();
+    std::string rxValue = pCharacteristic->getValue().c_str();
 
     btServer->onRequest(rxValue);
     /*

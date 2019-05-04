@@ -3,6 +3,7 @@
 
 #include <BLECharacteristic.h>
 #include <Arduino.h>
+#include <iostream>
 #include <BluetoothServer.h>
 
 class BluetoothServer;

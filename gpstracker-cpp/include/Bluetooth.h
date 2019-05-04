@@ -1,6 +1,7 @@
 #ifndef Bluetooth_h
 #define Bluetooth_h
 
+#include <iostream>
 #include <BLEDevice.h>
 //#include <BLEServer.h>
 #include <BLECharacteristic.h>
@@ -36,7 +37,7 @@ class Bluetooth
     void setConnectionStatus(bool value);
     bool isConnected();
     void configureWriteCallback(BluetoothServer *btServer);
-    void transmitData(String data);
+    void transmitData(std::string data);
 };
 
 #endif
