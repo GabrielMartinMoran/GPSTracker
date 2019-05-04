@@ -37,9 +37,9 @@ public class BluetoothHelper {
     */
 
     //La UUID debe conicidir con la del dispositivo a conectarse
-    private final UUID SERVICE_UUID = UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E");
-    private final UUID TX_UUID = UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E");
-    private final UUID RX_UUID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
+    private final UUID SERVICE_UUID = UUID.fromString("6E40F1B0-B5A3-F393-E0A9-E50E24DCCA9E");//"6E400001-B5A3-F393-E0A9-E50E24DCCA9E");
+    private final UUID TX_UUID = UUID.fromString("6E40F1B1-B5A3-F393-E0A9-E50E24DCCA9E");//("6E400002-B5A3-F393-E0A9-E50E24DCCA9E");
+    private final UUID RX_UUID = UUID.fromString("6E40F1B2-B5A3-F393-E0A9-E50E24DCCA9E");//("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
 
     private Context context;
     private BluetoothAdapter BTAdapter;

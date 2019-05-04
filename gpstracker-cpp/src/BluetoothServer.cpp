@@ -1,7 +1,8 @@
 #include <BluetoothServer.h>
 
-BluetoothServer::BluetoothServer()
+BluetoothServer::BluetoothServer(WiFiConfiguration *wifiConfiguration)
 {
+    this->wifiConfiguration = wifiConfiguration;
     bt = new Bluetooth();
     bt->configureWriteCallback(this);
 }
@@ -13,11 +14,11 @@ BluetoothServer::~BluetoothServer()
 
 bool BluetoothServer::isCommand(String request, String command)
 {
-    if (command.length() >= request.length())
+    if (command.length() > request.length())
     {
         return false;
     }
-    return command.equals(request.substring(0, command.length()));
+    return command.equals(request) || command.equals(request.substring(0, command.length()));
 }
 
 String BluetoothServer::getData(String request, String command)
@@ -35,17 +36,18 @@ void BluetoothServer::onRequest(String request)
     {
         //Definimos los comandos validos
         const String DELETE_WIFI = "$DELETE_WIFI$";
-        const String TURN_LED_ON = "$TURN_LED_ON$";
-        const String TURN_LED_OFF = "$TURN_LED_OFF$";
+        const String TURN_LED_ON = "A";  //"$TURN_LED_ON$";
+        const String TURN_LED_OFF = "B"; //"$TURN_LED_OFF$";
+        const String LIST_WIFI = "$LIST_WIFI$"; //"$TURN_LED_OFF$";
         //------------------------------
 
-        if (isCommand(request, TURN_LED_ON))
+        if (request.equals("A"))
         {
             digitalWrite(LED_BUILTIN, HIGH);
             sendResponse(OK);
             return;
         }
-        if (isCommand(request, TURN_LED_OFF))
+        if (request.equals("B"))
         {
             digitalWrite(LED_BUILTIN, LOW);
             sendResponse(OK);
@@ -55,6 +57,11 @@ void BluetoothServer::onRequest(String request)
         {
             Serial.println(getData(request, DELETE_WIFI));
             sendResponse(OK);
+            return;
+        }
+        if (isCommand(request, LIST_WIFI))
+        {
+            sendResponse(String(wifiConfiguration->getConfiguredNetworks()));
             return;
         }
         Serial.println("Unrecognized Bluetooth request: " + request);

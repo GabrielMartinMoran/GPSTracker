@@ -63,6 +63,12 @@ public class DeviceListAdapter extends ArrayAdapter<DeviceItem>{
         holder.titleText.setText(item.getDeviceName());
         macAddress.setText(item.getAddress());
 
+        //Si no se reconoce el dispositivo
+        if(name == null){
+            holder.titleText.setText("Dispositivo desconocido");
+            macAddress.setText(item.getAddress());
+        }
+
         if (item.getDeviceName() != null && item.getDeviceName().toString() == "No Devices") {
             macAddress.setVisibility(View.INVISIBLE);
             line.setVisibility(View.INVISIBLE);
