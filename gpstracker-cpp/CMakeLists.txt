@@ -11,8 +11,18 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 file(GLOB Sources "src/*.cpp")
 file(GLOB Headers "include/*.h")
 
-set(Sources src/Example.cpp src/StringEquals.cpp src/GPSControllerMockup.cpp)
-set(Headers include/Example.h include/StringEquals.h include/GPSControllerMockup.h)
+set(Sources
+    src/Example.cpp
+    src/StringEquals.cpp
+    src/GPSControllerMockup.cpp
+    src/WiFiNetwork.cpp
+)
+set(Headers
+    include/Example.h
+    include/StringEquals.h
+    include/GPSControllerMockup.h
+    include/WiFiNetwork.h
+)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

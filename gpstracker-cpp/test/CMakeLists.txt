@@ -3,9 +3,10 @@ cmake_minimum_required(VERSION 3.8)
 set(This Tests)
 
 set(Sources
-ExampleTests.cpp
-GPSControllerMockupTests.cpp
-StringEqualsTests.cpp
+    ExampleTests.cpp
+    GPSControllerMockupTests.cpp
+    StringEqualsTests.cpp
+    WiFiNetworkTests.cpp
 )
 
 add_executable(${This} ${Sources})

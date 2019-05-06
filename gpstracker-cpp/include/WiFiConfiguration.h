@@ -4,7 +4,7 @@
 #include <iostream>
 #include <Configuration.h>
 #include <SDManager.h>
-#include "Utils/StringTokenizer.h"
+#include <StringTokenizer.h>
 #include <WiFiNetwork.h>
 
 #define DATA_SEPARATOR ","

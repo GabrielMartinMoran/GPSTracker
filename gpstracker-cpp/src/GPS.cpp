@@ -1,5 +1,5 @@
 #include <GPS.h>
-#include <Utils/StringToNumber.h>
+#include <StringToNumber.h>
 
 void GPS::actualizar(){
     std::string datos = controladorGPSMockup->getInformation();

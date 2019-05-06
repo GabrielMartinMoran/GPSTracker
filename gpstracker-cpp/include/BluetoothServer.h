@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <Bluetooth.h>
 #include <WiFiConfiguration.h>
-#include <utils/StringTokenizer.h>
+#include <StringTokenizer.h>
 
 #define OK "200"
 #define ERROR "400"
