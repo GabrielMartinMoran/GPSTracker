@@ -144,7 +144,7 @@ std::vector<std::string> *SDManager::readFileLines(const char *path)
     return list;
 }
 
-String SDManager::readLine(const char *path, unsigned int index)
+std::string SDManager::readLine(const char *path, unsigned int index)
 {
     if (!isValidSD())
     {
@@ -158,7 +158,7 @@ String SDManager::readLine(const char *path, unsigned int index)
     unsigned int recNum = 1;
     while (file.available())
     {
-        String list = file.readStringUntil('\r');
+        std::string list = file.readStringUntil('\r').c_str();
         if (recNum == index)
         {
             file.close();

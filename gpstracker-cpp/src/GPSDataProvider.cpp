@@ -1,4 +1,7 @@
 #include "GPSDataProvider.h"
+    //char msgBuff[message.length() + 1];
+    //message.toCharArray(msgBuff, message.length() + 1); 
+    //sdManager->appendFile(path, msgBuff);
 
 GPSDataProvider::GPSDataProvider(char *dataPath){
     sdManager = new SDManager();
@@ -17,6 +20,6 @@ void GPSDataProvider::registerData(String time, String x_coord, String y_coord){
     sdManager->appendFile(path, message);
 }
 
-String GPSDataProvider::readData(unsigned int index){
+std::string GPSDataProvider::readData(unsigned int index){
     return sdManager->readLine(path, index);
 }

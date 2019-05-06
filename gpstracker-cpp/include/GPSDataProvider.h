@@ -1,5 +1,6 @@
 #include "SDManager.h"
 #include <Arduino.h>
+#include <iostream>
 
 class GPSDataProvider {
     private:
@@ -9,5 +10,5 @@ class GPSDataProvider {
         GPSDataProvider(char *dataPath);
         ~GPSDataProvider();
         void registerData(String time, String x_coord, String y_coord);
-        String readData(unsigned int index);
+        std::string readData(unsigned int index);
 };
