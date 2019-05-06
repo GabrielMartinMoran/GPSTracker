@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(destino).title("Destino"));
         //mueve el centro de la camara
      //   mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(partida,15));
-        mMap.addMarker(new MarkerOptions().position(destino).title("Destino"));
+        
 
         //efecto de camara
         CameraPosition googlePlex = CameraPosition.builder()
