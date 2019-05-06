@@ -1,10 +1,18 @@
-#include <Arduino.h>
+#include <SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
 
 void setup()
 {
-    Serial.begin(115200);
+    //La inicializacion deberia estar en el SerialController
+    SerialController::println("~~ Inicio del setup ~~");
+
+    //Habria que inicializar ciertos componentes aqui para procurar la inversion
+    //de dependencias para facilitar el testeo:
+    
+    //Inversion para WiFiConfiguration:
+    //  - SDManager
+    //  - StringTokenizer (habria que ver si es necesario ya que no toca ninguna libreria de arduino)
 
     WiFiConfiguration *wifiConfiguration = new WiFiConfiguration();
     if (wifiConfiguration->getConfiguredNetworks() == 0)
@@ -14,10 +22,16 @@ void setup()
         wifiConfiguration->addNetwork("GHI", "789");
     }
 
+    //Inversion para BluetoothServer:
+    //  - WiFiConfiguration (Ya esta hecho)
+    //  - StringTokenizer (habria que ver si es necesario ya que no toca ninguna libreria de arduino)
+    //  - SerialController
+    //  - Bluetooth
+
     BluetoothServer *btServer = new BluetoothServer(wifiConfiguration);
 
     //delete bt;
-    Serial.println("~~ Fin del setup ~~");
+    SerialController::println("~~ Fin del setup ~~");
 }
 
 void loop()
