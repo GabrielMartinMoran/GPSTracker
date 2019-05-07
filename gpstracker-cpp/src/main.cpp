@@ -69,6 +69,12 @@ void setup()
     // SI SE UTILIZARA EL SerialController DE MANERA NO ESTATICA:
     delete serialController;
     */
+
+   //Tambien hay que tener en cuenta que hay que corregir las interfaces, poniendole a los metodos = 0
+   //(aunque no sean void) en lugar de {} o {return #DATO_POR_DEFECTO#;}
+   //Por ejemplo:
+   //virtual void a() = 0;
+   //virtual std::string b() = 0;
 }
 
 void loop()
