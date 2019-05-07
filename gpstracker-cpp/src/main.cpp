@@ -2,6 +2,7 @@
 #include <SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
+#include <Bluetooth.h>
 
 void setup()
 {
@@ -31,7 +32,8 @@ void setup()
     //  - SerialController
     //  - Bluetooth
 
-    BluetoothServer *btServer = new BluetoothServer(wifiConfiguration);
+    Bluetooth *bluetooth = new Bluetooth();
+    BluetoothServer *btServer = new BluetoothServer(wifiConfiguration, bluetooth);
 
     //delete bt;
     SerialController::println("~~ Fin del setup ~~");

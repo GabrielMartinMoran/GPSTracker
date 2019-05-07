@@ -2,27 +2,29 @@
 #define BluetoothServer_h
 
 #include <iostream>
-#include <Arduino.h>
-#include <Bluetooth.h>
-#include <WiFiConfiguration.h>
+//#include <Arduino.h>
+#include <interfaces/IBluetoothServer.h>
+#include <interfaces/IBluetooth.h>
+#include <interfaces/IWiFiConfiguration.h>
 #include <StringTokenizer.h>
 
 #define OK "200"
 #define ERROR "400"
 
-class Bluetooth;
-class ConfigurationManager;
+//Forward declaration
+class IBluetooth;
+class IWiFiConfiguration;
 
-class BluetoothServer
+class BluetoothServer : public IBluetoothServer
 {
 private:
-    Bluetooth *bt;
-    WiFiConfiguration *wifiConfiguration;
+    IBluetooth *bt;
+    IWiFiConfiguration *wifiConfiguration;
     bool isCommand(std::string request, std::string command);
     std::string getData(std::string request, std::string command);
 
 public:
-    BluetoothServer(WiFiConfiguration *wifiConfiguration);
+    BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetooth *bluetooth);
     ~BluetoothServer();
     void onRequest(std::string request);
     void sendResponse(std::string response);

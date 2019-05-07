@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <interfaces/ISDManager.h>
+#include <interfaces/IWiFiConfiguration.h>
 #include <StringTokenizer.h>
 #include <WiFiNetwork.h>
 
 #define DATA_SEPARATOR ","
 #define WIFI_CONFIGURATION_FILENAME "/WiFiConfig"
 
-class WiFiConfiguration
+class WiFiConfiguration : public IWiFiConfiguration
 {
 private:
   ISDManager *sdManager;

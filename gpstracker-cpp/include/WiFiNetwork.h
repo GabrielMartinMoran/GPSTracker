@@ -2,8 +2,9 @@
 #define WiFiNetwork_h
 
 #include <iostream>
+#include <interfaces/IWiFiNetwork.h>
 
-class WiFiNetwork
+class WiFiNetwork : public IWiFiNetwork
 {
   public:
     std::string SSID;

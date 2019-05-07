@@ -1,15 +1,14 @@
 #include <BluetoothServer.h>
 
-BluetoothServer::BluetoothServer(WiFiConfiguration *wifiConfiguration)
+BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetooth *bluetooth)
 {
     this->wifiConfiguration = wifiConfiguration;
-    bt = new Bluetooth();
+    bt = bluetooth;
     bt->configureWriteCallback(this);
 }
 
 BluetoothServer::~BluetoothServer()
 {
-    delete bt;
 }
 
 bool BluetoothServer::isCommand(std::string request, std::string command)
@@ -44,13 +43,13 @@ void BluetoothServer::onRequest(std::string request)
 
         if (request == "A")
         {
-            digitalWrite(LED_BUILTIN, HIGH);
+            //digitalWrite(LED_BUILTIN, HIGH);
             sendResponse(OK);
             return;
         }
         if (request == "B")
         {
-            digitalWrite(LED_BUILTIN, LOW);
+            //digitalWrite(LED_BUILTIN, LOW);
             sendResponse(OK);
             return;
         }
@@ -85,41 +84,8 @@ void BluetoothServer::onRequest(std::string request)
             }
             return;
         }
-        Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));
+        //Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));
         sendResponse(ERROR);
-        /*
-        Serial.println("*********");
-        Serial.print("Received Value: ");
-
-        for (int i = 0; i < request.length(); i++)
-        {
-            Serial.print(request[i]);
-        }
-
-        Serial.println();
-
-        // Do stuff based on the command received from the app
-        if (request == "A")
-        {
-            Serial.print("Turning ON!");
-            digitalWrite(LED_BUILTIN, HIGH);
-            sendResponse("Turning ON!");
-        }
-        else if (request == "B")
-        {
-            Serial.print("Turning OFF!");
-            digitalWrite(LED_BUILTIN, LOW);
-            sendResponse("Turning OFF!");
-        }
-        else if (request.substring())
-            else
-            {
-                Serial.print("Command not recognized!");
-            }
-
-        Serial.println();
-        Serial.println("*********");
-        */
     }
 }
 
