@@ -34,11 +34,11 @@ void BluetoothServer::onRequest(std::string request)
     if (request.length() > 0)
     {
         //Definimos los comandos validos
-        const std::string DELETE_WIFI = "$DELETE_WIFI$";
+        const std::string DELETE_WIFI = "$DELETE_NETWORK$";
         const std::string TURN_LED_ON = "A";         //"$TURN_LED_ON$";
         const std::string TURN_LED_OFF = "B";        //"$TURN_LED_OFF$";
-        const std::string LIST_WIFI = "$LIST_WIFI$";
-        const std::string ADD_WIFI = "$ADD_WIFI$";
+        const std::string LIST_WIFI = "$LIST_NETWORKS$";
+        const std::string ADD_WIFI = "$ADD_NETWORK$";
         //------------------------------
 
         if (request == "A")

@@ -8,15 +8,24 @@
 class WiFiConfigurationMockup : public IWiFiConfiguration
 {
 public:
-    void loadConfiguration() {};
+    std::string deletedNetowkSSID;
+    std::string networksStrList;
+    std::string networkFromCSVLine;
     size_t getConfiguredNetworks() {return 0;}
     IWiFiNetwork *getNetworkAtPosition(unsigned int index) {return nullptr;}
     void removeNetwork(unsigned int index) {}
     void addNetwork(std::string SSID, std::string password) {}
-    bool addNetworkFromCSVLine(std::string SSIDNetworkCSV) {return true;}
+    bool addNetworkFromCSVLine(std::string SSIDNetworkCSV) {
+        networkFromCSVLine = SSIDNetworkCSV;
+    }
     void deleteConfigurationFile() {}
-    std::string listNetworks() {return "";}
-    bool deleteNetwork(std::string SSID) {return true;}
+    std::string listNetworks() {
+        return networksStrList;
+    }
+    bool deleteNetwork(std::string SSID) {
+        deletedNetowkSSID = SSID;
+        return true;
+    }
 };
 
 #endif
