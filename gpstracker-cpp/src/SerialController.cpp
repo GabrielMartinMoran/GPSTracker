@@ -1,7 +1,7 @@
 #include <SerialController.h>
 
 //Inicializamos asi el atributo estatico de la clase
-bool SerialController::isSerialInitialized = true;
+bool SerialController::isSerialInitialized = false;
 
 void SerialController::initializeSerial()
 {

@@ -17,7 +17,7 @@ void GPSDataProvider::registerData(String time, String x_coord, String y_coord){
     //char msgBuff[message.length() + 1];
     //message.toCharArray(msgBuff, message.length() + 1); 
     //sdManager->appendFile(path, msgBuff);
-    sdManager->appendFile(path, message);
+    sdManager->appendFile(path, std::string(message.c_str()));
 }
 
 std::string GPSDataProvider::readData(unsigned int index){

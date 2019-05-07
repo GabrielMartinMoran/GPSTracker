@@ -7,6 +7,7 @@ set(Sources
     GPSControllerMockupTests.cpp
     StringEqualsTests.cpp
     WiFiNetworkTests.cpp
+    WiFiConfigurationTests.cpp
 )
 
 add_executable(${This} ${Sources})

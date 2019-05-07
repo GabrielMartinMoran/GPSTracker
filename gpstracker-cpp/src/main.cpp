@@ -1,3 +1,4 @@
+#include <SDManager.h>
 #include <SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
@@ -10,11 +11,13 @@ void setup()
     //Habria que inicializar ciertos componentes aqui para procurar la inversion
     //de dependencias para facilitar el testeo:
     
+    SDManager *sdManager = new SDManager();
+
     //Inversion para WiFiConfiguration:
     //  - SDManager
     //  - StringTokenizer (habria que ver si es necesario ya que no toca ninguna libreria de arduino)
-
-    WiFiConfiguration *wifiConfiguration = new WiFiConfiguration();
+    
+    WiFiConfiguration *wifiConfiguration = new WiFiConfiguration(sdManager);
     if (wifiConfiguration->getConfiguredNetworks() == 0)
     {
         wifiConfiguration->addNetwork("ABC", "123");
@@ -32,6 +35,11 @@ void setup()
 
     //delete bt;
     SerialController::println("~~ Fin del setup ~~");
+
+    //Deletes (ver donde ubicar)
+    /*
+    delete sdManager;
+    */
 }
 
 void loop()

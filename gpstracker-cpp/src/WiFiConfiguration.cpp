@@ -1,9 +1,9 @@
 #include <WiFiConfiguration.h>
 
-WiFiConfiguration::WiFiConfiguration()
+WiFiConfiguration::WiFiConfiguration(ISDManager *sdManager)
 {
     networks = new std::vector<WiFiNetwork *>();
-    sdManager = new SDManager();
+    this->sdManager = sdManager;
     this->loadConfiguration();
 }
 
@@ -15,7 +15,6 @@ WiFiConfiguration::~WiFiConfiguration()
         delete *elementPointer;
     }
     delete networks;
-    delete sdManager;
 }
 
 void WiFiConfiguration::loadConfiguration()
@@ -76,15 +75,6 @@ bool WiFiConfiguration::deleteNetwork(std::string SSID)
         }
     }
     return false;
-}
-
-void WiFiConfiguration::printConfiguratedNetworks()
-{
-    Serial.println("Listando las redes configuradas:");
-    for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
-    {
-        //Serial.println((*elementPointer)->toString());
-    }
 }
 
 unsigned int WiFiConfiguration::getConfiguredNetworks()

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <Configuration.h>
-#include <SDManager.h>
+#include <interfaces/ISDManager.h>
 #include <StringTokenizer.h>
 #include <WiFiNetwork.h>
 
@@ -13,16 +13,15 @@
 class WiFiConfiguration : public Configuration
 {
 private:
-  SDManager *sdManager;
+  ISDManager *sdManager;
   std::vector<WiFiNetwork *> *networks;
   void saveConfiguration();
   bool addNetworkToMemory(std::string SSIDNetworkCSV);
 
 public:
-  WiFiConfiguration();
+  WiFiConfiguration(ISDManager *sdManager);
   ~WiFiConfiguration();
   void loadConfiguration();
-  void printConfiguratedNetworks();
   unsigned int getConfiguredNetworks();
   WiFiNetwork *getNetworkAtPosition(unsigned int index);
   void removeNetwork(unsigned int index);
