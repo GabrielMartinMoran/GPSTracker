@@ -2,7 +2,7 @@
 #define GPS_h
 
 #include <iostream>
-#include "GPSControllerMockup.h"
+#include "../mockups/GPSControllerMockup.h"
 #include "StringTokenizer.h"
 
 class GPS

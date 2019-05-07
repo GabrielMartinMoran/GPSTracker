@@ -2,7 +2,6 @@
 #define WiFiConfiguration_h
 
 #include <iostream>
-#include <Configuration.h>
 #include <interfaces/ISDManager.h>
 #include <StringTokenizer.h>
 #include <WiFiNetwork.h>
@@ -10,7 +9,7 @@
 #define DATA_SEPARATOR ","
 #define WIFI_CONFIGURATION_FILENAME "/WiFiConfig"
 
-class WiFiConfiguration : public Configuration
+class WiFiConfiguration
 {
 private:
   ISDManager *sdManager;
@@ -22,7 +21,7 @@ public:
   WiFiConfiguration(ISDManager *sdManager);
   ~WiFiConfiguration();
   void loadConfiguration();
-  unsigned int getConfiguredNetworks();
+  size_t getConfiguredNetworks();
   WiFiNetwork *getNetworkAtPosition(unsigned int index);
   void removeNetwork(unsigned int index);
   void addNetwork(std::string SSID, std::string password);

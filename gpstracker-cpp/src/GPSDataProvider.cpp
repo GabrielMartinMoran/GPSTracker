@@ -9,7 +9,8 @@ GPSDataProvider::GPSDataProvider(char *dataPath){
 }
 
 GPSDataProvider::~GPSDataProvider(){
-    delete sdManager;
+    //EVALUAR PORQUE HAY MEMORY LEAK PERO EXPLOTA
+    //delete sdManager;
 }
 
 void GPSDataProvider::registerData(String time, String x_coord, String y_coord){

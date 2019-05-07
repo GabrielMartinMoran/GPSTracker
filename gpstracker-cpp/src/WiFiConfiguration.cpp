@@ -77,7 +77,7 @@ bool WiFiConfiguration::deleteNetwork(std::string SSID)
     return false;
 }
 
-unsigned int WiFiConfiguration::getConfiguredNetworks()
+size_t WiFiConfiguration::getConfiguredNetworks()
 {
     return networks->size();
 }
