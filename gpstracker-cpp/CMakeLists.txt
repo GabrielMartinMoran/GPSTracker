@@ -27,7 +27,6 @@ add_subdirectory(mockups)
 #AGREGAR AQUI LOS SRC QUE SON NECESARIOS PARA LOS TESTS
 set(Sources
 
-    src/Example.cpp
     src/StringEquals.cpp
     src/WiFiNetwork.cpp
     src/WiFiConfiguration.cpp
