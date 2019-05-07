@@ -8,6 +8,7 @@ class SDManagerMockup : public ISDManager {
     
     public:
         std::vector<std::string>  *dataLines;
+        std::string deletedFilePath;
         SDManagerMockup(){}
         ~SDManagerMockup(){}
         bool isValidSD() override {
@@ -23,7 +24,7 @@ class SDManagerMockup : public ISDManager {
 
         }
         void deleteFile(const char * path) override {
-
+            deletedFilePath = std::string(path);
         }
 };
 
