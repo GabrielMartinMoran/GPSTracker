@@ -33,6 +33,9 @@ void BluetoothServer::onRequest(std::string request)
 {
     if (request.length() > 0)
     {
+        //Definir los comandos de esta manera no es prolijo, hay que evaluar de ponerlos como '#define'
+        //o quizas utilizar un mapa o un conjunto.
+        
         //Definimos los comandos validos
         const std::string DELETE_WIFI = "$DELETE_NETWORK$";
         const std::string TURN_LED_ON = "A";         //"$TURN_LED_ON$";
@@ -43,13 +46,13 @@ void BluetoothServer::onRequest(std::string request)
 
         if (request == "A")
         {
-            //digitalWrite(LED_BUILTIN, HIGH);
+            //digitalWrite(LED_BUILTIN, HIGH); //Comentado porque sino habria que importar Arduino.h y romperia los tests
             sendResponse(OK);
             return;
         }
         if (request == "B")
         {
-            //digitalWrite(LED_BUILTIN, LOW);
+            //digitalWrite(LED_BUILTIN, LOW); //Comentado porque sino habria que importar Arduino.h y romperia los tests
             sendResponse(OK);
             return;
         }
@@ -84,6 +87,8 @@ void BluetoothServer::onRequest(std::string request)
             }
             return;
         }
+        //Comentado porque sino habria que importar Arduino.h y romperia los tests
+        //Igualmente habria que utilizar el SerialController en todo caso
         //Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));
         sendResponse(ERROR);
     }
