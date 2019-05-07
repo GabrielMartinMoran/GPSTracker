@@ -32,6 +32,7 @@ set(Sources
     src/WiFiNetwork.cpp
     src/WiFiConfiguration.cpp
     src/StringTokenizer.cpp
+    src/BluetoothServer.cpp
 
 )
 

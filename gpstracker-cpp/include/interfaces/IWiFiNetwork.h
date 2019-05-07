@@ -8,6 +8,7 @@ class IWiFiNetwork
   public:
     std::string SSID;
     std::string password;
+    virtual ~IWiFiNetwork(){}
     virtual std::string toString() {return "";}
     virtual std::string toCSVLine() {return "";}
 };

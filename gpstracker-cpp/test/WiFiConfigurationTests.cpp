@@ -37,8 +37,10 @@ TEST(WiFiConfiguration, getNetworkAtPosition)
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     
-    EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(1)->SSID, "Wifi_02");
-    EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(1)->password, "Pass02");
+    WiFiNetwork *network = wifiConfiguration.getNetworkAtPosition(1);
+
+    EXPECT_EQ(network->SSID, "Wifi_02");
+    EXPECT_EQ(network->password, "Pass02");
 
     delete sdManager;
 }

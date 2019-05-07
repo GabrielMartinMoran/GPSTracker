@@ -35,7 +35,6 @@ class Bluetooth : public IBluetooth
   public:
     Bluetooth();
     ~Bluetooth();
-    void startConnectionLoop();
     void setConnectionStatus(bool value);
     bool isConnected();
     void configureWriteCallback(BluetoothServer *btServer);

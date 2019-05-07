@@ -10,7 +10,7 @@ class IBluetoothServer;
 class IBluetooth
 {
   public:
-    virtual void startConnectionLoop() {}
+    virtual ~IBluetooth() {}
     virtual void setConnectionStatus(bool value) {}
     virtual bool isConnected() {return 0;}
     virtual void configureWriteCallback(IBluetoothServer *btServer) {}

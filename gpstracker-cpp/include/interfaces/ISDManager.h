@@ -7,6 +7,7 @@
 class ISDManager {
 
     public:
+        virtual ~ISDManager() {}
         virtual bool isValidSD() {return 0;}
         virtual void listDir(const char * dirname, uint8_t levels) {}
         virtual void createDir(const char * path) {}

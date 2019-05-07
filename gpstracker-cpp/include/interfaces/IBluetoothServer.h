@@ -6,6 +6,7 @@
 class IBluetoothServer
 {
 public:
+    virtual ~IBluetoothServer() {}
     virtual void onRequest(std::string request) {}
     virtual void sendResponse(std::string response) {}
 };

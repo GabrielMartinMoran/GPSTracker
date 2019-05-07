@@ -8,6 +8,7 @@
 class IWiFiConfiguration
 {
 public:
+  virtual ~IWiFiConfiguration() {}
   virtual void loadConfiguration() {}
   virtual size_t getConfiguredNetworks() {return 0;}
   virtual IWiFiNetwork *getNetworkAtPosition(unsigned int index) {return nullptr;}
