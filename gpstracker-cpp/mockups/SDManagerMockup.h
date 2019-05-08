@@ -9,22 +9,33 @@ class SDManagerMockup : public ISDManager {
     public:
         std::vector<std::string>  *dataLines;
         std::string deletedFilePath;
-        SDManagerMockup(){}
-        ~SDManagerMockup(){}
-        bool isValidSD() override {
+        bool isValidSD() {
             return true;
         }
-        std::string readLine(const char * path, unsigned int index) override {
+        void listDir(const char * dirname, uint8_t levels) {}
+        void createDir(const char * path) {}
+        void removeDir(const char * path) {}
+        std::string readLine(const char * path, unsigned int index) {
             return "";
         }
-        std::vector<std::string> *readFileLines(const char * path) override {
+        std::vector<std::string> *readFileLines(const char * path) {
             return dataLines;
         }
-        void writeFile(const char * path, const std::string data) override {
-
+        bool writeFile(const char * path, const std::string data) {
+            return true;
         }
-        void deleteFile(const char * path) override {
+        bool appendFile(const char * path, const std::string data){
+            return true;
+        }
+        bool renameFile(const char * path1, const char * path2){
+            return true;
+        }
+        bool deleteFile(const char * path) override {
             deletedFilePath = std::string(path);
+            return true;
+        }
+        virtual uint64_t getCardSize(){
+            return 0;
         }
 };
 

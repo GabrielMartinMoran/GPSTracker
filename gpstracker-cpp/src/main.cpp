@@ -59,12 +59,11 @@ void setup()
     delete wifiConfiguration;   
     delete bluetooth;
     delete btServer;
+    delete serialController;
     // SI SE IMPLEMENTA DE LA MANERA DESCRITA EN LOS COMENTARIOS:
     delete gpsController;
     delete wifiConnector;
     delete dataTransmitter;
-    // SI SE UTILIZARA EL SerialController DE MANERA NO ESTATICA:
-    delete serialController;
     */
 
    //Tambien hay que tener en cuenta que hay que corregir las interfaces, poniendole a los metodos = 0
