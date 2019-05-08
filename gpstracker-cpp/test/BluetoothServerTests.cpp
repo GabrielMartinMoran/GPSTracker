@@ -2,13 +2,15 @@
 #include <BluetoothServer.h>
 #include <BluetoothMockup.h>
 #include <WiFiConfigurationMockup.h>
+#include <SerialControllerMockup.h>
 
 TEST(BluetoothServer, onRequest_A)
 {
     BluetoothMockup *bluetooth = new BluetoothMockup();
     WiFiConfigurationMockup *wifiConfiguration = new WiFiConfigurationMockup();
+    SerialControllerMockup *serialController = new SerialControllerMockup();
 
-    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth);
+    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth, serialController);
 
     server.onRequest("A");
 
@@ -16,14 +18,16 @@ TEST(BluetoothServer, onRequest_A)
 
     delete bluetooth;
     delete wifiConfiguration;
+    delete serialController;
 }
 
 TEST(BluetoothServer, onRequest_DELETE_WIFI)
 {
     BluetoothMockup *bluetooth = new BluetoothMockup();
     WiFiConfigurationMockup *wifiConfiguration = new WiFiConfigurationMockup();
+    SerialControllerMockup *serialController = new SerialControllerMockup();
 
-    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth);
+    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth, serialController);
 
     server.onRequest("$DELETE_NETWORK$WiFi_01");
 
@@ -31,14 +35,16 @@ TEST(BluetoothServer, onRequest_DELETE_WIFI)
 
     delete bluetooth;
     delete wifiConfiguration;
+    delete serialController;
 }
 
 TEST(BluetoothServer, onRequest_LIST_WIFI)
 {
     BluetoothMockup *bluetooth = new BluetoothMockup();
     WiFiConfigurationMockup *wifiConfiguration = new WiFiConfigurationMockup();
+    SerialControllerMockup *serialController = new SerialControllerMockup();
 
-    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth);
+    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth, serialController);
 
     wifiConfiguration->networksStrList = std::string("WiFi_01,WiFi_02,WiFi_03");
 
@@ -48,14 +54,16 @@ TEST(BluetoothServer, onRequest_LIST_WIFI)
 
     delete bluetooth;
     delete wifiConfiguration;
+    delete serialController;
 }
 
 TEST(BluetoothServer, onRequest_ADD_WIFI)
 {
     BluetoothMockup *bluetooth = new BluetoothMockup();
     WiFiConfigurationMockup *wifiConfiguration = new WiFiConfigurationMockup();
+    SerialControllerMockup *serialController = new SerialControllerMockup();
 
-    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth);
+    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth, serialController);
 
     server.onRequest("$ADD_NETWORK$WiFi_01,Pass_01");
 
@@ -63,4 +71,5 @@ TEST(BluetoothServer, onRequest_ADD_WIFI)
 
     delete bluetooth;
     delete wifiConfiguration;
+    delete serialController;
 }

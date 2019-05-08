@@ -6,12 +6,9 @@
 
 void setup()
 {
-    //Habria que ver si combiene utilizar el SerialController como clase estatica (como esta ahora) o instanciarla
-    //y asi poder utilizar un mockup para los tests (esta opcion es la que parece mas correcta)
-    //En ese caso habria que hacer:
-    //SerialController *serialController = new SerialController();
-    //y luego pasar el puntero a todas las clases que lo utilicen
-    SerialController::println("~~ Inicio del setup ~~");
+    
+    SerialController *serialController = new SerialController();
+    serialController->println("~~ Inicio del setup ~~");
     
     SDManager *sdManager = new SDManager();
     
@@ -26,7 +23,7 @@ void setup()
     }
 
     Bluetooth *bluetooth = new Bluetooth();
-    BluetoothServer *btServer = new BluetoothServer(wifiConfiguration, bluetooth);
+    BluetoothServer *btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
 
     //Para la SD habria que ver como hacer para administrar el envio, ya que podria ocurrir que hay que leer de un
     //archivo mientras el modulo que registra datos en el archivo trata de escribir.
@@ -52,7 +49,7 @@ void setup()
     //En un thread nuevo se deberia llamar a una funcion que envie datos si el wifiConnector pudo conectarse
 
     //delete bt;
-    SerialController::println("~~ Fin del setup ~~");
+    serialController->println("~~ Fin del setup ~~");
 
     //Deletes (ver donde ubicar) ya que aqui cuando termine el setup van a morir
     //¿Tiene sentido tener deletes para estas instancias que mueren solo si se reinicia el aparato?

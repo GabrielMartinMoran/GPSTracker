@@ -1,10 +1,11 @@
 #include <BluetoothServer.h>
 
-BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetooth *bluetooth)
+BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetooth *bluetooth, ISerialController *serialController)
 {
     this->wifiConfiguration = wifiConfiguration;
-    bt = bluetooth;
-    bt->configureWriteCallback(this);
+    this->bluetooth = bluetooth;
+    this->serialController = serialController;
+    bluetooth->configureWriteCallback(this);
 }
 
 BluetoothServer::~BluetoothServer()
@@ -33,32 +34,21 @@ void BluetoothServer::onRequest(std::string request)
 {
     if (request.length() > 0)
     {
-        //Definir los comandos de esta manera no es prolijo, hay que evaluar de ponerlos como '#define'
-        //o quizas utilizar un mapa o un conjunto.
-        
-        //Definimos los comandos validos
-        const std::string DELETE_WIFI = "$DELETE_NETWORK$";
-        const std::string TURN_LED_ON = "A";         //"$TURN_LED_ON$";
-        const std::string TURN_LED_OFF = "B";        //"$TURN_LED_OFF$";
-        const std::string LIST_WIFI = "$LIST_NETWORKS$";
-        const std::string ADD_WIFI = "$ADD_NETWORK$";
-        //------------------------------
-
-        if (request == "A")
+        if (request == TURN_LED_ON)
         {
             //digitalWrite(LED_BUILTIN, HIGH); //Comentado porque sino habria que importar Arduino.h y romperia los tests
             sendResponse(OK);
             return;
         }
-        if (request == "B")
+        if (request == TURN_LED_OFF)
         {
             //digitalWrite(LED_BUILTIN, LOW); //Comentado porque sino habria que importar Arduino.h y romperia los tests
             sendResponse(OK);
             return;
         }
-        if (isCommand(request, DELETE_WIFI))
+        if (isCommand(request, DELETE_NETWORK))
         {
-            std::string networkToDelete = getData(request, DELETE_WIFI);
+            std::string networkToDelete = getData(request, DELETE_NETWORK);
             bool deleted = wifiConfiguration->deleteNetwork(networkToDelete);
             if (deleted)
             {
@@ -70,13 +60,14 @@ void BluetoothServer::onRequest(std::string request)
             }
             return;
         }
-        if (isCommand(request, LIST_WIFI))
+        if (isCommand(request, LIST_NETWORKS))
         {
             sendResponse(wifiConfiguration->listNetworks());
             return;
         }
-        if(isCommand(request, ADD_WIFI)){
-            bool networkAdded = wifiConfiguration->addNetworkFromCSVLine(getData(request, ADD_WIFI));
+        if (isCommand(request, ADD_NETWORK))
+        {
+            bool networkAdded = wifiConfiguration->addNetworkFromCSVLine(getData(request, ADD_NETWORK));
             if (networkAdded)
             {
                 sendResponse(OK);
@@ -90,11 +81,12 @@ void BluetoothServer::onRequest(std::string request)
         //Comentado porque sino habria que importar Arduino.h y romperia los tests
         //Igualmente habria que utilizar el SerialController en todo caso
         //Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));
+        serialController->println("Unrecognized Bluetooth request: " + std::string(request.c_str()));
         sendResponse(ERROR);
     }
 }
 
 void BluetoothServer::sendResponse(std::string response)
 {
-    bt->transmitData(response);
+    bluetooth->transmitData(response);
 }
