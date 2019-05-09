@@ -57,7 +57,7 @@ void setup()
 
     for (size_t i = 0; i < wifiConfig->getConfiguredNetworks(); i++)
     {
-        if (wifiConfig->getNetworkAtPosition(i)->SSID == "WiFi_to_delete")
+        if (wifiConfig->getNetworkAtPosition(i)->getSSID() == "WiFi_to_delete")
         {
             wifiConfig->removeNetwork(i);
             break;
@@ -68,7 +68,7 @@ void setup()
     wifiConfig->printConfiguratedNetworks();
 
     //WiFiNetwork *networkToConnect = wifiConfig->getNetworkAtPosition(0);
-    //wifi->connect(networkToConnect->SSID, networkToConnect->password);
+    //wifi->connect(networkToConnect->getSSID(), networkToConnect->getPassword());
 
     delete wifiConfig;
     //delete wifi;

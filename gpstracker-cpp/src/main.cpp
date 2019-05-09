@@ -3,24 +3,47 @@
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
 #include <Bluetooth.h>
+#include <WiFiConnector.h>
+
+#include <thread>
+#include <iostream>
+
+void runWifiConnectionLoopThreaded(WiFiConnector *wifiConnector){
+    wifiConnector->beginConnectionLoop();
+}
+
+void blinkLed(){
+    pinMode(LED_BUILTIN, OUTPUT);
+    while(true){
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(1000);
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(1000);
+    }
+}
 
 void setup()
 {
-    
+
     SerialController *serialController = new SerialController();
     serialController->println("~~ Inicio del setup ~~");
-    
+
     SDManager *sdManager = new SDManager();
-    
+
     WiFiConfiguration *wifiConfiguration = new WiFiConfiguration(sdManager);
-    
+
     //Este pedazo de codigo esta asi para realizar pruebas desde la APP de Android
+    Serial.print("Redes WiFi Configuradas: ");
+    Serial.println(wifiConfiguration->getConfiguredNetworks());
     if (wifiConfiguration->getConfiguredNetworks() == 0)
     {
+        Serial.println("Configurando redes WiFi por defecto...");
         wifiConfiguration->addNetwork("ABC", "123");
         wifiConfiguration->addNetwork("DEF", "456");
         wifiConfiguration->addNetwork("GHI", "789");
+        wifiConfiguration->addNetwork("Gabriel", "pass1234");
     }
+    sdManager->isValidSD();
 
     Bluetooth *bluetooth = new Bluetooth();
     BluetoothServer *btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
@@ -41,6 +64,15 @@ void setup()
     //A continuación un código de ejemplo de como se debería instanciar este componente
     //WiFiConnector *wifiConnector = new WiFiConnector(wifiConfiguration);
     //En un thread nuevo se deberia llamar a una funcion que loopee y trate de conectarse en caso de que este desconectado
+
+    WiFiConnector *wifiConnector = new WiFiConnector(wifiConfiguration);
+
+    std::thread wifiConnectionLoopThread = std::thread(runWifiConnectionLoopThreaded, wifiConnector);
+
+    std::thread ledBlinkThread = std::thread(blinkLed);
+
+    wifiConnectionLoopThread.join();
+    ledBlinkThread.join();
 
     //Transmisor de datos a la aplicacion de android
     //este conectado a una red wifi
@@ -66,11 +98,11 @@ void setup()
     delete dataTransmitter;
     */
 
-   //Tambien hay que tener en cuenta que hay que corregir las interfaces, poniendole a los metodos = 0
-   //(aunque no sean void) en lugar de {} o {return #DATO_POR_DEFECTO#;}
-   //Por ejemplo:
-   //virtual void a() = 0;
-   //virtual std::string b() = 0;
+    //Tambien hay que tener en cuenta que hay que corregir las interfaces, poniendole a los metodos = 0
+    //(aunque no sean void) en lugar de {} o {return #DATO_POR_DEFECTO#;}
+    //Por ejemplo:
+    //virtual void a() = 0;
+    //virtual std::string b() = 0;
 }
 
 void loop()

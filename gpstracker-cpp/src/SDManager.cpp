@@ -2,7 +2,6 @@
 
 bool SDManager::isValidSD()
 {
-        void renameFile(const char * path1, const char * path2);
     if (!SD.begin())
     {
         Serial.println("SD Card Mount Failed");
@@ -102,7 +101,7 @@ std::vector<std::string> *SDManager::readFileLines(const char *path)
     if (!file) return list;
     while (file.available())
     {
-        std::string data = file.readStringUntil('\r').c_str();
+        std::string data = file.readStringUntil('\n').c_str();
         list->push_back(data);
     }
     file.close();
@@ -117,7 +116,7 @@ std::string SDManager::readLine(const char *path, unsigned int index)
     size_t recNum = 1;
     while (file.available())
     {
-        std::string list = file.readStringUntil('\r').c_str();
+        std::string list = file.readStringUntil('\n').c_str();
         if (recNum == index)
         {
             file.close();
@@ -133,7 +132,7 @@ bool SDManager::writeFile(const char *path, const std::string data)
 {
     if (!isValidSD()) return false;
     File file = SD.open(path, FILE_WRITE);
-    bool result = file || file.print(data.c_str());
+    bool result = file && file.print(data.c_str());
     file.close();
     return result;
 }
@@ -142,7 +141,7 @@ bool SDManager::appendFile(const char *path, const std::string data)
 {
     if (!isValidSD()) return false;
     File file = SD.open(path, FILE_APPEND);
-    bool result = file || file.print(data.c_str());
+    bool result = file && file.print(data.c_str());
     file.close();
     return result;
 }

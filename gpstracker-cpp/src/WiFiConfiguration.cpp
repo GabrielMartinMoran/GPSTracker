@@ -36,6 +36,10 @@ bool WiFiConfiguration::addNetworkToMemory(std::string SSIDNetworkCSV)
     if (tokens.hasNext())
     {
         SSID = tokens.nextToken();
+        std::size_t found = SSID.find("\n");
+        if (found!=std::string::npos){
+            SSID.replace(SSID.find("\n"), SSID.find("\n") - 2, "");
+        }
     }
     else
     {
@@ -44,6 +48,10 @@ bool WiFiConfiguration::addNetworkToMemory(std::string SSIDNetworkCSV)
     if (tokens.hasNext())
     {
         password = tokens.nextToken();
+        std::size_t found = password.find("\n");
+        if (found!=std::string::npos){
+            password.replace(password.find("\n"), password.find("\n") - 2, "");
+        }
     }
     else
     {
@@ -68,7 +76,7 @@ bool WiFiConfiguration::deleteNetwork(std::string SSID)
 {
     for (size_t i = 0; i < this->getConfiguredNetworks(); i++)
     {
-        if (this->getNetworkAtPosition(i)->SSID == SSID)
+        if (this->getNetworkAtPosition(i)->getSSID() == SSID)
         {
             this->removeNetwork(i);
             return true;
@@ -108,7 +116,7 @@ void WiFiConfiguration::saveConfiguration()
     for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
     {
         fileContent += (*elementPointer)->toCSVLine();
-        fileContent += "\r";
+        fileContent += "\n";
     }
     this->deleteConfigurationFile();
     sdManager->writeFile(WIFI_CONFIGURATION_FILENAME, fileContent);
@@ -124,11 +132,22 @@ std::string WiFiConfiguration::listNetworks()
     std::string list = "";
     for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
     {
-        list += (*elementPointer)->SSID;
+        list += (*elementPointer)->getSSID();
         if (elementPointer + 1 != networks->end())
         {
             list += ",";
         }
     }
     return list;
+}
+
+WiFiNetwork *WiFiConfiguration::getNetwork(std::string SSID){
+    size_t networks = getConfiguredNetworks();
+    for (size_t i = 0; i < networks; i++)
+    {
+        if(getNetworkAtPosition(i)->getSSID() == SSID){
+            return getNetworkAtPosition(i);
+        }
+    }
+    return nullptr;
 }

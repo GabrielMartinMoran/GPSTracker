@@ -12,3 +12,11 @@ std::string WiFiNetwork::toString(){
 std::string WiFiNetwork::toCSVLine(){
     return SSID + "," + password;
 }
+
+std::string WiFiNetwork::getSSID(){
+    return SSID;
+}
+
+std::string WiFiNetwork::getPassword(){
+    return password;
+}

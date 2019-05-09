@@ -11,6 +11,7 @@ public:
     std::string deletedNetowkSSID;
     std::string networksStrList;
     std::string networkFromCSVLine;
+    void loadConfiguration() {}
     size_t getConfiguredNetworks() {return 0;}
     IWiFiNetwork *getNetworkAtPosition(unsigned int index) {return nullptr;}
     void removeNetwork(unsigned int index) {}
@@ -25,6 +26,9 @@ public:
     bool deleteNetwork(std::string SSID) {
         deletedNetowkSSID = SSID;
         return true;
+    }
+    IWiFiNetwork *getNetwork(std::string SSID){
+        return nullptr;
     }
 };
 

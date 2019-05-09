@@ -1,28 +1,23 @@
 #include <WiFiConnector.h>
 
-WiFiConnector::WiFiConnector()
+WiFiConnector::WiFiConnector(IWiFiConfiguration *wifiConfiguration)
 {
+    this->wifiConfiguration = wifiConfiguration;
     WiFi.mode(WIFI_STA);
-    WiFi.disconnect();
+    disconnect();
 }
 
-void WiFiConnector::connect(String SSID, String password)
+bool WiFiConnector::connect(std::string SSID, std::string password)
 {
-    char _SSID[SSID.length() + 1];
-    SSID.toCharArray(_SSID, SSID.length() + 1);
-    char _password[password.length() + 1];
-    password.toCharArray(_password, password.length() + 1);
-
     Serial.println("WiFi module is trying to connect to:");
     Serial.print("SSID: ");
-    Serial.println(_SSID);
+    Serial.println(SSID.c_str());
     Serial.print("Password: ");
-    Serial.println(_password);
-
-    WiFi.disconnect();
+    Serial.println(password.c_str());
+    disconnect();
     delay(500);
 
-    WiFi.begin(_SSID, _password);
+    WiFi.begin(SSID.c_str(), password.c_str());
     byte intentos = 0;
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -32,36 +27,78 @@ void WiFiConnector::connect(String SSID, String password)
         if (intentos > MAX_CONNECTION_RETRIES)
         {
             Serial.println("\nCould not stablish WiFi connection");
-            return;
+            connected = false;
+            return false;
         }
     }
     Serial.println("\nWiFi connection stablished successfully!");
-    return;
+    connected = true;
+    return true;
 }
 
-void WiFiConnector::getAvaliableNetworks()
+std::vector<std::string> WiFiConnector::getAvaliableNetworks()
 {
-    Serial.println("Avaliable Networks:");
     byte networkNumbers = WiFi.scanNetworks();
+    std::vector<std::string> networks = std::vector<std::string>();
     byte actualNetwork = 0;
     while (actualNetwork < networkNumbers)
     {
-        Serial.println(WiFi.SSID(actualNetwork));
+        networks.push_back(WiFi.SSID(actualNetwork).c_str());
         actualNetwork++;
     }
+    return networks;
 }
 
-bool WiFiConnector::isNetworkAvaliable(String SSID)
+void WiFiConnector::disconnect()
+{
+    WiFi.disconnect();
+    connected = false;
+}
+
+bool WiFiConnector::isNetworkAvaliable(std::string SSID)
 {
     byte networkNumbers = WiFi.scanNetworks();
     byte actualNetwork = 0;
     while (actualNetwork < networkNumbers)
     {
-        if (WiFi.SSID(actualNetwork) == SSID)
+        if (WiFi.SSID(actualNetwork).c_str() == SSID.c_str())
         {
             return true;
         }
         actualNetwork++;
     }
     return false;
+}
+
+bool WiFiConnector::isConnected()
+{
+    return connected;
+}
+
+void WiFiConnector::beginConnectionLoop()
+{
+    while(true){
+        if(WiFi.status() != WL_CONNECTED){
+            connected = false;
+            Serial.println("> EL WIFI NO ESTA CONECTADO!");
+            tryToConnectToAnAvaliableNetwork();
+        }    
+        delay(200);
+    }
+}
+
+void WiFiConnector::tryToConnectToAnAvaliableNetwork(){
+    std::vector<std::string> avaliableNetworks = getAvaliableNetworks();
+    for (size_t i = 0; i < avaliableNetworks.size(); i++)
+    {
+        std::string currSSID = avaliableNetworks.at(i);
+        IWiFiNetwork *currNetwork = wifiConfiguration->getNetwork(currSSID);
+        if(currNetwork != nullptr){
+            bool couldConnect = connect(currNetwork->getSSID(), currNetwork->getPassword());
+            if(couldConnect){
+                return;
+            }
+        }
+    }
+    
 }

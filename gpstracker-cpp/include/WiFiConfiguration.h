@@ -30,6 +30,7 @@ public:
   void deleteConfigurationFile();
   std::string listNetworks();
   bool deleteNetwork(std::string SSID);
+  WiFiNetwork *getNetwork(std::string SSID);
 };
 
 #endif

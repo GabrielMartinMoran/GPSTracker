@@ -6,12 +6,15 @@
 
 class WiFiNetwork : public IWiFiNetwork
 {
-  public:
+  private:
     std::string SSID;
     std::string password;
+  public:
     WiFiNetwork(std::string SSID, std::string password);
     std::string toString();
     std::string toCSVLine();
+    std::string getSSID();
+    std::string getPassword();
 };
 
 #endif

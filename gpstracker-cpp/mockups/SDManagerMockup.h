@@ -9,6 +9,7 @@ class SDManagerMockup : public ISDManager {
     public:
         std::vector<std::string>  *dataLines;
         std::string deletedFilePath;
+        std::string writtenFile;
         bool isValidSD() {
             return true;
         }
@@ -22,6 +23,7 @@ class SDManagerMockup : public ISDManager {
             return dataLines;
         }
         bool writeFile(const char * path, const std::string data) {
+            writtenFile = data;
             return true;
         }
         bool appendFile(const char * path, const std::string data){
