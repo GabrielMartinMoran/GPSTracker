@@ -8,6 +8,8 @@ class BluetoothMockup : public IBluetooth
 {
   public:
     std::string transmittedData;
+    void start() {}
+    void stop() {}
     void setConnectionStatus(bool value) {}
     bool isConnected() {return true;}
     void configureWriteCallback(IBluetoothServer *btServer) {}

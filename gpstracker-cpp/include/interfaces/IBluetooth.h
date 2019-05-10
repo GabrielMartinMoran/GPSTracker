@@ -11,10 +11,12 @@ class IBluetooth
 {
   public:
     virtual ~IBluetooth() {}
-    virtual void setConnectionStatus(bool value) {}
-    virtual bool isConnected() {return 0;}
-    virtual void configureWriteCallback(IBluetoothServer *btServer) {}
-    virtual void transmitData(std::string data) {}
+    virtual void start(IBluetoothServer *btServer) = 0;
+    virtual void stop() = 0;
+    virtual void setConnectionStatus(bool value) = 0;
+    virtual bool isConnected() = 0;
+    virtual void configureWriteCallback(IBluetoothServer *btServer) = 0;
+    virtual void transmitData(std::string data) = 0;
 };
 
 #endif

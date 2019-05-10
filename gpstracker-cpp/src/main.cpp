@@ -1,3 +1,7 @@
+//#include <Orchestator.h>
+
+#include <thread>
+#include <iostream>
 #include <SDManager.h>
 #include <SerialController.h>
 #include <BluetoothServer.h>
@@ -5,16 +9,16 @@
 #include <Bluetooth.h>
 #include <WiFiConnector.h>
 
-#include <thread>
-#include <iostream>
-
-void runWifiConnectionLoopThreaded(WiFiConnector *wifiConnector){
+void runWifiConnectionLoopThreaded(WiFiConnector *wifiConnector)
+{
     wifiConnector->beginConnectionLoop();
 }
 
-void blinkLed(){
+void blinkLed()
+{
     pinMode(LED_BUILTIN, OUTPUT);
-    while(true){
+    while (true)
+    {
         digitalWrite(LED_BUILTIN, HIGH);
         delay(1000);
         digitalWrite(LED_BUILTIN, LOW);
@@ -64,15 +68,17 @@ void setup()
     //A continuación un código de ejemplo de como se debería instanciar este componente
     //WiFiConnector *wifiConnector = new WiFiConnector(wifiConfiguration);
     //En un thread nuevo se deberia llamar a una funcion que loopee y trate de conectarse en caso de que este desconectado
-
+    /*
     WiFiConnector *wifiConnector = new WiFiConnector(wifiConfiguration);
 
     std::thread wifiConnectionLoopThread = std::thread(runWifiConnectionLoopThreaded, wifiConnector);
 
     std::thread ledBlinkThread = std::thread(blinkLed);
-
+    
     wifiConnectionLoopThread.join();
     ledBlinkThread.join();
+    
+    */
 
     //Transmisor de datos a la aplicacion de android
     //este conectado a una red wifi
@@ -81,6 +87,41 @@ void setup()
     //En un thread nuevo se deberia llamar a una funcion que envie datos si el wifiConnector pudo conectarse
 
     //delete bt;
+
+    
+    pinMode(LED_BUILTIN, OUTPUT);
+    bool estadoBTServer = true;
+    btServer->start();
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(1000);
+    uint16_t touchValue;
+    while (true)
+    {
+        touchValue = touchRead(T4);
+        //Serial.print("TOUCH VALUE: ");
+        //Serial.println(touchValue);
+        if (touchValue < 25)
+        {
+            estadoBTServer = !estadoBTServer;
+            if (estadoBTServer)
+            {
+                Serial.println("Iniciando BLE Server");
+                btServer->start();
+                digitalWrite(LED_BUILTIN, HIGH);
+            }
+            else
+            {
+                Serial.println("Deteniendo BLE Server");
+                btServer->stop();
+                digitalWrite(LED_BUILTIN, LOW);
+            }
+            while (touchRead(T4) < 50)
+            {
+            }
+        }
+        delay(200);
+    }
+    
     serialController->println("~~ Fin del setup ~~");
 
     //Deletes (ver donde ubicar) ya que aqui cuando termine el setup van a morir

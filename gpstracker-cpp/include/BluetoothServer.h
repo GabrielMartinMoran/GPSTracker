@@ -36,6 +36,8 @@ private:
 public:
     BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetooth *bluetooth, ISerialController *serialController);
     ~BluetoothServer();
+    void start();
+    void stop();
     void onRequest(std::string request);
     void sendResponse(std::string response);
 };

@@ -23,21 +23,29 @@
 //Forward declaration
 class BluetoothServer;
 class BluetoothWriteCallback;
+class BluetoothServerCallbacks;
 
 class Bluetooth : public IBluetooth
 {
   private:
-    BLECharacteristic *pCharacteristic;
+    BluetoothServerCallbacks *serverCallback;
     BluetoothWriteCallback *writeCallback;
+    BLEServer *pServer;
+    BLEService *pService;
+    BLECharacteristic *notifyCharacteristic;
+    BLECharacteristic *writeCharacteristic;
+    BLE2902 *descriptor;
+    bool firstInit = true;
     bool deviceConnected = false;
     float txValue = 0;
 
   public:
-    Bluetooth();
     ~Bluetooth();
+    void start(IBluetoothServer *btServer);
+    void stop();
     void setConnectionStatus(bool value);
     bool isConnected();
-    void configureWriteCallback(BluetoothServer *btServer);
+    void configureWriteCallback(IBluetoothServer *btServer);
     void transmitData(std::string data);
 };
 

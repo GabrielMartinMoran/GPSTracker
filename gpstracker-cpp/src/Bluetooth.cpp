@@ -1,56 +1,96 @@
 #include "Bluetooth.h"
 
-Bluetooth::Bluetooth()
+Bluetooth::~Bluetooth()
 {
-    pinMode(LED_PIN, OUTPUT);
+    stop();
+}
 
-    // Create the BLE Device
-    BLEDevice::init(DEVICE_BT_NAME);
+void Bluetooth::start(IBluetoothServer *btServer)
+{
+    
 
-    // Create the BLE Server
-    BLEServer *pServer = BLEDevice::createServer();
-    pServer->setCallbacks(new BluetoothServerCallbacks(this));
+    if (firstInit)
+    {
+        Serial.println("FIRST INIT");
+        // Create the BLE Device
+        BLEDevice::init(DEVICE_BT_NAME);
 
-    // Create the BLE Service
-    BLEService *pService = pServer->createService(SERVICE_UUID);
+        writeCallback = new BluetoothWriteCallback();
 
-    // Create a BLE Characteristic
-    pCharacteristic = pService->createCharacteristic(
-        CHARACTERISTIC_UUID_TX,
-        BLECharacteristic::PROPERTY_NOTIFY);
+        serverCallback = new BluetoothServerCallbacks(this);
 
-    pCharacteristic->addDescriptor(new BLE2902());
+        // Create the BLE Server
+        pServer = BLEDevice::createServer();
+        pServer->setCallbacks(serverCallback);
 
-    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-        CHARACTERISTIC_UUID_RX,
-        BLECharacteristic::PROPERTY_WRITE);
+        // Create the BLE Service
+        pService = pServer->createService(SERVICE_UUID);
 
-    writeCallback = new BluetoothWriteCallback();
-    pCharacteristic->setCallbacks(writeCallback);
+        // Create a BLE Characteristic
+        notifyCharacteristic = pService->createCharacteristic(
+            CHARACTERISTIC_UUID_TX,
+            BLECharacteristic::PROPERTY_NOTIFY);
 
-    // Start the service
-    pService->start();
+        descriptor = new BLE2902();
+        notifyCharacteristic->addDescriptor(descriptor);
+
+        writeCharacteristic = pService->createCharacteristic(
+            CHARACTERISTIC_UUID_RX,
+            BLECharacteristic::PROPERTY_WRITE);
+
+        writeCharacteristic->setCallbacks(writeCallback);
+
+        writeCallback->configureServer(btServer);
+
+
+        // Start the service
+        pService->start();
+        
+        firstInit = false;
+    }    
 
     // Start advertising
     pServer->getAdvertising()->start();
     Serial.println("BLE Turned On!");
 }
 
-Bluetooth::~Bluetooth()
+void Bluetooth::stop()
 {
+    /*
+    // Start the service
+    pService->stop();
+
+    // Start advertising
+    pServer->getAdvertising()->stop();
+    */
+
+    // Start the service
+    //pService->stop();
+
+    // Start advertising
+    pServer->getAdvertising()->stop();
+    /*
+    delete pServer;
+    delete pService;
+    delete descriptor;
     delete writeCallback;
-    delete pCharacteristic;
-    
+    delete serverCallback;
+    delete notifyCharacteristic;
+    delete writeCharacteristic;*/
+
+    Serial.println("BLE Turned Off!");
 }
 
-void Bluetooth::transmitData(std::string data){
-    if(!deviceConnected){
+void Bluetooth::transmitData(std::string data)
+{
+    if (!deviceConnected)
+    {
         return;
     }
     //char buffer[data.length() + 1];
     //data.toCharArray(buffer, data.length() + 1);
-    pCharacteristic->setValue(data);
-    pCharacteristic->notify(); // Send the value
+    writeCharacteristic->setValue(data);
+    writeCharacteristic->notify(); // Send the value
 }
 
 void Bluetooth::setConnectionStatus(bool value)
@@ -63,7 +103,7 @@ bool Bluetooth::isConnected()
     return deviceConnected;
 }
 
-void Bluetooth::configureWriteCallback(BluetoothServer *btServer)
+void Bluetooth::configureWriteCallback(IBluetoothServer *btServer)
 {
     writeCallback->configureServer(btServer);
 }

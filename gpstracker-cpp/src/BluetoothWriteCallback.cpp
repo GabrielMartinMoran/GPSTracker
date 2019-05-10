@@ -1,6 +1,6 @@
 #include <BluetoothWriteCallback.h>
 
-void BluetoothWriteCallback::configureServer(BluetoothServer *btServer)
+void BluetoothWriteCallback::configureServer(IBluetoothServer *btServer)
 {
     this->btServer = btServer;
 }

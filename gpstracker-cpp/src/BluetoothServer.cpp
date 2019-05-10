@@ -5,11 +5,21 @@ BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetoo
     this->wifiConfiguration = wifiConfiguration;
     this->bluetooth = bluetooth;
     this->serialController = serialController;
-    bluetooth->configureWriteCallback(this);
+    //bluetooth->configureWriteCallback(this);
 }
 
 BluetoothServer::~BluetoothServer()
 {
+}
+
+void BluetoothServer::start()
+{
+    bluetooth->start(this);
+}
+
+void BluetoothServer::stop()
+{
+    bluetooth->stop();
 }
 
 bool BluetoothServer::isCommand(std::string request, std::string command)
