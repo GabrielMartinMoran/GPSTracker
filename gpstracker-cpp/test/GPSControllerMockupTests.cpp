@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <GPSControllerMockup.h>
-#include <StringEquals.h>
 
 TEST(GPSControllerMockup, getInformation)
 {
@@ -10,6 +9,8 @@ TEST(GPSControllerMockup, getInformation)
     GPSControllerMockup *m1 = new GPSControllerMockup(pinTX, pinRX);
     GPSControllerMockup *m2 = new GPSControllerMockup();
     std::string command = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
-    EXPECT_TRUE(equals(command, m1->getInformation()));
-    EXPECT_TRUE(equals(command, m2->getInformation()));
+    EXPECT_TRUE(command == m1->getInformation());
+    EXPECT_TRUE(command == m2->getInformation()); 
+    delete m1;
+    delete m2;
 }

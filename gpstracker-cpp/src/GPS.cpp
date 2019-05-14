@@ -1,58 +1,87 @@
 #include <GPS.h>
-#include <StringToNumber.h>
 
-void GPS::actualizar(){
-    std::string datos = controladorGPSMockup->getInformation();
+GPS::GPS(IGPSController *GPSController)
+{
+    this->GPSController = GPSController;
+}
+
+void GPS::actualizar()
+{
+    std::string datos = this->GPSController->getInformation();
     StringTokenizer tokens(datos, ",");
-    if(tokens.nextToken().compare("$PGRMC")){
-        std::string tiempo = tokens.nextToken(); // Time of fix 22:54:46 UTC
-        parsearTiempo(tiempo, &hora, &minuto, &segundo);
-        if(tokens.nextToken().compare("A")){
-            latitud = StringToNumber<float>(tokens.nextToken());
-            N = tokens.nextToken().compare("N");
-            longitud = StringToNumber<float>(tokens.nextToken());
-            W = tokens.nextToken().compare("W");
-            tokens.nextToken(); //Speed over ground, Knots
-            tokens.nextToken(); //Course Made Good, True
-            std::string fecha = tokens.nextToken(); //Date of fix  19 November 1994
-            parsearTiempo(fecha, &dia, &mes, &anio);
+    if (tokens.nextToken() == "$GPRMC")
+    {
+        std::string tiempo = tokens.nextToken(); // 08:18:36 UTC
+        parsearTiempo(tiempo, &(this->hora), &(this->minuto), &(this->segundo));
+        if (tokens.nextToken() == std::string("A"))
+        {
+            this->latitud = ::atof(tokens.nextToken().c_str());
+            this->N = tokens.nextToken() == std::string("N");
+            this->longitud = ::atof(tokens.nextToken().c_str());
+            this->W = tokens.nextToken() == std::string("W");
+            tokens.nextToken();                     //Speed over ground, Knots
+            tokens.nextToken();                     //Course Made Good, True
+            std::string fecha = tokens.nextToken(); //13 Sep 1998
+            parsearTiempo(fecha, &(this->dia), &(this->mes), &(this->anio));
             tokens.nextToken(); //Magnetic variation 20.3 deg East
             tokens.nextToken(); //mandatory checksum
         }
     }
 }
 
-void GPS::parsearTiempo(std::string tiempo, uint8_t *horaDia, uint8_t *minutoMes, uint8_t *sengundoAnio){
-    *horaDia = StringToNumber<uint8_t>(tiempo.substr(0,2));
-    *minutoMes = StringToNumber<uint8_t>(tiempo.substr(2,4));
-    *sengundoAnio = StringToNumber<uint8_t>(tiempo.substr(4,6));
+void GPS::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio)
+{
+    *horaDia = atoi(tiempo.substr(0, 2).c_str());
+    *minutoMes = atoi(tiempo.substr(2, 4).c_str());
+    *sengundoAnio = atoi(tiempo.substr(4, 6).c_str());
 }
 
-uint8_t GPS::getHora(){
-    return hora;
+int GPS::getHora()
+{
+    return this->hora;
 }
 
-uint8_t GPS::getMinuto(){
-    return hora;
+int GPS::getMinuto()
+{
+    return this->minuto;
 }
 
-uint8_t GPS::getSegundo(){
-    return hora;
+int GPS::getSegundo()
+{
+    return this->segundo;
 }
 
-uint8_t GPS::getDia(){
-    return hora;
+int GPS::getDia()
+{
+    return this->dia;
 }
 
-uint8_t GPS::getMes(){
-    return hora;
+int GPS::getMes()
+{
+    return this->mes;
 }
 
-uint8_t GPS::getAnio(){
-    return hora;
+int GPS::getAnio()
+{
+    return this->anio;
 }
 
-GPS::~GPS(){
-    delete controladorGPSMockup;
+float GPS::getLatitud()
+{
+    return this->latitud;
 }
-
+float GPS::getLongitud()
+{
+    return this->longitud;
+}
+bool GPS::isN()
+{
+    return this->N;
+}
+bool GPS::isW()
+{
+    return this->W;
+}
+GPS::~GPS()
+{
+}

@@ -1,9 +1,7 @@
-#ifndef GPSControllerMockup_h
-#define GPSControllerMockup_h
-
+#include <interfaces/IGPSController.h>
 #include <iostream>
 
-class GPSControllerMockup
+class GPSControllerMockup : public IGPSController
 {
 private:
     int pinRX = 0;
@@ -21,5 +19,3 @@ public:
     }
     ~GPSControllerMockup(){}
 };
-
-#endif

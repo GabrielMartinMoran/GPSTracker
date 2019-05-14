@@ -18,6 +18,7 @@ public:
     void addNetwork(std::string SSID, std::string password) {}
     bool addNetworkFromCSVLine(std::string SSIDNetworkCSV) {
         networkFromCSVLine = SSIDNetworkCSV;
+        return true;
     }
     void deleteConfigurationFile() {}
     std::string listNetworks() {

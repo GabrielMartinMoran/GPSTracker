@@ -5,14 +5,14 @@ set(This GPSTracker)
 project(${This} C CXX)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
-set(includes include src mockups googletest)
+set(includes include src mockups googletest utils)
 
 include_directories(${includes})
 
@@ -23,16 +23,16 @@ add_subdirectory(test)
 add_subdirectory(include)
 add_subdirectory(mockups)
 
+file(GLOB utils utils/*.h utils/*.cpp)
 
 #AGREGAR AQUI LOS SRC QUE SON NECESARIOS PARA LOS TESTS
 set(Sources
 
-    src/StringEquals.cpp
     src/WiFiNetwork.cpp
     src/WiFiConfiguration.cpp
-    src/StringTokenizer.cpp
     src/BluetoothServer.cpp
+    src/GPS.cpp
 
 )
 
-add_library(${This} STATIC ${Sources})
+add_library(${This} STATIC ${Sources} ${utils})

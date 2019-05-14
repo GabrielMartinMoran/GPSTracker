@@ -2,34 +2,40 @@
 #define GPS_h
 
 #include <iostream>
-#include "../mockups/GPSControllerMockup.h"
-#include "StringTokenizer.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <interfaces/IGPSController.h>
+#include <StringTokenizer.h>
 
 class GPS
 {
 private:
-    GPSControllerMockup *controladorGPSMockup;
-    uint8_t hora = 0;
-    uint8_t minuto = 0;
-    uint8_t segundo = 0;
-    uint8_t dia = 0;
-    uint8_t mes = 0;
-    uint8_t anio = 0;
+    IGPSController *GPSController;
+    int hora = 0;
+    int minuto = 0;
+    int segundo = 0;
+    int dia = 0;
+    int mes = 0;
+    int anio = 0;
     float latitud = 0;
     float longitud = 0;
     bool N = true;
     bool W = true;
-    void parsearTiempo(std::string tiempo, uint8_t *horaDia, uint8_t *minutoMes, uint8_t *sengundoAnio);
+    void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
 
 public:
-    GPS(GPSControllerMockup *controladorGPSMockup);
+    GPS(IGPSController *GPSController);
     void actualizar();
-    uint8_t getHora();
-    uint8_t getMinuto();
-    uint8_t getSegundo();
-    uint8_t getDia();
-    uint8_t getMes();
-    uint8_t getAnio();
+    int getHora();
+    int getMinuto();
+    int getSegundo();
+    int getDia();
+    int getMes();
+    int getAnio();
+    float getLatitud();
+    float getLongitud();
+    bool isN();
+    bool isW();
     ~GPS();
 };
 
