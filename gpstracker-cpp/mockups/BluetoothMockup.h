@@ -2,13 +2,16 @@
 #define BluetoothMockup_h
 
 #include <interfaces/IBluetooth.h>
+#include <interfaces/IBluetoothServer.h>
 #include <iostream>
 
 class BluetoothMockup : public IBluetooth
 {
   public:
     std::string transmittedData;
-    void start() {}
+    BluetoothMockup(){};
+    ~BluetoothMockup(){};
+    void start(IBluetoothServer *btServer) {}
     void stop() {}
     void setConnectionStatus(bool value) {}
     bool isConnected() {return true;}

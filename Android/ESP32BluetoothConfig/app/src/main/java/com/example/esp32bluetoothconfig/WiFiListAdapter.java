@@ -91,7 +91,7 @@ public class WiFiListAdapter extends ArrayAdapter<String>{
     //Elimina el Wifi en el indice "index" de la lista
     public void deleteRegistry(int index) {
         String message;
-        String request = "$DELETE_WIFI$" + itemsList.get(index);
+        String request = "$DELETE_NETWORK$" + itemsList.get(index);
         String response = GlobalObjectManager.bluetoothHelper.makeRequest(request);
         if(response != null && response.equals("200")){
             itemsList.remove(index);

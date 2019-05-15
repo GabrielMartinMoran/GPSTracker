@@ -50,7 +50,7 @@ public class WiFiListActivity extends AppCompatActivity implements AddNetworkDia
 
     @Override
     public void applyTexts(String SSID, String password) {
-        String response = GlobalObjectManager.bluetoothHelper.makeRequest("$ADD_WIFI$" + SSID + "," + password);
+        String response = GlobalObjectManager.bluetoothHelper.makeRequest("$ADD_NETWORK$" + SSID + "," + password);
         if(response.equals("200")){
             mWiFiListFragment.addNetwork(SSID);
         }else{
