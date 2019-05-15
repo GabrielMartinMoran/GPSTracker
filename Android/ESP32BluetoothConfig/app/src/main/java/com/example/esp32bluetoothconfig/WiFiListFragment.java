@@ -62,7 +62,7 @@ public class WiFiListFragment extends Fragment{
     }
 
     public void loadConfiguredNetworsList() {
-        String networkStrList = GlobalObjectManager.bluetoothHelper.makeRequest("$LIST_WIFI$");
+        String networkStrList = GlobalObjectManager.bluetoothHelper.makeRequest("$LIST_NETWORKS$");
         configuredNetworksList = new ArrayList<String>(Arrays.asList(networkStrList.split("\\s*,\\s*")));
     }
 
