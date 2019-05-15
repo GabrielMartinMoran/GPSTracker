@@ -6,11 +6,8 @@
 
 #include "StringTokenizer.h"
 
-StringTokenizer::StringTokenizer(std::string str, std::string del)
+StringTokenizer::StringTokenizer(std::string str, std::string del) : _str(str), _del(del), ptr(0)
 {
-    _str = str;
-    _del = del;
-    ptr = 0;
 }
 
 bool StringTokenizer::hasNext()
