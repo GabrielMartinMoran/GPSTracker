@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <interfaces/IGPSController.h>
 #include <StringTokenizer.h>
+#include <Haversine.h>
 
 class GPS
 {
@@ -17,12 +18,10 @@ private:
     int dia = 0;
     int mes = 0;
     int anio = 0;
-    float latitud = 0;
-    float longitud = 0;
-    bool N = true;
-    bool W = true;
+    double latitud = 0;
+    double longitud = 0;
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
-
+    bool posicionValida(double latitud, double longitud);
 public:
     GPS(IGPSController *GPSController);
     void actualizar();
@@ -32,10 +31,8 @@ public:
     int getDia();
     int getMes();
     int getAnio();
-    float getLatitud();
-    float getLongitud();
-    bool isN();
-    bool isW();
+    double getLatitud();
+    double getLongitud();
     ~GPS();
 };
 

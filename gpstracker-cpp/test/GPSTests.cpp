@@ -80,32 +80,6 @@ TEST(GPS, getAnio)
     delete gps;
 }
 
-TEST(GPS, isN)
-{
-    GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
-    gps->actualizar();
-    bool esperado = false;
-    bool obtenido = gps->isN();
-    ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
-                                  << "obtenido: " << obtenido;
-    delete gpsControllerMockup;
-    delete gps;
-}
-
-TEST(GPS, isW)
-{
-    GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
-    gps->actualizar();
-    bool esperado = false;
-    bool obtenido = gps->isW();
-    ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
-                                  << "obtenido: " << obtenido;
-    delete gpsControllerMockup;
-    delete gps;
-}
-
 TEST(GPS, getLatitud)
 {
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();

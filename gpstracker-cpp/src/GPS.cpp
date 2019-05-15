@@ -5,6 +5,10 @@ GPS::GPS(IGPSController *GPSController)
     this->GPSController = GPSController;
 }
 
+bool GPS::posicionValida(double latitud, double longitud){
+    return haversine_km(latitud, longitud, this->latitud, this->longitud) > 0;
+}
+
 void GPS::actualizar()
 {
     std::string datos = this->GPSController->getInformation();
@@ -16,9 +20,13 @@ void GPS::actualizar()
         if (tokens.nextToken() == std::string("A"))
         {
             this->latitud = ::atof(tokens.nextToken().c_str());
-            this->N = tokens.nextToken() == std::string("N");
+            if(tokens.nextToken() == std::string("S")){
+                this->latitud *= -1;
+            }
             this->longitud = ::atof(tokens.nextToken().c_str());
-            this->W = tokens.nextToken() == std::string("W");
+            if(tokens.nextToken() == std::string("E")){
+                this->longitud *= -1;
+            }
             tokens.nextToken();                     //Speed over ground, Knots
             tokens.nextToken();                     //Course Made Good, True
             std::string fecha = tokens.nextToken(); //13 Sep 1998
@@ -66,22 +74,15 @@ int GPS::getAnio()
     return this->anio;
 }
 
-float GPS::getLatitud()
+double GPS::getLatitud()
 {
     return this->latitud;
 }
-float GPS::getLongitud()
+double GPS::getLongitud()
 {
     return this->longitud;
 }
-bool GPS::isN()
-{
-    return this->N;
-}
-bool GPS::isW()
-{
-    return this->W;
-}
+
 GPS::~GPS()
 {
 }
