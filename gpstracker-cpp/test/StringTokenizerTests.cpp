@@ -49,7 +49,7 @@ TEST(StringTokenizer, tokens)
     obtenido = tokens.nextToken();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    esperado = "E*63";
+    esperado = "E*62";
     obtenido = tokens.nextToken();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;

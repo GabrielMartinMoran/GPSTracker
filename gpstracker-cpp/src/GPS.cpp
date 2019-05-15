@@ -32,8 +32,8 @@ void GPS::actualizar()
 void GPS::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio)
 {
     *horaDia = atoi(tiempo.substr(0, 2).c_str());
-    *minutoMes = atoi(tiempo.substr(2, 4).c_str());
-    *sengundoAnio = atoi(tiempo.substr(4, 6).c_str());
+    *minutoMes = atoi(tiempo.substr(2, 2).c_str());
+    *sengundoAnio = atoi(tiempo.substr(4, 2).c_str());
 }
 
 int GPS::getHora()

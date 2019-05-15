@@ -15,14 +15,7 @@ StringTokenizer::StringTokenizer(std::string str, std::string del)
 
 bool StringTokenizer::hasNext()
 {
-    if (ptr < _str.length())
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ptr < _str.length();
 }
 
 std::string StringTokenizer::nextToken()
@@ -36,7 +29,7 @@ std::string StringTokenizer::nextToken()
     std::string result = "";
     int delIndex = _str.find(_del, ptr);
 
-    if (delIndex == std::npos)
+    if (delIndex == std::string::npos)
     {
         result = _str.substr(ptr);
         ptr = _str.length();
