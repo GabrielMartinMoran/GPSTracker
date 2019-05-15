@@ -36,7 +36,7 @@ std::string StringTokenizer::nextToken()
     std::string result = "";
     int delIndex = _str.find(_del, ptr);
 
-    if (delIndex == std::npos)
+    if (delIndex == std::string::npos)
     {
         result = _str.substr(ptr);
         ptr = _str.length();
