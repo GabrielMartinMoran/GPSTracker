@@ -12,7 +12,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
-set(includes include src mockups googletest utils)
+set(includes include src mockups googletest)
 
 include_directories(${includes})
 
@@ -22,17 +22,16 @@ add_subdirectory(googletest)
 add_subdirectory(test)
 add_subdirectory(include)
 add_subdirectory(mockups)
-
-file(GLOB utils utils/*.h utils/*.cpp)
+add_subdirectory(src)
 
 #AGREGAR AQUI LOS SRC QUE SON NECESARIOS PARA LOS TESTS
 set(Sources
-
     src/WiFiNetwork.cpp
     src/WiFiConfiguration.cpp
     src/BluetoothServer.cpp
     src/GPS.cpp
-
 )
+
+file(GLOB utils src/utils/*.cpp)
 
 add_library(${This} STATIC ${Sources} ${utils})

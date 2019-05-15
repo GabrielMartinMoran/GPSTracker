@@ -4,7 +4,7 @@
   Released into the public domain.
 */
 
-#include "StringTokenizer.h"
+#include "utils/StringTokenizer.h"
 
 StringTokenizer::StringTokenizer(std::string str, std::string del) : _str(str), _del(del), ptr(0)
 {

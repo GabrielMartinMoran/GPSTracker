@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <StringTokenizer.h>
+#include <utils/StringTokenizer.h>
 
 TEST(StringTokenizer, tokens)
 {

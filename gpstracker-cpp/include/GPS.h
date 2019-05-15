@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <interfaces/IGPSController.h>
-#include <StringTokenizer.h>
-#include <Haversine.h>
+#include <utils/StringTokenizer.h>
+#include <utils/Haversine.h>
 
 class GPS
 {

@@ -7,7 +7,7 @@
 #include <interfaces/IBluetooth.h>
 #include <interfaces/IWiFiConfiguration.h>
 #include <interfaces/ISerialController.h>
-#include <StringTokenizer.h>
+#include <utils/StringTokenizer.h>
 
 #define OK "200"
 #define ERROR "400"

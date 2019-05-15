@@ -1,5 +1,5 @@
 
-#include <StringToNumber.h>
+#include <utils/StringToNumber.h>
 
 template <typename T>
 T StringToNumber(const std::string &numberAsString)
