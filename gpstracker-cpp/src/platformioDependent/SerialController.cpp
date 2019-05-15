@@ -1,4 +1,4 @@
-#include <SerialController.h>
+#include <platformioDependent/SerialController.h>
 
 SerialController::SerialController()
 {

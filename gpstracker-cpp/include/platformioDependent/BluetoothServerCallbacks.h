@@ -2,7 +2,7 @@
 #define BluetoothServerCallbacks_h
 
 #include <BLEServer.h>
-#include <Bluetooth.h>
+#include <platformioDependent/Bluetooth.h>
 
 class Bluetooth;
 

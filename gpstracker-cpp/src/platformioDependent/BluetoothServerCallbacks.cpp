@@ -1,4 +1,4 @@
-#include <BluetoothServerCallbacks.h>
+#include <platformioDependent/BluetoothServerCallbacks.h>
 
 BluetoothServerCallbacks::BluetoothServerCallbacks(Bluetooth *bt)
 {

@@ -1,4 +1,4 @@
-#include <BluetoothWriteCallback.h>
+#include <platformioDependent/BluetoothWriteCallback.h>
 
 void BluetoothWriteCallback::configureServer(IBluetoothServer *btServer)
 {

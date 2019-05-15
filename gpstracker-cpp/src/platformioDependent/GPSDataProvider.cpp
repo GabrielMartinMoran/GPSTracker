@@ -1,4 +1,4 @@
-#include "GPSDataProvider.h"
+#include "platformioDependent/GPSDataProvider.h"
     //char msgBuff[message.length() + 1];
     //message.toCharArray(msgBuff, message.length() + 1); 
     //sdManager->appendFile(path, msgBuff);

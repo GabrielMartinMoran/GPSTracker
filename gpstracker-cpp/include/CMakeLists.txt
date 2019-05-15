@@ -2,12 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 set(This include)
 
-set(Headers
-    GPS.h
-    WiFiNetwork.h
-    WiFiConfiguration.h
-    BluetoothServer.h
-    )
+file(GLOB Headers *.h)
 
 add_library(${This} ${Headers})
 

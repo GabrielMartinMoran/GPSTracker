@@ -2,12 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 set(This src)
 
-set(src
-    GPS.cpp
-    WiFiNetwork.cpp
-    WiFiConfiguration.cpp
-    BluetoothServer.cpp
-    )
+file(GLOB src *.cpp)
 
 add_library(${This} ${src})
 

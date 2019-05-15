@@ -2,12 +2,12 @@
 
 #include <thread>
 #include <iostream>
-#include <SDManager.h>
-#include <SerialController.h>
+#include <platformioDependent/SDManager.h>
+#include <platformioDependent/SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
-#include <Bluetooth.h>
-#include <WiFiConnector.h>
+#include <platformioDependent/Bluetooth.h>
+#include <platformioDependent/WiFiConnector.h>
 
 void runWifiConnectionLoopThreaded(WiFiConnector *wifiConnector)
 {
