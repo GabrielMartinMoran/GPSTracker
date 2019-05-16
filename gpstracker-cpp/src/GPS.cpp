@@ -10,15 +10,22 @@ bool GPS::posicionValida(GPSData gpsData)
     return haversine_m(this->gpsData.getLatitud(), this->gpsData.getLongitud(), gpsData.getLatitud(), gpsData.getLongitud()) > 2.5;
 }
 
-void GPS::actualizar()
+bool GPS::actualizar()
 {
-    std::string datos = this->GPSController->getInformation();
-    GPSData nuevo = GPSData(datos);
-    if(nuevo.isValido()){
-        if(posicionValida(nuevo)){
-            this->gpsData = nuevo;
+    while (this->GPSController->isDataWaiting())
+    {
+        std::string datos = this->GPSController->getInformation();
+        GPSData nuevo = GPSData(datos);
+        if (nuevo.isValido())
+        {
+            if (posicionValida(nuevo))
+            {
+                this->gpsData = nuevo;
+                return true;
+            }
         }
     }
+    return false;
 }
 
 int GPS::getHora()
@@ -51,11 +58,11 @@ int GPS::getAnio()
     return this->gpsData.getAnio();
 }
 
-double GPS::getLatitud()
+float GPS::getLatitud()
 {
     return this->gpsData.getLatitud();
 }
-double GPS::getLongitud()
+float GPS::getLongitud()
 {
     return this->gpsData.getLongitud();
 }

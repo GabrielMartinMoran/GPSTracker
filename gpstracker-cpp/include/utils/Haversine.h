@@ -2,6 +2,6 @@
 #define Haversine_h
 #include <math.h>
 
-double haversine_m(double lat1, double long1, double lat2, double long2);
+double haversine_m(float lat1, float long1, float lat2, float long2);
 
 #endif

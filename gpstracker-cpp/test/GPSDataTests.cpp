@@ -86,10 +86,10 @@ TEST(GPSData, getLatitudSur)
 {
     std::string data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
     GPSData *gpsData = new GPSData(data);
-    double esperado;
-    double obtenido;
+    float esperado;
+    float obtenido;
 
-    esperado = -3751.65;
+    esperado = -3751.64990234375;
     obtenido = gpsData->getLatitud();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
@@ -101,8 +101,8 @@ TEST(GPSData, getLatitudNorte)
 {
     std::string data = "$GPRMC,081836,A,3751.65,N,14507.36,E,000.0,360.0,130998,011.3,E*62";
     GPSData *gpsData = new GPSData(data);
-    double esperado;
-    double obtenido;
+    float esperado;
+    float obtenido;
 
     esperado = 3751.65;
     obtenido = gpsData->getLatitud();
@@ -116,8 +116,8 @@ TEST(GPSData, getLongitudEste)
 {
     std::string data = "$GPRMC,081836,A,3751.65,N,14507.36,E,000.0,360.0,130998,011.3,E*62";
     GPSData *gpsData = new GPSData(data);
-    double esperado;
-    double obtenido;
+    float esperado;
+    float obtenido;
 
     esperado = -14507.36;
     obtenido = gpsData->getLongitud();
@@ -131,8 +131,8 @@ TEST(GPSData, getLongitudOeste)
 {
     std::string data = "$GPRMC,081836,A,3751.65,N,14507.36,W,000.0,360.0,130998,011.3,E*62";
     GPSData *gpsData = new GPSData(data);
-    double esperado;
-    double obtenido;
+    float esperado;
+    float obtenido;
 
     esperado = 14507.36;
     obtenido = gpsData->getLongitud();

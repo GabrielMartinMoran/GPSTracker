@@ -100,11 +100,11 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    EXPECT_FALSE(m1->hayMasSentencias());
-    EXPECT_FALSE(m2->hayMasSentencias());
+    EXPECT_FALSE(m1->isDataWaiting());
+    EXPECT_FALSE(m2->isDataWaiting());
 
-    EXPECT_TRUE(m1->hayMasSentencias());
-    EXPECT_TRUE(m2->hayMasSentencias());
+    EXPECT_TRUE(m1->isDataWaiting());
+    EXPECT_TRUE(m2->isDataWaiting());
 
     command = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
 

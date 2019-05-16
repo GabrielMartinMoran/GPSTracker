@@ -17,7 +17,7 @@ GPSData::GPSData(std::string data)
                     {
                         if (tokens.hasNext())
                         {
-                            this->latitud = stringToNumber<double>(tokens.nextToken());
+                            this->latitud = stringToNumber<float>(tokens.nextToken());
                             if (tokens.hasNext())
                             {
                                 if (tokens.nextToken() == std::string("S"))
@@ -26,7 +26,7 @@ GPSData::GPSData(std::string data)
                                 }
                                 if (tokens.hasNext())
                                 {
-                                    this->longitud = stringToNumber<double>(tokens.nextToken());
+                                    this->longitud = stringToNumber<float>(tokens.nextToken());
                                     if (tokens.hasNext())
                                     {
                                         if (tokens.nextToken() == std::string("E"))
@@ -103,11 +103,11 @@ int GPSData::getAnio()
     return this->anio;
 }
 
-double GPSData::getLatitud()
+float GPSData::getLatitud()
 {
     return this->latitud;
 }
-double GPSData::getLongitud()
+float GPSData::getLongitud()
 {
     return this->longitud;
 }

@@ -46,7 +46,7 @@ public:
         return sentencia;
     }
 
-    bool hayMasSentencias()
+    bool isDataWaiting()
     {
         if (this->sentencias.empty())
         {

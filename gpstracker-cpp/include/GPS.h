@@ -14,15 +14,15 @@ private:
     bool posicionValida(GPSData gpsData);
 public:
     GPS(IGPSController *GPSController);
-    void actualizar();
+    bool actualizar(); //devuelve true si actualizo
     int getHora();
     int getMinuto();
     int getSegundo();
     int getDia();
     int getMes();
     int getAnio();
-    double getLatitud();
-    double getLongitud();
+    float getLatitud();
+    float getLongitud();
     ~GPS();
 };
 
