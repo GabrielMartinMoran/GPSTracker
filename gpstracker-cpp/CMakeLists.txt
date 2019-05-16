@@ -24,14 +24,7 @@ add_subdirectory(include)
 add_subdirectory(mockups)
 add_subdirectory(src)
 
-#AGREGAR AQUI LOS SRC QUE SON NECESARIOS PARA LOS TESTS
-set(Sources
-    src/WiFiNetwork.cpp
-    src/WiFiConfiguration.cpp
-    src/BluetoothServer.cpp
-    src/GPS.cpp
-)
-
+file(GLOB Sources src/*.cpp)
 file(GLOB utils src/utils/*.cpp)
-set(utils src/utils/StringToNumber.cpp src/utils/StringTokenizer.cpp src/utils/haversine.cpp)
+
 add_library(${This} STATIC ${Sources} ${utils})
