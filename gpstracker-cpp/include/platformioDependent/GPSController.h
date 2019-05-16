@@ -10,8 +10,7 @@ private:
 
 public:
     GPSController(int pinTX, int pinRX);
+    ~GPSController();
     std::string getInformation() = 0;
-
     bool isDataWaiting() = 0;
-    ~GPSController() {}
 };
