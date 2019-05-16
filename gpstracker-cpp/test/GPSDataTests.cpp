@@ -33,7 +33,7 @@ TEST(GPSData, invalido)
     obtenido = gpsData->isValido();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-        
+
     delete gpsData;
 }
 
@@ -48,7 +48,7 @@ TEST(GPSData, getHora)
     obtenido = gpsData->getHora();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -63,7 +63,7 @@ TEST(GPSData, getMinuto)
     obtenido = gpsData->getMinuto();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -78,7 +78,7 @@ TEST(GPSData, getSegundo)
     obtenido = gpsData->getSegundo();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -93,7 +93,7 @@ TEST(GPSData, getLatitudSur)
     obtenido = gpsData->getLatitud();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -108,7 +108,7 @@ TEST(GPSData, getLatitudNorte)
     obtenido = gpsData->getLatitud();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -123,7 +123,7 @@ TEST(GPSData, getLongitudEste)
     obtenido = gpsData->getLongitud();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -138,7 +138,7 @@ TEST(GPSData, getLongitudOeste)
     obtenido = gpsData->getLongitud();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -153,7 +153,7 @@ TEST(GPSData, getDia)
     obtenido = gpsData->getDia();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -168,7 +168,7 @@ TEST(GPSData, getMes)
     obtenido = gpsData->getMes();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }
 
@@ -183,6 +183,6 @@ TEST(GPSData, getAnio)
     obtenido = gpsData->getAnio();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     delete gpsData;
 }

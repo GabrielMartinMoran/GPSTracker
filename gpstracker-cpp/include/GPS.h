@@ -12,6 +12,7 @@ private:
     IGPSController *GPSController;
     GPSData gpsData = GPSData(std::string(""));
     bool posicionValida(GPSData gpsData);
+
 public:
     GPS(IGPSController *GPSController);
     bool actualizar(); //devuelve true si actualizo

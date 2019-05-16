@@ -5,8 +5,6 @@
 class GPSControllerMockup : public IGPSController
 {
 private:
-    int pinRX = 0;
-    int pinTX = 0;
     std::queue<std::string> sentencias;
     void rellenarSentencias()
     {

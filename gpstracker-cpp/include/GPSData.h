@@ -18,6 +18,7 @@ private:
     float longitud = 0;
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
     bool valido = false;
+
 public:
     GPSData(std::string data);
     int getHora();
