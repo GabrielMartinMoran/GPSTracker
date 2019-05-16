@@ -2,11 +2,10 @@
 #define GPS_h
 
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
 #include <interfaces/IGPSController.h>
 #include <utils/StringTokenizer.h>
 #include <utils/Haversine.h>
+#include <utils/StringToNumber.h>
 
 class GPS
 {

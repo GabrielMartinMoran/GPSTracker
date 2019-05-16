@@ -5,8 +5,9 @@ GPS::GPS(IGPSController *GPSController)
     this->GPSController = GPSController;
 }
 
-bool GPS::posicionValida(double latitud, double longitud){
-    return haversine_km(latitud, longitud, this->latitud, this->longitud) > 0;
+bool GPS::posicionValida(double latitud, double longitud)
+{
+    return haversine_m(latitud, longitud, this->latitud, this->longitud) > 0;
 }
 
 void GPS::actualizar()
@@ -19,12 +20,14 @@ void GPS::actualizar()
         parsearTiempo(tiempo, &(this->hora), &(this->minuto), &(this->segundo));
         if (tokens.nextToken() == std::string("A"))
         {
-            this->latitud = ::atof(tokens.nextToken().c_str());
-            if(tokens.nextToken() == std::string("S")){
+            this->latitud = stringToNumber<double>(tokens.nextToken());
+            if (tokens.nextToken() == std::string("S"))
+            {
                 this->latitud *= -1;
             }
-            this->longitud = ::atof(tokens.nextToken().c_str());
-            if(tokens.nextToken() == std::string("E")){
+            this->longitud = stringToNumber<double>(tokens.nextToken());
+            if (tokens.nextToken() == std::string("E"))
+            {
                 this->longitud *= -1;
             }
             tokens.nextToken();                     //Speed over ground, Knots
@@ -39,9 +42,9 @@ void GPS::actualizar()
 
 void GPS::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio)
 {
-    *horaDia = atoi(tiempo.substr(0, 2).c_str());
-    *minutoMes = atoi(tiempo.substr(2, 2).c_str());
-    *sengundoAnio = atoi(tiempo.substr(4, 2).c_str());
+    *horaDia = stringToNumber<int>(tiempo.substr(0, 2));
+    *minutoMes = stringToNumber<int>(tiempo.substr(2, 2));
+    *sengundoAnio = stringToNumber<int>(tiempo.substr(4, 2));
 }
 
 int GPS::getHora()

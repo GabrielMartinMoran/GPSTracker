@@ -85,7 +85,7 @@ TEST(GPS, getLatitud)
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizar();
-    float esperado = 3751.65f;
+    float esperado = -3751.65f;
     float obtenido = gps->getLatitud();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
@@ -98,7 +98,7 @@ TEST(GPS, getLongitud)
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizar();
-    float esperado = 14507.36f;
+    float esperado = -14507.36f;
     float obtenido = gps->getLongitud();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;

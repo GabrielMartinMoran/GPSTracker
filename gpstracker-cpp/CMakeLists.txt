@@ -33,5 +33,5 @@ set(Sources
 )
 
 file(GLOB utils src/utils/*.cpp)
-
+set(utils src/utils/StringToNumber.cpp src/utils/StringTokenizer.cpp src/utils/haversine.cpp)
 add_library(${This} STATIC ${Sources} ${utils})
