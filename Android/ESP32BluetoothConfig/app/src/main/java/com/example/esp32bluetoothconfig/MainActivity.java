@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity{
     Button openBLEListActivityBtn;
     Button openWiFiListActivityBtn;
     Button sendButton;
+    Button endConfiguration;
     EditText textInput;
 
     @Override
@@ -45,6 +46,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 sendData();
+            }
+        });
+
+        endConfiguration = (Button) findViewById(R.id.endConfigurationBtn);
+        endConfiguration.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                endConfiguration();
             }
         });
 
@@ -79,16 +88,17 @@ public class MainActivity extends AppCompatActivity{
         Log.d("RESPONSE", received);
         Toast.makeText(this, received,
                 Toast.LENGTH_LONG).show();
-        /*
-        try {
-            //GlobalObjectManager.bluetoothHelper.sendData(text);
-            GlobalObjectManager.bluetoothHelper.writeCustomCharacteristic(2);
-        } catch (IOException e) {
-            Log.e(e.getClass().toString(), e.getMessage());
-            //Mostramos una notificacion toast que indica que ocurrio un error
-            Toast.makeText(this, "Ocurrio un error al tratar de enviar el mensaje!",
-                    Toast.LENGTH_LONG).show();
-        }*/
     }
+
+    public void endConfiguration() {
+        String received = GlobalObjectManager.bluetoothHelper.makeRequest("$END_CONFIGURATION$");
+        if(received == null){
+            received = "";
+        }
+        Log.d("RESPONSE", received);
+        Toast.makeText(this, received,
+                Toast.LENGTH_LONG).show();
+    }
+
 
 }

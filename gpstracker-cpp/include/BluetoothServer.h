@@ -2,7 +2,6 @@
 #define BluetoothServer_h
 
 #include <iostream>
-//#include <Arduino.h>
 #include <interfaces/IBluetoothServer.h>
 #include <interfaces/IBluetooth.h>
 #include <interfaces/IWiFiConfiguration.h>
@@ -18,6 +17,7 @@
 #define TURN_LED_OFF "B" //"$TURN_LED_OFF$";
 #define LIST_NETWORKS "$LIST_NETWORKS$"
 #define ADD_NETWORK "$ADD_NETWORK$"
+#define END_CONFIGURATION "$END_CONFIGURATION$"
 
 //Forward declaration
 class IBluetooth;

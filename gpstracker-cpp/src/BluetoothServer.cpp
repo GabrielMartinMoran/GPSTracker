@@ -42,6 +42,7 @@ std::string BluetoothServer::getData(std::string request, std::string command)
 
 void BluetoothServer::onRequest(std::string request)
 {
+    serialController->println("REQUEST: " + std::string(request.c_str()));
     if (request.length() > 0)
     {
         if (request == TURN_LED_ON)
@@ -86,6 +87,11 @@ void BluetoothServer::onRequest(std::string request)
             {
                 sendResponse(ERROR);
             }
+            return;
+        }
+        if (request == END_CONFIGURATION)
+        {
+            sendResponse(OK);
             return;
         }
         //Comentado porque sino habria que importar Arduino.h y romperia los tests

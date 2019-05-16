@@ -7,51 +7,40 @@ Bluetooth::~Bluetooth()
 
 void Bluetooth::start(IBluetoothServer *btServer)
 {
-    
+    // Create the BLE Device
+    BLEDevice::init(DEVICE_BT_NAME);
 
-    if (firstInit)
-    {
-        Serial.println("FIRST INIT");
-        // Create the BLE Device
-        BLEDevice::init(DEVICE_BT_NAME);
+    // Create the BLE Server
+    BLEServer *pServer = BLEDevice::createServer();
+    pServer->setCallbacks(new BluetoothServerCallbacks(this));
 
-        writeCallback = new BluetoothWriteCallback();
+    // Create the BLE Service
+    BLEService *pService = pServer->createService(SERVICE_UUID);
 
-        serverCallback = new BluetoothServerCallbacks(this);
+    // Create a BLE Characteristic
+    pCharacteristic = pService->createCharacteristic(
+        CHARACTERISTIC_UUID_TX,
+        BLECharacteristic::PROPERTY_NOTIFY);
 
-        // Create the BLE Server
-        pServer = BLEDevice::createServer();
-        pServer->setCallbacks(serverCallback);
+    pCharacteristic->addDescriptor(new BLE2902());
 
-        // Create the BLE Service
-        pService = pServer->createService(SERVICE_UUID);
+    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+        CHARACTERISTIC_UUID_RX,
+        BLECharacteristic::PROPERTY_WRITE);
 
-        // Create a BLE Characteristic
-        notifyCharacteristic = pService->createCharacteristic(
-            CHARACTERISTIC_UUID_TX,
-            BLECharacteristic::PROPERTY_NOTIFY);
+    writeCallback = new BluetoothWriteCallback();
+    pCharacteristic->setCallbacks(writeCallback);
 
-        descriptor = new BLE2902();
-        notifyCharacteristic->addDescriptor(descriptor);
-
-        writeCharacteristic = pService->createCharacteristic(
-            CHARACTERISTIC_UUID_RX,
-            BLECharacteristic::PROPERTY_WRITE);
-
-        writeCharacteristic->setCallbacks(writeCallback);
-
-        writeCallback->configureServer(btServer);
-
-
-        // Start the service
-        pService->start();
-        
-        firstInit = false;
-    }    
+    // Start the service
+    pService->start();
 
     // Start advertising
     pServer->getAdvertising()->start();
+
+    writeCallback->configureServer(btServer);
+
     Serial.println("BLE Turned On!");
+
 }
 
 void Bluetooth::stop()
@@ -67,8 +56,8 @@ void Bluetooth::stop()
     // Start the service
     //pService->stop();
 
-    // Start advertising
-    pServer->getAdvertising()->stop();
+    //pServer->getAdvertising()->stop();
+    BLEDevice::deinit();
     /*
     delete pServer;
     delete pService;
@@ -89,8 +78,9 @@ void Bluetooth::transmitData(std::string data)
     }
     //char buffer[data.length() + 1];
     //data.toCharArray(buffer, data.length() + 1);
-    writeCharacteristic->setValue(data);
-    writeCharacteristic->notify(); // Send the value
+    pCharacteristic->setValue(data);
+    pCharacteristic->notify(); // Send the value
+
 }
 
 void Bluetooth::setConnectionStatus(bool value)

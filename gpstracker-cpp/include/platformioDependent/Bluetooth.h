@@ -27,14 +27,9 @@ class BluetoothServerCallbacks;
 
 class Bluetooth : public IBluetooth
 {
-  private:
-    BluetoothServerCallbacks *serverCallback;
+  private:    
+    BLECharacteristic *pCharacteristic;
     BluetoothWriteCallback *writeCallback;
-    BLEServer *pServer;
-    BLEService *pService;
-    BLECharacteristic *notifyCharacteristic;
-    BLECharacteristic *writeCharacteristic;
-    BLE2902 *descriptor;
     bool firstInit = true;
     bool deviceConnected = false;
     float txValue = 0;

@@ -1,7 +1,6 @@
-//#include <Orchestator.h>
-
 #include <thread>
 #include <iostream>
+//#include <platformioDependent/Orchestator.h>
 #include <platformioDependent/SDManager.h>
 #include <platformioDependent/SerialController.h>
 #include <BluetoothServer.h>
@@ -88,7 +87,8 @@ void setup()
 
     //delete bt;
 
-    
+    btServer->start();
+    /*
     pinMode(LED_BUILTIN, OUTPUT);
     bool estadoBTServer = true;
     btServer->start();
@@ -120,7 +120,7 @@ void setup()
             }
         }
         delay(200);
-    }
+    }*/
     
     serialController->println("~~ Fin del setup ~~");
 
