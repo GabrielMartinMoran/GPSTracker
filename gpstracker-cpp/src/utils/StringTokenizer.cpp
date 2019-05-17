@@ -19,8 +19,7 @@ std::string StringTokenizer::nextToken()
 {
     if (ptr >= _str.length())
     {
-        ptr = _str.length();
-        return "";
+        throw NoMoreTokensException();
     }
 
     std::string result = "";

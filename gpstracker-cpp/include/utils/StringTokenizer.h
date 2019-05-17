@@ -6,6 +6,7 @@
 #ifndef StringTokenizer_h
 #define StringTokenizer_h
 #include <iostream>
+#include <NoMoreTokensException.cpp>
 
 class StringTokenizer
 {
