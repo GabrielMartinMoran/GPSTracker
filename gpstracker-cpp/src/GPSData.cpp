@@ -2,70 +2,49 @@
 
 GPSData::GPSData(std::string data)
 {
-    StringTokenizer tokens(data, ",");
-    if (tokens.hasNext())
+    try
     {
+        StringTokenizer tokens(data, ",");
         if (tokens.nextToken() == "$GPRMC")
         {
-            if (tokens.hasNext())
+            std::string tiempo = tokens.nextToken(); // 08:18:36 UTC
+            parsearTiempo(tiempo, &(this->hora), &(this->minuto), &(this->segundo));
+            if (tokens.nextToken() == std::string("A"))
             {
-                std::string tiempo = tokens.nextToken(); // 08:18:36 UTC
-                parsearTiempo(tiempo, &(this->hora), &(this->minuto), &(this->segundo));
-                if (tokens.hasNext())
+
+                this->latitud = stringToNumber<float>(tokens.nextToken());
+
+                if (tokens.nextToken() == std::string("S"))
                 {
-                    if (tokens.nextToken() == std::string("A"))
-                    {
-                        if (tokens.hasNext())
-                        {
-                            this->latitud = stringToNumber<float>(tokens.nextToken());
-                            if (tokens.hasNext())
-                            {
-                                if (tokens.nextToken() == std::string("S"))
-                                {
-                                    this->latitud *= -1;
-                                }
-                                if (tokens.hasNext())
-                                {
-                                    this->longitud = stringToNumber<float>(tokens.nextToken());
-                                    if (tokens.hasNext())
-                                    {
-                                        if (tokens.nextToken() == std::string("E"))
-                                        {
-                                            this->longitud *= -1;
-                                        }
-                                        if (tokens.hasNext())
-                                        {
-                                            tokens.nextToken();
-                                            if (tokens.hasNext())
-                                            {
-                                                tokens.nextToken(); //Course Made Good, True
-                                                if (tokens.hasNext())
-                                                {
-                                                    std::string fecha = tokens.nextToken(); //13 Sep 1998
-                                                    parsearTiempo(fecha, &(this->dia), &(this->mes), &(this->anio));
-                                                    if (tokens.hasNext()) //Speed over ground, Knots
-                                                    {
-                                                        tokens.nextToken(); //Magnetic variation 20.3 deg East
-                                                        if (tokens.hasNext())
-                                                        {
-                                                            tokens.nextToken(); //mandatory checksum
-                                                            this->valido = true;
-                                                            return;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    this->latitud *= -1;
                 }
+
+                this->longitud = stringToNumber<float>(tokens.nextToken());
+
+                if (tokens.nextToken() == std::string("E"))
+                {
+                    this->longitud *= -1;
+                }
+
+                tokens.nextToken();
+
+                tokens.nextToken(); //Course Made Good, True
+
+                std::string fecha = tokens.nextToken(); //13 Sep 1998
+                parsearTiempo(fecha, &(this->dia), &(this->mes), &(this->anio));
+
+                tokens.nextToken(); //Magnetic variation 20.3 deg East
+
+                tokens.nextToken(); //mandatory checksum
+                this->valido = true;
+                return;
             }
         }
     }
-    this->valido = false;
+    catch (NoMoreTokensException)
+    {
+        this->valido = false;
+    }
 }
 void GPSData::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio)
 {
