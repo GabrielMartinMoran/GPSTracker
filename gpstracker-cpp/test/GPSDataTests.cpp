@@ -91,7 +91,7 @@ TEST(GPSData, getLatitudSur)
 
     esperado = -3751.64990234375;
     obtenido = gpsData->getLatitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     delete gpsData;
@@ -106,7 +106,7 @@ TEST(GPSData, getLatitudNorte)
 
     esperado = 3751.65;
     obtenido = gpsData->getLatitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     delete gpsData;
@@ -121,7 +121,7 @@ TEST(GPSData, getLongitudEste)
 
     esperado = -14507.36;
     obtenido = gpsData->getLongitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     delete gpsData;
@@ -136,7 +136,7 @@ TEST(GPSData, getLongitudOeste)
 
     esperado = 14507.36;
     obtenido = gpsData->getLongitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     delete gpsData;

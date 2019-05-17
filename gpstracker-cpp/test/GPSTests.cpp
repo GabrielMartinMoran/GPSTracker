@@ -14,13 +14,13 @@ TEST(GPS, posicionesValidas)
     esperado = -3751.65;
     obtenido = gps->getLatitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     esperado = -14507.36;
     obtenido = gps->getLongitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     EXPECT_TRUE(gps->actualizar());
@@ -28,13 +28,13 @@ TEST(GPS, posicionesValidas)
     esperado = stringToNumber<float>("3654.9279999999999"); //hay algo raro aca
     obtenido = gps->getLatitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     esperado = 7302.5;
     obtenido = gps->getLongitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     EXPECT_TRUE(gps->actualizar());
@@ -42,13 +42,13 @@ TEST(GPS, posicionesValidas)
     esperado = stringToNumber<float>("3654.9270000000001");
     obtenido = gps->getLatitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     esperado = 7302.5020000000004;
     obtenido = gps->getLongitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     EXPECT_TRUE(gps->actualizar());
@@ -56,13 +56,13 @@ TEST(GPS, posicionesValidas)
     esperado = stringToNumber<float>("3654.925");
     obtenido = gps->getLatitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     esperado = 7302.5029296875;
     obtenido = gps->getLongitud();
 
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
     EXPECT_TRUE(gps->actualizar());
@@ -160,7 +160,7 @@ TEST(GPS, getLatitud)
     gps->actualizar();
     float esperado = -3751.65;
     float obtenido = gps->getLatitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
     delete gps;
@@ -173,7 +173,7 @@ TEST(GPS, getLongitud)
     gps->actualizar();
     float esperado = -14507.36;
     float obtenido = gps->getLongitud();
-    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+    EXPECT_FLOAT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
     delete gps;
