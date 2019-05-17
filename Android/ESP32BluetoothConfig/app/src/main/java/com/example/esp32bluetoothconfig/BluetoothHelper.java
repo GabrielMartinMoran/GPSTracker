@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+import static android.content.ContentValues.TAG;
 
 public class BluetoothHelper {
 
@@ -56,6 +57,7 @@ public class BluetoothHelper {
     private class GattClientCallback extends BluetoothGattCallback {
 
         Context contextToFinishActivity;
+        boolean mtuConfirmed = false;
         GattClientCallback(Context contextToFinishActivity){
             this.contextToFinishActivity = contextToFinishActivity;
         }
@@ -71,7 +73,29 @@ public class BluetoothHelper {
                         mBluetoothGatt.disconnect();
                     }
                 });
+            }else if (newState == BluetoothProfile.STATE_CONNECTED) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int mtuRequestCounter = 0;
+                        while (!mtuConfirmed) {
+                            mBluetoothGatt.requestMtu(512);
+                            mtuRequestCounter++;
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
             }
+        }
+
+        @Override
+        public void onMtuChanged(BluetoothGatt gatt, int mtu, int status){
+            super.onMtuChanged(gatt, mtu, status);
+            mtuConfirmed = true;
         }
 
         @Override
