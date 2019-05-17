@@ -1,13 +1,15 @@
 #include <thread>
 #include <iostream>
-//#include <platformioDependent/Orchestator.h>
+
+#include <platformioDependent/Orchestator.h>
+/*
 #include <platformioDependent/SDManager.h>
 #include <platformioDependent/SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
 #include <platformioDependent/Bluetooth.h>
 #include <platformioDependent/WiFiConnector.h>
-
+*/
 void runWifiConnectionLoopThreaded(WiFiConnector *wifiConnector)
 {
     wifiConnector->beginConnectionLoop();
@@ -27,7 +29,9 @@ void blinkLed()
 
 void setup()
 {
-
+    Orchestator *orchestator = new Orchestator();
+    orchestator->start();
+    /*
     SerialController *serialController = new SerialController();
     serialController->println("~~ Inicio del setup ~~");
 
@@ -50,7 +54,7 @@ void setup()
 
     Bluetooth *bluetooth = new Bluetooth();
     BluetoothServer *btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
-
+    */
     //Para la SD habria que ver como hacer para administrar el envio, ya que podria ocurrir que hay que leer de un
     //archivo mientras el modulo que registra datos en el archivo trata de escribir.
     //Una posible solucion de esto es utilizar un Singleton que administre con delays o con 'critical zones'
@@ -87,7 +91,7 @@ void setup()
 
     //delete bt;
 
-    btServer->start();
+    //btServer->start();
     /*
     pinMode(LED_BUILTIN, OUTPUT);
     bool estadoBTServer = true;
@@ -122,7 +126,7 @@ void setup()
         delay(200);
     }*/
     
-    serialController->println("~~ Fin del setup ~~");
+    //serialController->println("~~ Fin del setup ~~");
 
     //Deletes (ver donde ubicar) ya que aqui cuando termine el setup van a morir
     //¿Tiene sentido tener deletes para estas instancias que mueren solo si se reinicia el aparato?

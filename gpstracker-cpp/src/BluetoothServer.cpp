@@ -91,6 +91,9 @@ void BluetoothServer::onRequest(std::string request)
         }
         if (request == END_CONFIGURATION)
         {
+            if(this->endConfigurationCallback != NULL){
+                this->endConfigurationCallback->configurationEnded = true;
+            }
             sendResponse(OK);
             return;
         }
@@ -105,4 +108,8 @@ void BluetoothServer::onRequest(std::string request)
 void BluetoothServer::sendResponse(std::string response)
 {
     bluetooth->transmitData(response);
+}
+
+void BluetoothServer::setEndConfigurationCallback(EndConfigurationCallback *endConfigurationCallback){
+    this->endConfigurationCallback = endConfigurationCallback;
 }

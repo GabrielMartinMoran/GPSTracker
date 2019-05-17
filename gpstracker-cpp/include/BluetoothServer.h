@@ -7,6 +7,7 @@
 #include <interfaces/IWiFiConfiguration.h>
 #include <interfaces/ISerialController.h>
 #include <utils/StringTokenizer.h>
+#include <EndConfigurationCallback.h>
 
 #define OK "200"
 #define ERROR "400"
@@ -30,6 +31,7 @@ private:
     IBluetooth *bluetooth;
     IWiFiConfiguration *wifiConfiguration;
     ISerialController *serialController;
+    EndConfigurationCallback *endConfigurationCallback;
     bool isCommand(std::string request, std::string command);
     std::string getData(std::string request, std::string command);
 
@@ -40,6 +42,7 @@ public:
     void stop();
     void onRequest(std::string request);
     void sendResponse(std::string response);
+    void setEndConfigurationCallback(EndConfigurationCallback *endConfigurationCallback);
 };
 
 #endif

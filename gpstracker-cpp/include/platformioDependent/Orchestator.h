@@ -9,6 +9,7 @@
 #include <WiFiConfiguration.h>
 #include <platformioDependent/Bluetooth.h>
 #include <platformioDependent/WiFiConnector.h>
+#include <EndConfigurationCallback.h>
 
 class Orchestator
 {
@@ -19,8 +20,9 @@ private:
     Bluetooth *bluetooth;
     BluetoothServer *btServer;
     WiFiConnector *wifiConnector;
+    EndConfigurationCallback *endConfigurationCallback;
     static void startWiFiConnector();
-    static void startBluetoothServer();
+    static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
     static void startGPSDataProvider();
 
