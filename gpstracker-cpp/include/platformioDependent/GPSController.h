@@ -1,16 +1,16 @@
 #include <interfaces/IGPSController.h>
 #include <string>
 #include <Arduino.h>
-#include <SoftwareSerial.h>
+#include <HardwareSerial.h>
 
 class GPSController : public IGPSController
 {
 private:
-    SoftwareSerial *gps;
+    HardwareSerial *uart;
 
 public:
-    GPSController(int pinTX, int pinRX);
+    GPSController(int uart);
     ~GPSController();
-    std::string getInformation() = 0;
-    bool isDataWaiting() = 0;
+    std::string getInformation();
+    bool isDataWaiting();
 };
