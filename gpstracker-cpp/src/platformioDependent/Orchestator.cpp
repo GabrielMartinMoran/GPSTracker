@@ -24,6 +24,7 @@ Orchestator::Orchestator()
         wifiConfiguration->addNetwork("DEF", "456");
         wifiConfiguration->addNetwork("GHI", "789");
         wifiConfiguration->addNetwork("Gabriel", "pass1234");
+        wifiConfiguration->addNetwork("Gabriel-Notebook AP", "Passw0rd");
     }
     //-------------------------------------------------------------
     
