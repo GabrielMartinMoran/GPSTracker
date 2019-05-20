@@ -10,7 +10,7 @@ bool GPS::posicionValida(GPSData gpsData)
     return haversine_m(this->gpsData.getLatitud(), this->gpsData.getLongitud(), gpsData.getLatitud(), gpsData.getLongitud()) > 2.5;
 }
 
-bool GPS::actualizar()
+bool GPS::actualizado()
 {
     while (this->GPSController->isDataWaiting())
     {
@@ -28,43 +28,8 @@ bool GPS::actualizar()
     return false;
 }
 
-int GPS::getHora()
-{
-    return this->gpsData.getHora();
-}
-
-int GPS::getMinuto()
-{
-    return this->gpsData.getMinuto();
-}
-
-int GPS::getSegundo()
-{
-    return this->gpsData.getSegundo();
-}
-
-int GPS::getDia()
-{
-    return this->gpsData.getDia();
-}
-
-int GPS::getMes()
-{
-    return this->gpsData.getMes();
-}
-
-int GPS::getAnio()
-{
-    return this->gpsData.getAnio();
-}
-
-float GPS::getLatitud()
-{
-    return this->gpsData.getLatitud();
-}
-float GPS::getLongitud()
-{
-    return this->gpsData.getLongitud();
+GPSData GPS::getGPSData(){
+    return this->gpsData;
 }
 
 GPS::~GPS()

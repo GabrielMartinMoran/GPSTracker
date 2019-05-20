@@ -14,11 +14,12 @@ private:
     int dia = 0;
     int mes = 0;
     int anio = 0;
-    float latitud = 0;
-    float longitud = 0;
+    double latitud = 0;
+    double longitud = 0;
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
+    double parsearCoordenada(std::string coordenada);
     bool valido = false;
-
+    std::string rawData;
 public:
     GPSData(std::string data);
     int getHora();
@@ -27,9 +28,10 @@ public:
     int getDia();
     int getMes();
     int getAnio();
-    float getLatitud();
-    float getLongitud();
+    double getLatitud();
+    double getLongitud();
     bool isValido();
+    std::string getRawData();
     ~GPSData();
 };
 #endif

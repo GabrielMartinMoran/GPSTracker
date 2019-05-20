@@ -1,6 +1,6 @@
 #include <GPSData.h>
 
-GPSData::GPSData(std::string data)
+GPSData::GPSData(std::string data):rawData(data)
 {
     try
     {
@@ -12,14 +12,14 @@ GPSData::GPSData(std::string data)
             if (tokens.nextToken() == std::string("A"))
             {
 
-                this->latitud = stringToNumber<float>(tokens.nextToken());
+                this->latitud = parsearCoordenada(tokens.nextToken());
 
                 if (tokens.nextToken() == std::string("S"))
                 {
                     this->latitud *= -1;
                 }
 
-                this->longitud = stringToNumber<float>(tokens.nextToken());
+                this->longitud = parsearCoordenada(tokens.nextToken());
 
                 if (tokens.nextToken() == std::string("E"))
                 {
@@ -52,6 +52,15 @@ void GPSData::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, in
     *minutoMes = stringToNumber<int>(tiempo.substr(2, 2));
     *sengundoAnio = stringToNumber<int>(tiempo.substr(4, 2));
 }
+
+double GPSData::parsearCoordenada(std::string coordenada)
+{
+    int separador = coordenada.find(".") - 2;
+    double grados = stringToNumber<double>(coordenada.substr(0, separador));
+    double minutos = stringToNumber<double>(coordenada.substr(separador, coordenada.length() - separador));
+    return grados + minutos / 60;
+}
+
 int GPSData::getHora()
 {
     return this->hora;
@@ -82,17 +91,21 @@ int GPSData::getAnio()
     return this->anio;
 }
 
-float GPSData::getLatitud()
+double GPSData::getLatitud()
 {
     return this->latitud;
 }
-float GPSData::getLongitud()
+double GPSData::getLongitud()
 {
     return this->longitud;
 }
 bool GPSData::isValido()
 {
     return this->valido;
+}
+
+std::string GPSData::getRawData(){
+    return this->rawData;
 }
 GPSData::~GPSData()
 {
