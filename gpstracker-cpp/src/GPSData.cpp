@@ -1,6 +1,6 @@
 #include <GPSData.h>
 
-GPSData::GPSData(std::string data):rawData(data)
+GPSData::GPSData(std::string data) : rawData(data)
 {
     try
     {
@@ -104,7 +104,8 @@ bool GPSData::isValido()
     return this->valido;
 }
 
-std::string GPSData::getRawData(){
+std::string GPSData::getRawData()
+{
     return this->rawData;
 }
 GPSData::~GPSData()

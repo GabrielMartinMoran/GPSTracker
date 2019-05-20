@@ -20,6 +20,7 @@ private:
     double parsearCoordenada(std::string coordenada);
     bool valido = false;
     std::string rawData;
+
 public:
     GPSData(std::string data);
     int getHora();

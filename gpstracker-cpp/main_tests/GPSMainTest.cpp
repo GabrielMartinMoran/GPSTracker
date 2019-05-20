@@ -23,7 +23,7 @@ void setup()
 void loop()
 {
     if (gps->actualizado())
-    {   
+    {
         usb->print("Raw Data: ");
         usb->println(gps->getGPSData().getRawData().c_str());
         usb->print("Latitud: ");
