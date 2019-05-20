@@ -81,7 +81,7 @@ TEST(GPS, getHora)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 8;
-    int obtenido = gps->getGPSData().getHora();
+    int obtenido = gps->getGPSData().dateTime().getHora();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -94,7 +94,7 @@ TEST(GPS, getMinuto)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 18;
-    int obtenido = gps->getGPSData().getMinuto();
+    int obtenido = gps->getGPSData().dateTime().getMinuto();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -107,7 +107,7 @@ TEST(GPS, getSegundo)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 36;
-    int obtenido = gps->getGPSData().getSegundo();
+    int obtenido = gps->getGPSData().dateTime().getSegundo();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -120,7 +120,7 @@ TEST(GPS, getDia)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 13;
-    int obtenido = gps->getGPSData().getDia();
+    int obtenido = gps->getGPSData().dateTime().getDia();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -133,7 +133,7 @@ TEST(GPS, getMes)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 9;
-    int obtenido = gps->getGPSData().getMes();
+    int obtenido = gps->getGPSData().dateTime().getMes();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -146,7 +146,7 @@ TEST(GPS, getAnio)
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
     int esperado = 98;
-    int obtenido = gps->getGPSData().getAnio();
+    int obtenido = gps->getGPSData().dateTime().getAnio();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;

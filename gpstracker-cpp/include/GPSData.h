@@ -4,16 +4,12 @@
 #include <string>
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
+#include <DateTime.h>
 
 class GPSData
 {
 private:
-    int hora = 0;
-    int minuto = 0;
-    int segundo = 0;
-    int dia = 0;
-    int mes = 0;
-    int anio = 0;
+    DateTime date_time = DateTime(0,0,0,0,0,0);
     double latitud = 0;
     double longitud = 0;
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
@@ -23,12 +19,7 @@ private:
 
 public:
     GPSData(std::string data);
-    int getHora();
-    int getMinuto();
-    int getSegundo();
-    int getDia();
-    int getMes();
-    int getAnio();
+    DateTime dateTime();
     double getLatitud();
     double getLongitud();
     bool isValido();

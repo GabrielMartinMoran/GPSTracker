@@ -56,7 +56,7 @@ TEST(GPSData, getHora)
     int obtenido;
 
     esperado = 8;
-    obtenido = gpsData->getHora();
+    obtenido = gpsData->dateTime().getHora();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
@@ -71,7 +71,7 @@ TEST(GPSData, getMinuto)
     int obtenido;
 
     esperado = 18;
-    obtenido = gpsData->getMinuto();
+    obtenido = gpsData->dateTime().getMinuto();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
@@ -86,7 +86,7 @@ TEST(GPSData, getSegundo)
     int obtenido;
 
     esperado = 36;
-    obtenido = gpsData->getSegundo();
+    obtenido = gpsData->dateTime().getSegundo();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
@@ -161,7 +161,7 @@ TEST(GPSData, getDia)
     int obtenido;
 
     esperado = 13;
-    obtenido = gpsData->getDia();
+    obtenido = gpsData->dateTime().getDia();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
@@ -176,7 +176,7 @@ TEST(GPSData, getMes)
     int obtenido;
 
     esperado = 9;
-    obtenido = gpsData->getMes();
+    obtenido = gpsData->dateTime().getMes();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
@@ -191,7 +191,7 @@ TEST(GPSData, getAnio)
     int obtenido;
 
     esperado = 98;
-    obtenido = gpsData->getAnio();
+    obtenido = gpsData->dateTime().getAnio();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 

@@ -8,7 +8,9 @@ GPSData::GPSData(std::string data) : rawData(data)
         if (tokens.nextToken() == "$GPRMC")
         {
             std::string tiempo = tokens.nextToken(); // 08:18:36 UTC
-            parsearTiempo(tiempo, &(this->hora), &(this->minuto), &(this->segundo));
+            int hora, minuto, segundo;
+            parsearTiempo(tiempo, &hora, &minuto, &segundo);
+
             if (tokens.nextToken() == std::string("A"))
             {
 
@@ -31,8 +33,10 @@ GPSData::GPSData(std::string data) : rawData(data)
                 tokens.nextToken(); //Course Made Good, True
 
                 std::string fecha = tokens.nextToken(); //13 Sep 1998
-                parsearTiempo(fecha, &(this->dia), &(this->mes), &(this->anio));
+                int dia, mes, anio;
+                parsearTiempo(fecha, &dia, &mes, &anio);
 
+                this->date_time = DateTime(dia, mes, anio, hora, minuto, segundo);
                 tokens.nextToken(); //Magnetic variation 20.3 deg East
 
                 tokens.nextToken(); //mandatory checksum
@@ -61,34 +65,9 @@ double GPSData::parsearCoordenada(std::string coordenada)
     return grados + minutos / 60;
 }
 
-int GPSData::getHora()
+DateTime GPSData::dateTime()
 {
-    return this->hora;
-}
-
-int GPSData::getMinuto()
-{
-    return this->minuto;
-}
-
-int GPSData::getSegundo()
-{
-    return this->segundo;
-}
-
-int GPSData::getDia()
-{
-    return this->dia;
-}
-
-int GPSData::getMes()
-{
-    return this->mes;
-}
-
-int GPSData::getAnio()
-{
-    return this->anio;
+    return this->date_time;
 }
 
 double GPSData::getLatitud()
