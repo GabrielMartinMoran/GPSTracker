@@ -5,13 +5,13 @@
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
 #include <DateTime.h>
+#include <Coordenada.h>
 
 class GPSData
 {
 private:
     DateTime date_time = DateTime(0,0,0,0,0,0);
-    double latitud = 0;
-    double longitud = 0;
+    Coordenada coordenada = Coordenada(0,0);
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
     double parsearCoordenada(std::string coordenada);
     bool valido = false;
@@ -20,8 +20,7 @@ private:
 public:
     GPSData(std::string data);
     DateTime dateTime();
-    double getLatitud();
-    double getLongitud();
+    Coordenada getCoordenada();
     bool isValido();
     std::string getRawData();
     ~GPSData();

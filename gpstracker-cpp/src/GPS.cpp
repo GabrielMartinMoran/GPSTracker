@@ -7,7 +7,7 @@ GPS::GPS(IGPSController *GPSController)
 
 bool GPS::posicionValida(GPSData gpsData)
 {
-    return haversine_m(this->gpsData.getLatitud(), this->gpsData.getLongitud(), gpsData.getLatitud(), gpsData.getLongitud()) > 2.5;
+    return haversine_m(this->gpsData.getCoordenada().getLatitud(), this->gpsData.getCoordenada().getLongitud(), gpsData.getCoordenada().getLatitud(), gpsData.getCoordenada().getLongitud()) > 2.5;
 }
 
 bool GPS::actualizado()

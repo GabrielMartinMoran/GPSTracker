@@ -13,20 +13,21 @@ GPSData::GPSData(std::string data) : rawData(data)
 
             if (tokens.nextToken() == std::string("A"))
             {
-
-                this->latitud = parsearCoordenada(tokens.nextToken());
+                double latitud = parsearCoordenada(tokens.nextToken());
 
                 if (tokens.nextToken() == std::string("S"))
                 {
-                    this->latitud *= -1;
+                    latitud *= -1;
                 }
 
-                this->longitud = parsearCoordenada(tokens.nextToken());
+                double longitud = parsearCoordenada(tokens.nextToken());
 
                 if (tokens.nextToken() == std::string("E"))
                 {
-                    this->longitud *= -1;
+                    longitud *= -1;
                 }
+
+                this->coordenada = Coordenada(latitud, longitud);
 
                 tokens.nextToken();
 
@@ -70,14 +71,11 @@ DateTime GPSData::dateTime()
     return this->date_time;
 }
 
-double GPSData::getLatitud()
+Coordenada GPSData::getCoordenada()
 {
-    return this->latitud;
+    return this->coordenada;
 }
-double GPSData::getLongitud()
-{
-    return this->longitud;
-}
+
 bool GPSData::isValido()
 {
     return this->valido;

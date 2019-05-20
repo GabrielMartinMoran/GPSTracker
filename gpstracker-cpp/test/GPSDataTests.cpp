@@ -101,7 +101,7 @@ TEST(GPSData, getLatitudSur)
     double obtenido;
 
     esperado = -1 * (37 + 51.65 / 60);
-    obtenido = gpsData->getLatitud();
+    obtenido = gpsData->getCoordenada().getLatitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
@@ -116,7 +116,7 @@ TEST(GPSData, getLatitudNorte)
     double obtenido;
 
     esperado = 37 + 51.65 / 60;
-    obtenido = gpsData->getLatitud();
+    obtenido = gpsData->getCoordenada().getLatitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
@@ -131,7 +131,7 @@ TEST(GPSData, getLongitudEste)
     double obtenido;
 
     esperado = -1 * (145 + 07.36 / 60);
-    obtenido = gpsData->getLongitud();
+    obtenido = gpsData->getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
@@ -146,7 +146,7 @@ TEST(GPSData, getLongitudOeste)
     double obtenido;
 
     esperado = 145 + 07.36 / 60;
-    obtenido = gpsData->getLongitud();
+    obtenido = gpsData->getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
