@@ -6,10 +6,10 @@
 class GPSController : public IGPSController
 {
 private:
-    HardwareSerial uart = HardwareSerial(2);
+    HardwareSerial *uart;
 
 public:
-    GPSController();
+    GPSController(int uartNumber);
     ~GPSController();
     std::string getInformation();
     bool isDataWaiting();

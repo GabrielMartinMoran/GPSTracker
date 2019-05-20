@@ -1,26 +1,35 @@
-
 #include <iostream>
 #include <Arduino.h>
-
 #include <platformioDependent/GPSController.h>
 #include <HardwareSerial.h>
 
-HardwareSerial usb = HardwareSerial(0);
-GPSController gpsController = GPSController();
+#define uartUSB 0
+#define uartGPS 2
 
+HardwareSerial *usb;
+GPSController *gpsController;
 void setup()
 {
-    usb.begin(115200);
+    pinMode(LED_BUILTIN, OUTPUT);
+    usb = new HardwareSerial(uartUSB);
+    gpsController = new GPSController(uartGPS);
+    usb->begin(115200);
 }
 
 void loop()
 {
-    if (usb.availableForWrite())
+    if (usb->availableForWrite())
     {
-        if (gpsController.isDataWaiting())
+        if (gpsController->isDataWaiting())
         {
-            usb.println(gpsController.getInformation().c_str());
+            digitalWrite(LED_BUILTIN, HIGH);
+            usb->println(gpsController->getInformation().c_str());
+            delay(100);
+            digitalWrite(LED_BUILTIN, LOW);
         }
     }
-    delay(100);
+    else
+    {
+        delay(100);
+    }
 }
