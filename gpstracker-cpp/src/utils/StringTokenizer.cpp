@@ -1,9 +1,3 @@
-/*
-  StringTokenizer.h - Library for spliting strings into tokens using delimiters.
-  Created by Ujjwal Syal, February 22, 2016.
-  Released into the public domain.
-*/
-
 #include "utils/StringTokenizer.h"
 
 StringTokenizer::StringTokenizer(std::string str, std::string del) : _str(str), _del(del), ptr(0)

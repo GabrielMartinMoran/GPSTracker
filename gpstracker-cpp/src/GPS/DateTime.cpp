@@ -1,36 +1,60 @@
 #include <GPS/DateTime.h>
 
-DateTime::DateTime(int dia, int mes, int anio, int hora, int minuto, int segundo) : dia(dia), mes(mes), anio(anio), hora(hora), minuto(minuto), segundo(segundo) {}
+DateTime::DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsigned int hora, unsigned int minuto, unsigned int segundo)
+{
 
-int DateTime::getHora()
+    if (hora > 24 || minuto > 60 || segundo > 60)
+    {
+        throw InvalidTime();
+    }
+    if (mes < 1 || mes > 12)
+    {
+        throw InvalidDate();
+    }
+    unsigned int monthDays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (dia < 1 || dia > monthDays[mes - 1])
+    {
+        throw InvalidDate();
+    }
+
+    this->dia = dia;
+    this->mes = mes;
+    this->anio = anio;
+    this->hora = hora;
+    this->minuto = minuto;
+    this->segundo = segundo;
+}
+
+unsigned int DateTime::getHora()
 {
     return this->hora;
 }
 
-int DateTime::getMinuto()
+unsigned int DateTime::getMinuto()
 {
     return this->minuto;
 }
 
-int DateTime::getSegundo()
+unsigned int DateTime::getSegundo()
 {
     return this->segundo;
 }
 
-int DateTime::getDia()
+unsigned int DateTime::getDia()
 {
     return this->dia;
 }
 
-int DateTime::getMes()
+unsigned int DateTime::getMes()
 {
     return this->mes;
 }
 
-int DateTime::getAnio()
+unsigned int DateTime::getAnio()
 {
     return this->anio;
 }
 
-DateTime::~DateTime() {
+DateTime::~DateTime()
+{
 }

@@ -8,7 +8,7 @@ class InvalidCoordinate : public std::exception
 public:
     const char* what() const throw()
     {
-        return "Error: coordenada invalida";
+        return "Error: Coordenada Invalida";
     }
 };
 #endif

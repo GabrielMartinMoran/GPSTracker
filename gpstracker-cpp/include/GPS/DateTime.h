@@ -1,24 +1,27 @@
 #ifndef DateTime_h
 #define DateTime_h
 
+#include <exceptions/InvalidDate.ex>
+#include <exceptions/InvalidTime.ex>
+
 class DateTime
 {
 private:
-    int hora = 0;
-    int minuto = 0;
-    int segundo = 0;
-    int dia = 0;
-    int mes = 0;
-    int anio = 0;
+    unsigned int hora = 0;
+    unsigned int minuto = 0;
+    unsigned int segundo = 0;
+    unsigned int dia = 0;
+    unsigned int mes = 0;
+    unsigned int anio = 0;
 
 public:
-    DateTime(int dia, int mes, int anio, int hora, int minuto, int segundo);
-    int getDia();
-    int getMes();
-    int getAnio();
-    int getHora();
-    int getMinuto();
-    int getSegundo();
+    DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsigned int hora, unsigned int minuto, unsigned int segundo);
+    unsigned int getDia();
+    unsigned int getMes();
+    unsigned int getAnio();
+    unsigned int getHora();
+    unsigned int getMinuto();
+    unsigned int getSegundo();
     ~DateTime();
 };
 #endif

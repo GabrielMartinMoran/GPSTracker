@@ -10,7 +10,7 @@
 class GPSData
 {
 private:
-    DateTime date_time = DateTime(0,0,0,0,0,0);
+    DateTime date_time = DateTime(1,1,0,0,0,0);
     Coordenada coordenada = Coordenada(0,0);
     void parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio);
     double parsearCoordenada(std::string coordenada);
