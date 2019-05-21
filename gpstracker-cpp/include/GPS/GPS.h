@@ -4,7 +4,7 @@
 #include <iostream>
 #include <interfaces/IGPSController.h>
 #include <utils/Haversine.h>
-#include <GPSData.h>
+#include <GPS/GPSData.h>
 
 class GPS
 {

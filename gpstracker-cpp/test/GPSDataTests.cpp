@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <GPSData.h>
+#include <GPS/GPSData.h>
 
 TEST(GPSData, rawData)
 {

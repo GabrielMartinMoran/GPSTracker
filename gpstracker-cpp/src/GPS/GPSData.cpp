@@ -1,4 +1,4 @@
-#include <GPSData.h>
+#include <GPS/GPSData.h>
 
 GPSData::GPSData(std::string data) : rawData(data)
 {

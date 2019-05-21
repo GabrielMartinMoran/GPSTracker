@@ -26,5 +26,6 @@ add_subdirectory(src)
 
 file(GLOB Sources src/*.cpp)
 file(GLOB utils src/utils/*.cpp)
+file(GLOB GPS src/GPS/*.cpp)
 
-add_library(${This} STATIC ${Sources} ${utils})
+add_library(${This} STATIC ${Sources} ${utils} ${GPS})

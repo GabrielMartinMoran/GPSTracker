@@ -1,4 +1,4 @@
-#include <Coordenada.h>
+#include <GPS/Coordenada.h>
 
 Coordenada::Coordenada(double latitud, double longitud) : latitud(latitud), longitud(longitud) {}
 

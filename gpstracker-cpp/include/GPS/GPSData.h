@@ -4,8 +4,8 @@
 #include <string>
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
-#include <DateTime.h>
-#include <Coordenada.h>
+#include <GPS/DateTime.h>
+#include <GPS/Coordenada.h>
 
 class GPSData
 {

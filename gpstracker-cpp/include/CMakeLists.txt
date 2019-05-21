@@ -8,6 +8,7 @@ add_library(${This} ${Headers})
 
 add_subdirectory(interfaces)
 add_subdirectory(utils)
+add_subdirectory(GPS)
 
 target_link_libraries(${This} PUBLIC
     GPSTracker

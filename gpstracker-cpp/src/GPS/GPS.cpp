@@ -1,4 +1,4 @@
-#include <GPS.h>
+#include <GPS/GPS.h>
 
 GPS::GPS(IGPSController *GPSController)
 {

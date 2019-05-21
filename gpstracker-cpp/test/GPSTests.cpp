@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <GPSControllerMockup.h>
-#include <GPS.h>
+#include <GPS/GPS.h>
 
 TEST(GPS, posicionesValidas)
 {
