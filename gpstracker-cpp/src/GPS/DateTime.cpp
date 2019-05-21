@@ -3,7 +3,7 @@
 DateTime::DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsigned int hora, unsigned int minuto, unsigned int segundo)
 {
 
-    if (hora > 24 || minuto > 60 || segundo > 60)
+    if (hora > 23 || minuto > 59 || segundo >= 59)
     {
         throw InvalidTimeException();
     }
