@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Arduino.h>
 #include <platformioDependent/GPSController.h>
-#include <GPS.h>
+#include <GPS/GPS.h>
 
 #define UART_USB 0
 #define UART_GPS 2
@@ -27,21 +27,21 @@ void loop()
         usb->print("Raw Data: ");
         usb->println(gps->getGPSData().getRawData().c_str());
         usb->print("Latitud: ");
-        usb->println(gps->getGPSData().getLatitud(), DECIMALES);
+        usb->println(gps->getGPSData().getCoordenada().getLatitud(), DECIMALES);
         usb->print("Longitud: ");
-        usb->println(gps->getGPSData().getLongitud(), DECIMALES);
+        usb->println(gps->getGPSData().getCoordenada().getLongitud(), DECIMALES);
         usb->print("Hora: ");
-        usb->print(gps->getGPSData().getHora());
+        usb->print(gps->getGPSData().dateTime().getHora());
         usb->print(":");
-        usb->print(gps->getGPSData().getMinuto());
+        usb->print(gps->getGPSData().dateTime().getMinuto());
         usb->print(":");
-        usb->println(gps->getGPSData().getSegundo());
+        usb->println(gps->getGPSData().dateTime().getSegundo());
         usb->print("Fecha: ");
-        usb->print(gps->getGPSData().getDia());
+        usb->print(gps->getGPSData().dateTime().getDia());
         usb->print("/");
-        usb->print(gps->getGPSData().getMes());
+        usb->print(gps->getGPSData().dateTime().getMes());
         usb->print("/");
-        usb->println(gps->getGPSData().getAnio());
+        usb->println(gps->getGPSData().dateTime().getAnio());
         usb->println();
     }
 
