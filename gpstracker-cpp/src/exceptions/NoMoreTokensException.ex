@@ -1,3 +1,6 @@
+#ifndef NoMoreTokensException_ex
+#define NoMoreTokensException_ex
+
 #include <exception>
 
 class NoMoreTokensException : public std::exception
@@ -8,3 +11,4 @@ public:
         return "Error: no hay mas tokens";
     }
 };
+#endif

@@ -1,6 +1,8 @@
 #ifndef Coordenada_h
 #define Coordenada_h
 
+#include <exceptions/InvalidCoordinate.ex>
+
 class Coordenada
 {
 private:
