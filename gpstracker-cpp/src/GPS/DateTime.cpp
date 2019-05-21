@@ -5,16 +5,16 @@ DateTime::DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsign
 
     if (hora > 24 || minuto > 60 || segundo > 60)
     {
-        throw InvalidTime();
+        throw InvalidTimeException();
     }
     if (mes < 1 || mes > 12)
     {
-        throw InvalidDate();
+        throw InvalidDateException();
     }
     unsigned int monthDays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (dia < 1 || dia > monthDays[mes - 1])
     {
-        throw InvalidDate();
+        throw InvalidDateException();
     }
 
     this->dia = dia;

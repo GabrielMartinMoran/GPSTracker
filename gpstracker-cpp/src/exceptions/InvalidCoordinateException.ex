@@ -3,7 +3,7 @@
 
 #include <exception>
 
-class InvalidCoordinate : public std::exception
+class InvalidCoordinateException : public std::exception
 {
 public:
     const char* what() const throw()

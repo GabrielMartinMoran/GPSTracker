@@ -1,8 +1,8 @@
 #ifndef DateTime_h
 #define DateTime_h
 
-#include <exceptions/InvalidDate.ex>
-#include <exceptions/InvalidTime.ex>
+#include <exceptions/InvalidDateException.ex>
+#include <exceptions/InvalidTimeException.ex>
 
 class DateTime
 {

@@ -1,7 +1,7 @@
 #ifndef Coordenada_h
 #define Coordenada_h
 
-#include <exceptions/InvalidCoordinate.ex>
+#include <exceptions/InvalidCoordinateException.ex>
 
 class Coordenada
 {

@@ -2,7 +2,7 @@
 
 Coordenada::Coordenada(double latitud, double longitud){
     if(latitud > 180 || latitud < -180 || longitud > 180 || longitud < -180){
-        throw InvalidCoordinate();
+        throw InvalidCoordinateException();
     }
     this->latitud = latitud;
     this->longitud = longitud;

@@ -29,11 +29,11 @@ private:
     }
 
 public:
-    GPSControllerMockup() : GPSControllerMockup(0, 0)
+    GPSControllerMockup() : GPSControllerMockup(0)
     {
     }
 
-    GPSControllerMockup(int pinTX, int pinRX)
+    GPSControllerMockup(int uartNumber)
     {
         this->rellenarSentencias();
     }

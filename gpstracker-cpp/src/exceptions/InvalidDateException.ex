@@ -3,7 +3,7 @@
 
 #include <exception>
 
-class InvalidDate : public std::exception
+class InvalidDateException : public std::exception
 {
 public:
     const char* what() const throw()

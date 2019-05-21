@@ -3,7 +3,7 @@
 
 #include <exception>
 
-class InvalidTime : public std::exception
+class InvalidTimeException : public std::exception
 {
 public:
     const char* what() const throw()
