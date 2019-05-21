@@ -8,7 +8,7 @@ GPSData::GPSData(std::string data) : rawData(data)
         if (tokens.nextToken() == "$GPRMC")
         {
             std::string tiempo = tokens.nextToken(); // 08:18:36 UTC
-            int hora, minuto, segundo;
+            unsigned int hora, minuto, segundo;
             parsearTiempo(tiempo, &hora, &minuto, &segundo);
 
             if (tokens.nextToken() == std::string("A"))
@@ -34,7 +34,7 @@ GPSData::GPSData(std::string data) : rawData(data)
                 tokens.nextToken(); //Course Made Good, True
 
                 std::string fecha = tokens.nextToken(); //13 Sep 1998
-                int dia, mes, anio;
+                unsigned int dia, mes, anio;
                 parsearTiempo(fecha, &dia, &mes, &anio);
 
                 this->date_time = DateTime(dia, mes, anio, hora, minuto, segundo);
@@ -51,11 +51,11 @@ GPSData::GPSData(std::string data) : rawData(data)
         this->valido = false;
     }
 }
-void GPSData::parsearTiempo(std::string tiempo, int *horaDia, int *minutoMes, int *sengundoAnio)
+void GPSData::parsearTiempo(std::string tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio)
 {
-    *horaDia = stringToNumber<int>(tiempo.substr(0, 2));
-    *minutoMes = stringToNumber<int>(tiempo.substr(2, 2));
-    *sengundoAnio = stringToNumber<int>(tiempo.substr(4, 2));
+    *horaDia = stringToNumber<unsigned int>(tiempo.substr(0, 2));
+    *minutoMes = stringToNumber<unsigned int>(tiempo.substr(2, 2));
+    *sengundoAnio = stringToNumber<unsigned int>(tiempo.substr(4, 2));
 }
 
 double GPSData::parsearCoordenada(std::string coordenada)
