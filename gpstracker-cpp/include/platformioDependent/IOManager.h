@@ -6,13 +6,14 @@
 class IOManager
 {
 private:
-    static IOManager volatile *instance;
-    bool volatile lock = false;
+    static IOManager *instance;
+    bool locked;
     IOManager();
 
 public:
-    static IOManager volatile *getInstance();
-    bool volatile locked();
+    static IOManager *getInstance();
+    bool isLocked();
+    void lock(bool estate);
 };
 
 #endif

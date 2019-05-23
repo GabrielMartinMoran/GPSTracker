@@ -28,7 +28,7 @@ private:
     static void startWiFiConnector();
     static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
-    static void startGPSDataProvider(int a);
+    static void startGPSDataProvider(GPS *gps);
 
 public:
     Orchestator();

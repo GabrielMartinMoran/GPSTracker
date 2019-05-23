@@ -46,15 +46,29 @@ void Orchestator::startBluetoothServer(BluetoothServer *btServer)
 void Orchestator::startNetworkDataSender()
 {
 }
-void Orchestator::startGPSDataProvider(int a)
+void Orchestator::startGPSDataProvider(GPS *gps)
 {
+    IOManager *ioManager = IOManager::getInstance();
+    while (true)
+    {
+        if (gps->actualizado())
+        {
+            while (ioManager->isLocked())
+            {
+                delay(100);
+            }
+            ioManager->lock(true);
+            //codigo de escritura en archivo
+            ioManager->lock(false);
+        }
+        delay(100);
+    }
 }
 
 void Orchestator::start()
 {
     serialController->println("Orchestator Start");
     std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
-    std::thread GPSThread = std::thread(Orchestator::startGPSDataProvider, 0);
     while (endConfigurationCallback->configurationEnded == false)
     {
         delay(200);
@@ -64,4 +78,5 @@ void Orchestator::start()
     bluetoothServerThread.join();
     serialController->println("Iniciando el WiFi");
     wifiConnector->beginConnectionLoop();
+    std::thread GPSThread = std::thread(Orchestator::startGPSDataProvider, gps);
 }

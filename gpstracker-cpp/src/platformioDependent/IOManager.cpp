@@ -1,14 +1,27 @@
 #include <platformioDependent/IOManager.h>
 
-IOManager::IOManager() {}
-
-IOManager volatile *IOManager::getInstance()
+IOManager::IOManager()
 {
-    static IOManager instance;
-    return &instance;
+    this->locked = false;
 }
 
-bool volatile IOManager::locked()
+IOManager *IOManager::getInstance()
 {
-    return this->lock;
+    if (instance == 0)
+    {
+        instance = new IOManager();
+    }
+    return instance;
+}
+
+IOManager *IOManager::instance = 0;
+
+bool IOManager::isLocked()
+{
+    return this->locked;
+}
+
+void IOManager::lock(bool estate)
+{
+    this->locked = estate;
 }
