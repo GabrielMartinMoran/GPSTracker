@@ -2,7 +2,7 @@
 
 Orchestator::Orchestator()
 {
-    
+
     serialController = new SerialController();
     sdManager = new SDManager();
     wifiConfiguration = new WiFiConfiguration(sdManager);
@@ -10,6 +10,9 @@ Orchestator::Orchestator()
     btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
     wifiConnector = new WiFiConnector(wifiConfiguration);
     endConfigurationCallback = new EndConfigurationCallback();
+    int uartNumber = 2;
+    GPSController *gpsController = new GPSController(uartNumber);
+    this->gps = new GPS(gpsController);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 
@@ -27,7 +30,6 @@ Orchestator::Orchestator()
         wifiConfiguration->addNetwork("Gabriel-Notebook AP", "Passw0rd");
     }
     //-------------------------------------------------------------
-    
 }
 
 Orchestator::~Orchestator()
@@ -44,7 +46,7 @@ void Orchestator::startBluetoothServer(BluetoothServer *btServer)
 void Orchestator::startNetworkDataSender()
 {
 }
-void Orchestator::startGPSDataProvider()
+void Orchestator::startGPSDataProvider(int a)
 {
 }
 
@@ -52,7 +54,9 @@ void Orchestator::start()
 {
     serialController->println("Orchestator Start");
     std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
-    while(endConfigurationCallback->configurationEnded == false){
+    std::thread GPSThread = std::thread(Orchestator::startGPSDataProvider, 0);
+    while (endConfigurationCallback->configurationEnded == false)
+    {
         delay(200);
     }
     btServer->stop();
