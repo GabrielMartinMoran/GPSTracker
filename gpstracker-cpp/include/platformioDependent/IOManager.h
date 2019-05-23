@@ -6,11 +6,11 @@
 class IOManager
 {
 private:
-    static IOManager *instance;
+    static IOManager volatile *instance;
     IOManager();
 
 public:
-    static IOManager *getInstance();
+    static IOManager volatile *getInstance();
 };
 
 #endif

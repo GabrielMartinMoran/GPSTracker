@@ -1,15 +1,9 @@
 #include <platformioDependent/IOManager.h>
 
-IOManager *IOManager::getInstance()
+IOManager volatile *IOManager::getInstance()
 {
-    if (instance == NULL)
-    {
-        instance = new IOManager();
-    }
-
-    return instance;
+    static IOManager instance;
+    return &instance;
 }
-
-IOManager *IOManager::instance = NULL;
 
 IOManager::IOManager() {}
