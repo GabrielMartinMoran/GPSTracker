@@ -1,30 +1,34 @@
 #include <thread>
+#include <mutex>
 #include <iostream>
 #include <Arduino.h>
 
 #include <platformioDependent/IOManager.h>
 
-size_t sum = 0;
-size_t sumas = 10000;
+std::mutex sum2_mutex;
+long sum = 0;
+long sumas = 10000;
 
-size_t volatile sum2 = 0;
+long volatile sum2 = 0;
 
 void set(int value)
 {
     sum = value;
-    for (size_t i = 0; i < sumas; i++)
+    for (long i = 0; i < sumas; i++)
     {
         sum++;
+        delay(1);
     }
     if (sum - value != sumas)
     {
         Serial.println("race condition");
     }
 }
-void runThread(size_t value)
+void runThread(long value)
 {
     while (true)
     {
+        
         set(value);
         delay(1);
     }
@@ -44,6 +48,7 @@ void sumarNVeces(int thread_number, int n)
 {
     for (int i = 0; i < n; i++)
     {
+        std::lock_guard<std::mutex> lock(sum2_mutex);
         sum2++;
     }
     //Serial.print("Thread nº ");
@@ -55,11 +60,11 @@ void sumarNVeces(int thread_number, int n)
 void setup()
 {
     Serial.begin(115200);
-    int n = 5;
+    int n = 50;
     /*std::thread t[n];
     for (int i = 0; i < n; i++)
     {
-        t[i] = std::thread(runThread, (size_t)i + 1);
+        t[i] = std::thread(runThread, (long)i + 1);
     }
     std::thread mostrarSumaThread = std::thread(mostrarSuma);
     for (int i = 0; i < n; i++)
