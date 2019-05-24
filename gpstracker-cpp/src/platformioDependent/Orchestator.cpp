@@ -2,7 +2,7 @@
 
 Orchestator::Orchestator()
 {
-    
+
     serialController = new SerialController();
     sdManager = new SDManager();
     wifiConfiguration = new WiFiConfiguration(sdManager);
@@ -10,6 +10,9 @@ Orchestator::Orchestator()
     btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
     wifiConnector = new WiFiConnector(wifiConfiguration);
     endConfigurationCallback = new EndConfigurationCallback();
+    int uartNumber = 2;
+    GPSController *gpsController = new GPSController(uartNumber);
+    this->gps = new GPS(gpsController);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 
@@ -27,7 +30,6 @@ Orchestator::Orchestator()
         wifiConfiguration->addNetwork("Gabriel-Notebook AP", "Passw0rd");
     }
     //-------------------------------------------------------------
-    
 }
 
 Orchestator::~Orchestator()
@@ -44,15 +46,31 @@ void Orchestator::startBluetoothServer(BluetoothServer *btServer)
 void Orchestator::startNetworkDataSender()
 {
 }
-void Orchestator::startGPSDataProvider()
+void Orchestator::startGPSDataProvider(GPS *gps)
 {
+    IOManager *ioManager = IOManager::getInstance();
+    while (true)
+    {
+        if (gps->actualizado())
+        {
+            while (ioManager->isLocked())
+            {
+                delay(100);
+            }
+            ioManager->lock(true);
+            //codigo de escritura en archivo
+            ioManager->lock(false);
+        }
+        delay(100);
+    }
 }
 
 void Orchestator::start()
 {
     serialController->println("Orchestator Start");
     std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
-    while(endConfigurationCallback->configurationEnded == false){
+    while (endConfigurationCallback->configurationEnded == false)
+    {
         delay(200);
     }
     btServer->stop();
@@ -60,4 +78,5 @@ void Orchestator::start()
     bluetoothServerThread.join();
     serialController->println("Iniciando el WiFi");
     wifiConnector->beginConnectionLoop();
+    std::thread GPSThread = std::thread(Orchestator::startGPSDataProvider, gps);
 }

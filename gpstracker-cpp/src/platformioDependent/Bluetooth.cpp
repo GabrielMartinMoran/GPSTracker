@@ -9,7 +9,7 @@ void Bluetooth::start(IBluetoothServer *btServer)
 {
     // Create the BLE Device
     BLEDevice::init(DEVICE_BT_NAME);
-
+    
     // Create the BLE Server
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new BluetoothServerCallbacks(this));

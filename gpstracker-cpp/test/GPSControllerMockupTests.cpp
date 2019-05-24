@@ -4,9 +4,8 @@
 TEST(GPSControllerMockup, getInformation)
 {
 
-    int pinTX = 0;
-    int pinRX = 0;
-    GPSControllerMockup *m1 = new GPSControllerMockup(pinTX, pinRX);
+    int uartNumber = 0;
+    GPSControllerMockup *m1 = new GPSControllerMockup(uartNumber);
     GPSControllerMockup *m2 = new GPSControllerMockup();
     std::string command;
     

@@ -97,6 +97,11 @@ void BluetoothServer::onRequest(std::string request)
             sendResponse(OK);
             return;
         }
+        if (isCommand(request, ECHO))
+        {            
+            sendResponse(getData(request, ECHO));
+            return;
+        }
         //Comentado porque sino habria que importar Arduino.h y romperia los tests
         //Igualmente habria que utilizar el SerialController en todo caso
         //Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));

@@ -7,6 +7,8 @@ file(GLOB src *.cpp)
 add_library(${This} ${src})
 
 add_subdirectory(utils)
+add_subdirectory(GPS)
+add_subdirectory(exceptions)
 
 target_link_libraries(${This} PUBLIC
     GPSTracker

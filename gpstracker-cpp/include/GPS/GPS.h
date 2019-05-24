@@ -4,7 +4,7 @@
 #include <iostream>
 #include <interfaces/IGPSController.h>
 #include <utils/Haversine.h>
-#include <GPSData.h>
+#include <GPS/GPSData.h>
 
 class GPS
 {
@@ -15,15 +15,8 @@ private:
 
 public:
     GPS(IGPSController *GPSController);
-    bool actualizar(); //devuelve true si actualizo
-    int getHora();
-    int getMinuto();
-    int getSegundo();
-    int getDia();
-    int getMes();
-    int getAnio();
-    float getLatitud();
-    float getLongitud();
+    bool actualizado(); //devuelve true si actualizo
+    GPSData getGPSData();
     ~GPS();
 };
 

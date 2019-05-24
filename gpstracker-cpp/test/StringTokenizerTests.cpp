@@ -55,3 +55,9 @@ TEST(StringTokenizer, tokens)
                                   << "obtenido: " << obtenido;
     
 }
+
+TEST(StringTokenizer, NoMoreTokensException)
+{
+    StringTokenizer tokens("", ",");
+    EXPECT_THROW(tokens.nextToken(), NoMoreTokensException);
+}
