@@ -2,6 +2,8 @@
 #define GPSData_h
 
 #include <string>
+#include <stdio.h>
+#include <cmath>
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
 #include <GPS/DateTime.h>
@@ -23,6 +25,7 @@ public:
     Coordenada getCoordenada();
     bool isValido();
     std::string getRawData();
+    std::string getNormalizedData();
     ~GPSData();
 };
 #endif

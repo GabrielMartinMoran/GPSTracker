@@ -2,14 +2,15 @@
 
 Orchestator::Orchestator()
 {
-
     serialController = new SerialController();
-    sdManager = new SDManager();
+    uint8_t ssPin = 5;
+    sdManager = new SDManager(ssPin);
     wifiConfiguration = new WiFiConfiguration(sdManager);
     bluetooth = new Bluetooth();
     btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
     wifiConnector = new WiFiConnector(wifiConfiguration);
     endConfigurationCallback = new EndConfigurationCallback();
+    ioManager = new IOManager(sdManager);
     int uartNumber = 2;
     GPSController *gpsController = new GPSController(uartNumber);
     this->gps = new GPS(gpsController);
@@ -46,28 +47,28 @@ void Orchestator::startBluetoothServer(BluetoothServer *btServer)
 void Orchestator::startNetworkDataSender()
 {
 }
-void Orchestator::startGPSDataProvider(GPS *gps)
+void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps)
 {
-    IOManager *ioManager = IOManager::getInstance();
     while (true)
     {
-        if (gps->actualizado())
+        //if (gps->actualizado()) // aca tira que se lleno el stack o algo asi
+        if (false)
         {
-            while (ioManager->isLocked())
-            {
-                delay(100);
-            }
-            ioManager->lock(true);
-            //codigo de escritura en archivo
-            ioManager->lock(false);
+            Serial.println("actualizado");
+            ioManager->write(gps->getGPSData().getNormalizedData());
         }
-        delay(100);
+        else
+        {
+            delay(500);
+            Serial.println("no actualizado");
+        }
     }
 }
 
 void Orchestator::start()
 {
-    serialController->println("Orchestator Start");
+    //serialController->println("Orchestator Start");
+    /*
     std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
     while (endConfigurationCallback->configurationEnded == false)
     {
@@ -78,5 +79,9 @@ void Orchestator::start()
     bluetoothServerThread.join();
     serialController->println("Iniciando el WiFi");
     wifiConnector->beginConnectionLoop();
-    std::thread GPSThread = std::thread(Orchestator::startGPSDataProvider, gps);
+    */
+    serialController->println("Iniciando captura de datos GPS");
+    std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps);
+    GPSThread->join();
+    delete GPSThread;
 }

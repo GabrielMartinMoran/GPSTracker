@@ -2,18 +2,25 @@
 #define IOManager_h
 
 #include <iostream>
+#include <mutex>
+#include <Arduino.h>
+#include <platformioDependent/SDManager.h>
 
 class IOManager
 {
 private:
-    static IOManager *instance;
     bool locked;
-    IOManager();
+    SDManager *sdManager;
+    std::mutex io_mutex;
+    void ioConcurrencia(bool writing, std::string line);
+    bool isLocked();
+    void lock();
+    void unlock();
 
 public:
-    static IOManager *getInstance();
-    bool isLocked();
-    void lock(bool estate);
+    IOManager(SDManager *sdManager);
+    void write(std::string line);
+    void read();
 };
 
 #endif

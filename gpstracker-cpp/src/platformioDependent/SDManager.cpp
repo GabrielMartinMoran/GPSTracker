@@ -1,8 +1,12 @@
 #include "platformioDependent/SDManager.h"
 
+SDManager::SDManager(uint8_t ssPin) : ssPin(ssPin)
+{
+}
+
 bool SDManager::isValidSD()
 {
-    if (!SD.begin())
+    if (!SD.begin(this->ssPin))
     {
         Serial.println("SD Card Mount Failed");
         return false;
@@ -96,9 +100,11 @@ void SDManager::removeDir(const char *path)
 std::vector<std::string> *SDManager::readFileLines(const char *path)
 {
     std::vector<std::string> *list = new std::vector<std::string>();
-    if (!isValidSD()) return list;
+    if (!isValidSD())
+        return list;
     File file = SD.open(path);
-    if (!file) return list;
+    if (!file)
+        return list;
     while (file.available())
     {
         std::string data = file.readStringUntil('\n').c_str();
@@ -110,9 +116,11 @@ std::vector<std::string> *SDManager::readFileLines(const char *path)
 
 std::string SDManager::readLine(const char *path, unsigned int index)
 {
-    if (!isValidSD()) return "ERR";
+    if (!isValidSD())
+        return "ERR";
     File file = SD.open(path);
-    if (!file) return "ERR";
+    if (!file)
+        return "ERR";
     size_t recNum = 1;
     while (file.available())
     {
@@ -130,7 +138,8 @@ std::string SDManager::readLine(const char *path, unsigned int index)
 
 bool SDManager::writeFile(const char *path, const std::string data)
 {
-    if (!isValidSD()) return false;
+    if (!isValidSD())
+        return false;
     File file = SD.open(path, FILE_WRITE);
     bool result = file && file.print(data.c_str());
     file.close();
@@ -139,7 +148,8 @@ bool SDManager::writeFile(const char *path, const std::string data)
 
 bool SDManager::appendFile(const char *path, const std::string data)
 {
-    if (!isValidSD()) return false;
+    if (!isValidSD())
+        return false;
     File file = SD.open(path, FILE_APPEND);
     bool result = file && file.print(data.c_str());
     file.close();
@@ -148,13 +158,15 @@ bool SDManager::appendFile(const char *path, const std::string data)
 
 bool SDManager::renameFile(const char *path1, const char *path2)
 {
-    if (!isValidSD()) return false;
+    if (!isValidSD())
+        return false;
     return SD.rename(path1, path2);
 }
 
 bool SDManager::deleteFile(const char *path)
 {
-    if (!isValidSD()) return false;
+    if (!isValidSD())
+        return false;
     return SD.remove(path);
 }
 

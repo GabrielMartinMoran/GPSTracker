@@ -85,6 +85,20 @@ std::string GPSData::getRawData()
 {
     return this->rawData;
 }
+
+std::string GPSData::getNormalizedData()
+{
+    char buffer[40];
+    sprintf(buffer, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
+            dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
+            dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
+            getCoordenada().getLatitud() > 0 ? '+' : '-',
+            std::abs(getCoordenada().getLatitud()),
+            getCoordenada().getLongitud() > 0 ? '+' : '-',
+            std::abs(getCoordenada().getLongitud()));
+    return std::string(buffer);
+}
+
 GPSData::~GPSData()
 {
 }

@@ -24,11 +24,12 @@ private:
     BluetoothServer *btServer;
     WiFiConnector *wifiConnector;
     GPS *gps;
+    IOManager *ioManager;
     EndConfigurationCallback *endConfigurationCallback;
     static void startWiFiConnector();
     static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
-    static void startGPSDataProvider(GPS *gps);
+    static void startGPSDataProvider(IOManager *ioManager, GPS *gps);
 
 public:
     Orchestator();
