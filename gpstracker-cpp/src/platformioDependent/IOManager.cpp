@@ -1,8 +1,8 @@
 #include <platformioDependent/IOManager.h>
 
-IOManager::IOManager()
+IOManager::IOManager(SDManager *sdManager)
 {
-    std::lock_guard<std::mutex> lock(this->io_mutex);
+    this->sdManager = sdManager;
     this->locked = false;
 }
 
@@ -16,7 +16,8 @@ void IOManager::ioConcurrencia(bool writing, std::string line)
             delay(100);
         }
         this->lock();
-        //escribir en la sd
+        this->sdManager->writeFile("test.txt", line);
+        Serial.println("escribiendo SD");
         this->unlock();
     }
     else

@@ -24,6 +24,7 @@ private:
     BluetoothServer *btServer;
     WiFiConnector *wifiConnector;
     GPS *gps;
+    IOManager *ioManager;
     EndConfigurationCallback *endConfigurationCallback;
     static void startWiFiConnector();
     static void startBluetoothServer(BluetoothServer *btServer);

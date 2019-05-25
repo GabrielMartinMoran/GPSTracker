@@ -2,7 +2,7 @@
 
 bool SDManager::isValidSD()
 {
-    if (!SD.begin())
+    if (!SD.begin(21))
     {
         Serial.println("SD Card Mount Failed");
         return false;
