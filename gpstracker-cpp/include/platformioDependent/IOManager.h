@@ -2,18 +2,18 @@
 #define IOManager_h
 
 #include <iostream>
+#include <mutex>
+#include <Arduino.h>
 
 class IOManager
 {
 private:
-    static IOManager *instance;
     bool locked;
-    IOManager();
-
+    std::mutex io_mutex;
 public:
-    static IOManager *getInstance();
-    bool isLocked();
-    void lock(bool estate);
+    IOManager();
+    void write(std::string line);
+    void read();
 };
 
 #endif

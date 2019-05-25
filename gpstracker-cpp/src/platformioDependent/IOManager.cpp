@@ -2,26 +2,15 @@
 
 IOManager::IOManager()
 {
+    std::lock_guard<std::mutex> lock(this->io_mutex);
     this->locked = false;
 }
 
-IOManager *IOManager::getInstance()
-{
-    if (instance == 0)
-    {
-        instance = new IOManager();
+void IOManager::write(std::string line){
+    std::lock_guard<std::mutex> lock(this->io_mutex);
+    while(this->locked){
+        delay(100);
     }
-    return instance;
-}
-
-IOManager *IOManager::instance = 0;
-
-bool IOManager::isLocked()
-{
-    return this->locked;
-}
-
-void IOManager::lock(bool estate)
-{
-    this->locked = estate;
+    this->locked = true;
+    //escribir en la sd
 }
