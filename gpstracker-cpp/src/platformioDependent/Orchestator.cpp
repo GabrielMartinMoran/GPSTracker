@@ -2,9 +2,9 @@
 
 Orchestator::Orchestator()
 {
-
     serialController = new SerialController();
-    sdManager = new SDManager();
+    uint8_t ssPin = 5;
+    sdManager = new SDManager(ssPin);
     wifiConfiguration = new WiFiConfiguration(sdManager);
     bluetooth = new Bluetooth();
     btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
@@ -51,10 +51,10 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps)
 {
     while (true)
     {
-        if (gps->actualizado())
+        //if (gps->actualizado()) // aca tira que se lleno el stack o algo asi
+        if (false)
         {
             Serial.println("actualizado");
-            delay(500);
             ioManager->write(gps->getGPSData().getNormalizedData());
         }
         else

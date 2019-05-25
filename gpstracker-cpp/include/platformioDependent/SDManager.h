@@ -11,6 +11,7 @@
 class SDManager : public ISDManager {
 
     public:
+        SDManager(uint8_t ssPin);
         bool isValidSD();
         void listDir(const char * dirname, uint8_t levels);
         void createDir(const char * path);
@@ -25,6 +26,8 @@ class SDManager : public ISDManager {
          * Returns SD card size in MB
          */
         uint64_t getCardSize();
+    private:
+        uint8_t ssPin;
 };
 
 #endif

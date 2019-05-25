@@ -4,7 +4,7 @@
     //sdManager->appendFile(path, msgBuff);
 
 GPSDataProvider::GPSDataProvider(char *dataPath){
-    sdManager = new SDManager();
+    sdManager = new SDManager(5);
     path = dataPath;
 }
 
