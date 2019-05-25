@@ -88,30 +88,14 @@ std::string GPSData::getRawData()
 
 std::string GPSData::getNormalizedData()
 {
-    unsigned int anio = dateTime().getAnio();
-    unsigned int mes = dateTime().getMes();
-    unsigned int dia = dateTime().getDia();
-    unsigned int hora = dateTime().getHora();
-    unsigned int minuto = dateTime().getMinuto();
-    unsigned int segundo = dateTime().getSegundo();
-    double latitud = getCoordenada().getLatitud();
-    char signoLatitud;
-    if(latitud > 0){
-        signoLatitud = '+';
-    }else{
-        signoLatitud = '-';
-        latitud *= -1;
-    }
-    double longitud = getCoordenada().getLongitud();
-    char signoLongitud;
-    if(longitud > 0){
-        signoLongitud = '+';
-    }else{
-        signoLongitud = '-';
-        longitud *= -1;
-    }
     char buffer[40];
-    sprintf(buffer, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n", anio, mes, dia, hora, minuto, segundo, signoLatitud, latitud, signoLongitud, longitud);
+    sprintf(buffer, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
+            dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
+            dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
+            getCoordenada().getLatitud() > 0 ? '+' : '-',
+            std::abs(getCoordenada().getLatitud()),
+            getCoordenada().getLongitud() > 0 ? '+' : '-',
+            std::abs(getCoordenada().getLongitud()));
     return std::string(buffer);
 }
 

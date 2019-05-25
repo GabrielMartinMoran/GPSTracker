@@ -11,24 +11,24 @@ void IOManager::ioConcurrencia(bool writing, std::string line)
     std::lock_guard<std::mutex> lock(this->io_mutex);
     if (writing)
     {
-        while (this->locked)
+        while (this->isLocked())
         {
             delay(100);
         }
-        this->locked = true;
+        this->lock();
         //escribir en la sd
-        this->locked = false;
-    }else
+        this->unlock();
+    }
+    else
     {
-        while (this->locked)
+        while (this->isLocked())
         {
             delay(100);
         }
-        this->locked = true;
+        this->lock();
         //enviar por wifi
-        this->locked = false;
+        this->unlock();
     }
-    
 }
 
 void IOManager::write(std::string line)
@@ -38,4 +38,15 @@ void IOManager::write(std::string line)
 
 void IOManager::read()
 {
+}
+
+bool IOManager::isLocked()
+{
+    return this->locked;
+}
+void IOManager::lock(){
+    this->locked = true;
+}
+void IOManager::unlock(){
+    this->locked = false;
 }

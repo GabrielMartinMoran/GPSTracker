@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdio.h>
+#include <cmath>
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
 #include <GPS/DateTime.h>
