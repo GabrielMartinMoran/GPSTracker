@@ -10,6 +10,7 @@ class IOManager
 private:
     bool locked;
     std::mutex io_mutex;
+    void ioConcurrencia(bool writing, std::string line);
 public:
     IOManager();
     void write(std::string line);
