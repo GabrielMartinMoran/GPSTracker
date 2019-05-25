@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity{
     Button openWiFiListActivityBtn;
     Button sendButton;
     Button endConfiguration;
+    Button openMap;
     EditText textInput;
 
     @Override
@@ -54,6 +55,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 endConfiguration();
+            }
+        });
+
+        openMap = (Button) findViewById(R.id.openMap);
+        openMap.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openMapActivity();
             }
         });
 
@@ -100,5 +109,9 @@ public class MainActivity extends AppCompatActivity{
                 Toast.LENGTH_LONG).show();
     }
 
+    public void openMapActivity(){
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
 
 }
