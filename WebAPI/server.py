@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,render_template
 from pymongo import MongoClient
 from DataObject import DataObject
 from datetime import datetime
@@ -57,3 +57,7 @@ def get_all_data():
 		}
 		documents.append(data_row)
 	return json.dumps(documents)
+
+@app.route('/report',methods=['GET'])
+def report():
+	return render_template("report.html")
