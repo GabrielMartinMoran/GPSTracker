@@ -58,6 +58,6 @@ def get_all_data():
 		documents.append(data_row)
 	return json.dumps(documents)
 
-@app.route('/report',methods=['GET'])
+@app.route('/map',methods=['GET'])
 def report():
-	return render_template("report.html")
+	return render_template("map.html")

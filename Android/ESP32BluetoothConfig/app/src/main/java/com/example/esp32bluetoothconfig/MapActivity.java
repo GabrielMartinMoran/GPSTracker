@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +28,16 @@ public class MapActivity extends AppCompatActivity{
     }
 
     public void openMap(){
-        String html = "<iframe width=\"800\" height=\"600\" src=\"https://app.powerbi.com/view?r=eyJrIjoiODQ3ZjllMmQtYzcyZS00ZGJjLTgyYzAtYTMyYjE1NDBhNTUzIiwidCI6Ijc1NzgzNjllLWNmNjEtNDQ0MC05YTkyLThjOGM2ZTU0YmY3MSIsImMiOjR9\" frameborder=\"0\" allowFullScreen=\"true\"></iframe>";
-        webView.loadData(html, "text/html", null);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setSupportZoom(true);
+        webSettings.setDefaultTextEncodingName("utf-8");
+        webView.loadUrl("https://gpstrackerapi.herokuapp.com/map");
     }
 
 
