@@ -110,8 +110,11 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void openMapActivity(){
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, MapActivity.class);
+        //startActivity(intent);
+        String URL = ;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+        startActivity(browserIntent);
     }
 
 }
