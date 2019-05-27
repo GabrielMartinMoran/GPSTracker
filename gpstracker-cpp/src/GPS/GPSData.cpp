@@ -38,8 +38,9 @@ GPSData::GPSData(std::string data) : rawData(data)
                 fecha = new std::string(tokens->nextToken()); //13 Sep 1998
                 unsigned int dia, mes, anio;
                 parsearTiempo(fecha, &dia, &mes, &anio);
-
-                this->date_time = DateTime(dia, mes, anio, hora, minuto, segundo);
+                
+                delete this->date_time;
+                this->date_time = new DateTime(dia, mes, anio, hora, minuto, segundo);
                 tokens->nextToken(); //Magnetic variation 20.3 deg East
 
                 tokens->nextToken(); //mandatory checksum
@@ -73,7 +74,7 @@ double GPSData::parsearCoordenada(std::string coordenada)
 
 DateTime GPSData::dateTime()
 {
-    return this->date_time;
+    return *this->date_time;
 }
 
 Coordenada GPSData::getCoordenada()
