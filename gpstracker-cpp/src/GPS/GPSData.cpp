@@ -28,8 +28,8 @@ GPSData::GPSData(std::string data) : rawData(data)
                 {
                     longitud *= -1;
                 }
-
-                this->coordenada = Coordenada(latitud, longitud);
+                delete this->coordenada;
+                this->coordenada = new Coordenada(latitud, longitud);
 
                 tokens->nextToken();
 
@@ -79,7 +79,7 @@ DateTime GPSData::dateTime()
 
 Coordenada GPSData::getCoordenada()
 {
-    return this->coordenada;
+    return *this->coordenada;
 }
 
 bool GPSData::isValido()
