@@ -88,8 +88,9 @@ std::string GPSData::getRawData()
 
 std::string GPSData::getNormalizedData()
 {
-    char buffer[40];
-    sprintf(buffer, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
+    unsigned int t = 41;
+    char *buffer = new char[t];
+    snprintf(buffer, t,"%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
             dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
             dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
             getCoordenada().getLatitud() > 0 ? '+' : '-',
