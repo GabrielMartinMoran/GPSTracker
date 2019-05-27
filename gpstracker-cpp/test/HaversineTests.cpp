@@ -10,7 +10,7 @@ TEST(Haversine, haversine_m){
     double obtenido;
 
     esperado = 5571340.3215750661;
-    obtenido = haversine_m(&lat1, &lon1, &lat2, &lon2);
+    obtenido = haversine_m(lat1, lon1, lat2, lon2);
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 }
