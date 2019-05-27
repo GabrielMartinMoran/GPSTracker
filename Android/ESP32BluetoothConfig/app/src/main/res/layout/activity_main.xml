@@ -47,7 +47,7 @@
         android:layout_width="100pt"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="Buscar dispositivos BLE"
         android:background="@drawable/btn_rounded"
         android:layout_gravity="center_vertical|center_horizontal"/>
@@ -69,6 +69,16 @@
         android:textColor="#fff"
         android:layout_marginTop="20dp"
         android:text="Finalizar Configuración"
+        android:background="@drawable/btn_rounded"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
+    <Button
+        android:id="@+id/openMap"
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginTop="20dp"
+        android:text="Mostrar Mapa"
         android:background="@drawable/btn_rounded"
         android:layout_gravity="center_vertical|center_horizontal"/>
 

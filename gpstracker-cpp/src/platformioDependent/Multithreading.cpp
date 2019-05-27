@@ -2,8 +2,9 @@
 
 void Multithreading::printThread(int number) {
     while(true){
-        char buff[40];
-        sprintf(buff, "Imprimiendo desde el thread %d", number);
+        unsigned int t = 40;
+        char buff[t];
+        snprintf(buff,t, "Imprimiendo desde el thread %d", number);
         Serial.println(buff);
         delay(1000);
     }    
