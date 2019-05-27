@@ -1,10 +1,13 @@
 #include <GPS/GPSData.h>
 
-GPSData::GPSData(std::string data) : rawData(data)
+GPSData::GPSData(std::string data)
 {
     StringTokenizer *tokens = new StringTokenizer(data, ",");
+    this->rawData = new std::string(data);
     std::string *tiempo = nullptr;
     std::string *fecha = nullptr;
+    std::string *latitud_s = nullptr;
+    std::string *longitud_s = nullptr;
     try
     {
         if (tokens->nextToken() == "$GPRMC")
@@ -15,14 +18,15 @@ GPSData::GPSData(std::string data) : rawData(data)
 
             if (tokens->nextToken() == std::string("A"))
             {
-                double latitud = parsearCoordenada(tokens->nextToken());
+                latitud_s = new std::string(tokens->nextToken());
+                double latitud = parsearCoordenada(latitud_s);
 
                 if (tokens->nextToken() == std::string("S"))
                 {
                     latitud *= -1;
                 }
-
-                double longitud = parsearCoordenada(tokens->nextToken());
+                longitud_s = new std::string(tokens->nextToken());
+                double longitud = parsearCoordenada(longitud_s);
 
                 if (tokens->nextToken() == std::string("E"))
                 {
@@ -51,11 +55,16 @@ GPSData::GPSData(std::string data) : rawData(data)
     catch (NoMoreTokensException)
     {
         this->valido = false;
+        delete this->coordenada;
+        delete this->date_time;
+        delete this->rawData;
     }
 
     delete tokens;
     delete fecha;
     delete tiempo;
+    delete latitud_s;
+    delete longitud_s;
 }
 void GPSData::parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio)
 {
@@ -64,11 +73,11 @@ void GPSData::parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned
     *sengundoAnio = stringToNumber<unsigned int>(tiempo->substr(4, 2));
 }
 
-double GPSData::parsearCoordenada(std::string coordenada)
+double GPSData::parsearCoordenada(std::string *coordenada)
 {
-    int separador = coordenada.find(".") - 2;
-    double grados = stringToNumber<double>(coordenada.substr(0, separador));
-    double minutos = stringToNumber<double>(coordenada.substr(separador, coordenada.length() - separador));
+    int separador = coordenada->find(".") - 2;
+    double grados = stringToNumber<double>(coordenada->substr(0, separador));
+    double minutos = stringToNumber<double>(coordenada->substr(separador, coordenada->length() - separador));
     return grados + minutos / 60;
 }
 
@@ -89,7 +98,7 @@ bool GPSData::isValido()
 
 std::string GPSData::getRawData()
 {
-    return this->rawData;
+    return *this->rawData;
 }
 
 std::string GPSData::getNormalizedData()

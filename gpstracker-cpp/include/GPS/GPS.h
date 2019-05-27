@@ -9,8 +9,8 @@
 class GPS
 {
 private:
-    IGPSController *GPSController;
-    GPSData *gpsData = new GPSData(std::string(""));
+    IGPSController *GPSController = nullptr;
+    GPSData *gpsData = nullptr;
     bool posicionValida(GPSData *gpsData);
 
 public:
