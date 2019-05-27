@@ -9,28 +9,28 @@ TEST(GPSData, normalizedData)
 
     data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
     GPSData gpsData = GPSData(data);
-    esperado = "98-09-13 08:18:36,-037.86083,-145.12267\n";
+    esperado = "98-09-13 08:18:36,-037.86083,+145.12267\n";
     obtenido = gpsData.getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     
     data = "$GPRMC,221315,A,3751.65,N,14507.36,W,000.0,360.0,150418,011.3,E*62";
     gpsData = GPSData(data);
-    esperado = "18-04-15 22:13:15,+037.86083,+145.12267\n";
+    esperado = "18-04-15 22:13:15,+037.86083,-145.12267\n";
     obtenido = gpsData.getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     
     data = "$GPRMC,000000,A,3751.65,S,14507.36,W,000.0,360.0,010100,011.3,E*62";
     gpsData = GPSData(data);
-    esperado = "00-01-01 00:00:00,-037.86083,+145.12267\n";
+    esperado = "00-01-01 00:00:00,-037.86083,-145.12267\n";
     obtenido = gpsData.getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     
     data = "$GPRMC,000000,A,3751.65,N,14507.36,E,000.0,360.0,010100,011.3,E*62";
     gpsData = GPSData(data);
-    esperado = "00-01-01 00:00:00,+037.86083,-145.12267\n";
+    esperado = "00-01-01 00:00:00,+037.86083,+145.12267\n";
     obtenido = gpsData.getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
@@ -166,7 +166,7 @@ TEST(GPSData, getLongitudEste)
     double esperado;
     double obtenido;
 
-    esperado = -1 * (145 + 07.36 / 60);
+    esperado = (145 + 07.36 / 60);
     obtenido = gpsData->getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
@@ -181,7 +181,7 @@ TEST(GPSData, getLongitudOeste)
     double esperado;
     double obtenido;
 
-    esperado = 145 + 07.36 / 60;
+    esperado = -1 *(145 + 07.36 / 60);
     obtenido = gpsData->getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;

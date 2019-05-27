@@ -51,8 +51,7 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps)
 {
     while (true)
     {
-        //if (gps->actualizado()) // aca tira que se lleno el stack o algo asi
-        if (false)
+        if (gps->actualizado())
         {
             Serial.println("actualizado");
             ioManager->write(gps->getGPSData().getNormalizedData());
@@ -81,7 +80,24 @@ void Orchestator::start()
     wifiConnector->beginConnectionLoop();
     */
     serialController->println("Iniciando captura de datos GPS");
-    std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps);
-    GPSThread->join();
-    delete GPSThread;
+    //std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps);
+    //GPSThread->join();
+    //delete GPSThread;
+    bool actualizado_aux = false;
+    bool actualizado = false;
+    while (true)
+    {
+        actualizado = gps->actualizado();
+        if (actualizado)
+        {
+            ioManager->write(gps->getGPSData().getNormalizedData());
+        }
+        else
+        {
+            delay(500);
+        }
+        if(actualizado != actualizado_aux){
+            actualizado ? Serial.println("actualizado") : Serial.println("no actualizado");
+        }
+    }
 }

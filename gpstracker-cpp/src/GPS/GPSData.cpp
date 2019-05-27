@@ -28,7 +28,7 @@ GPSData::GPSData(std::string data)
                 longitud_s = new std::string(tokens->nextToken());
                 double longitud = parsearCoordenada(longitud_s);
 
-                if (tokens->nextToken() == std::string("E"))
+                if (tokens->nextToken() == std::string("W"))
                 {
                     longitud *= -1;
                 }

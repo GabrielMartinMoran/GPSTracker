@@ -17,7 +17,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 * (145 + 07.36 / 60);
+    esperado = (145 + 07.36 / 60);
     obtenido = gps->getGPSData().getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -31,7 +31,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = 73 + 02.5 / 60;
+    esperado = -1 *(73 + 02.5 / 60);
     obtenido = gps->getGPSData().getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -45,7 +45,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = 73 + 02.5020000000004 / 60;
+    esperado = -1 *(73 + 02.5020000000004 / 60);
     obtenido = gps->getGPSData().getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -59,7 +59,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = 73 + 02.5029999999997 / 60;
+    esperado = -1 *(73 + 02.5029999999997 / 60);
     obtenido = gps->getGPSData().getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -171,7 +171,7 @@ TEST(GPS, getLongitud)
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
     GPS *gps = new GPS(gpsControllerMockup);
     gps->actualizado();
-    double esperado = -1 * (145 + 07.36 / 60);
+    double esperado = (145 + 07.36 / 60);
     double obtenido = gps->getGPSData().getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;

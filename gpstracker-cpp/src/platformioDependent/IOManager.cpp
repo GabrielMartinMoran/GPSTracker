@@ -16,7 +16,7 @@ void IOManager::ioConcurrencia(bool writing, std::string line)
             delay(100);
         }
         this->lock();
-        this->sdManager->writeFile("test.txt", line);
+        this->sdManager->appendFile("/test.txt", line);
         Serial.println("escribiendo SD");
         this->unlock();
     }
