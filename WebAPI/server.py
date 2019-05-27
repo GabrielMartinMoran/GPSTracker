@@ -3,6 +3,11 @@ from pymongo import MongoClient
 from DataObject import DataObject
 from datetime import datetime
 import json
+import mimetypes
+from flask_cors import CORS
+
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/javascript', '.js')
 
 MONGO_CONN_STR = "mongodb+srv://gpstracker:Passw0rd@cluster0-1bv3a.mongodb.net/test?retryWrites=true"
 
@@ -24,6 +29,7 @@ def parse_data_block(data_block):
 #------------------------------------------------------------------------------------------------------
 
 app = Flask(__name__)
+CORS(app)
 client = MongoClient()
 client = MongoClient(MONGO_CONN_STR)
 db = client['GPSTracker']
