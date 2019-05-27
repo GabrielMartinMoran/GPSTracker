@@ -15,7 +15,7 @@ bool GPS::actualizado()
     while (this->GPSController->isDataWaiting())
     {
         GPSData *nuevo = new GPSData(this->GPSController->getInformation());
-        if (nuevo->isValido())
+        if (nuevo->isValido() || !this->gpsData->isValido())
         {
             if (posicionValida(nuevo))
             {
