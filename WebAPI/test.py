@@ -49,11 +49,14 @@ longitudes = [-58.534147, -58.534297, -58.534366, -58.534109, -58.533739, -58.53
               -58.534001, -58.534312, -58.534639, -58.535154, -58.535652, -58.536033, -58.536435, -58.536778, -58.536231, -58.535749, -58.535154, -58.534692, -58.534221, -58.533674,
               -58.533990, -58.534376, -58.534864, -58.535406, -58.535824, -58.536274, -58.536789]
 
+#latitudes =  [-34.601457, -34.602014, -34.602208, -34.602243]
+#longitudes = [-58.374031, -58.373939, -58.374567, -58.375179]
+
 data = {
-        "device"   : "NO_ESP_TEST",
+        "device"   : "API_TEST",
         "data"     : generate_data_from_coords(latitudes,longitudes)#generate_data(20)
     }
-response = requests.post("http://localhost/store-data", json= data)
+response = requests.post("http://localhost:5000/store-data", json= data)
 print("Result = {0}".format(response.text))
 
 """
