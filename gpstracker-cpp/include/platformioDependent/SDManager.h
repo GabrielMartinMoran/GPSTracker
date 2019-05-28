@@ -18,8 +18,8 @@ class SDManager : public ISDManager {
         void removeDir(const char * path);
         std::string readLine(const char * path, unsigned int index);
         std::vector<std::string> *readFileLines(const char * path);
-        bool writeFile(const char * path, const std::string data);
-        bool appendFile(const char * path, const std::string data);
+        bool writeFile(const char * path, const std::string *data);
+        bool appendFile(const char * path, const std::string *data);
         bool renameFile(const char * path1, const char * path2);
         bool deleteFile(const char * path);
         /**

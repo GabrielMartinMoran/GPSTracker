@@ -9,6 +9,6 @@ class GPSDataProvider {
     public:
         GPSDataProvider(char *dataPath);
         ~GPSDataProvider();
-        void registerData(String time, String x_coord, String y_coord);
+        void registerData(std::string time, std::string x_coord, std::string y_coord);
         std::string readData(unsigned int index);
 };

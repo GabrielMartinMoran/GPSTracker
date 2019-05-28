@@ -14,8 +14,8 @@ class ISDManager {
         virtual void removeDir(const char * path) = 0;
         virtual std::string readLine(const char * path, unsigned int index) = 0;
         virtual std::vector<std::string> *readFileLines(const char * path) = 0;
-        virtual bool writeFile(const char * path, const std::string data) = 0;
-        virtual bool appendFile(const char * path, const std::string data) = 0;
+        virtual bool writeFile(const char * path, const std::string *data) = 0;
+        virtual bool appendFile(const char * path, const std::string *data) = 0;
         virtual bool renameFile(const char * path1, const char * path2) = 0;
         virtual bool deleteFile(const char * path) = 0;
         virtual uint64_t getCardSize() = 0;

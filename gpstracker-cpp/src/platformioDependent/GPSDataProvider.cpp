@@ -13,12 +13,14 @@ GPSDataProvider::~GPSDataProvider(){
     //delete sdManager;
 }
 
-void GPSDataProvider::registerData(String time, String x_coord, String y_coord){
-    String message = time + ";" + x_coord + ";" + y_coord + "\r";
+void GPSDataProvider::registerData(std::string time, std::string x_coord, std::string y_coord){
+    std::string *message = new std::string(time + ";" + x_coord + ";" + y_coord + "\r");
     //char msgBuff[message.length() + 1];
     //message.toCharArray(msgBuff, message.length() + 1); 
     //sdManager->appendFile(path, msgBuff);
-    sdManager->appendFile(path, std::string(message.c_str()));
+
+    sdManager->appendFile(path, message);
+    delete message;
 }
 
 std::string GPSDataProvider::readData(unsigned int index){

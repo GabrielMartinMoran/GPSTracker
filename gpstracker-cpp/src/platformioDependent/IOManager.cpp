@@ -6,7 +6,7 @@ IOManager::IOManager(SDManager *sdManager)
     this->locked = false;
 }
 
-void IOManager::ioConcurrencia(bool writing, std::string line)
+void IOManager::ioConcurrencia(bool writing, std::string *line)
 {
     std::lock_guard<std::mutex> lock(this->io_mutex);
     if (writing)
@@ -32,7 +32,7 @@ void IOManager::ioConcurrencia(bool writing, std::string line)
     }
 }
 
-void IOManager::write(std::string line)
+void IOManager::write(std::string *line)
 {
     ioConcurrencia(true, line);
 }

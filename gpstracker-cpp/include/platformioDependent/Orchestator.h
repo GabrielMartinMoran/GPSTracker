@@ -29,7 +29,7 @@ private:
     static void startWiFiConnector();
     static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
-    static void startGPSDataProvider(IOManager *ioManager, GPS *gps);
+    static void startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialController *serialController);
 
 public:
     Orchestator();

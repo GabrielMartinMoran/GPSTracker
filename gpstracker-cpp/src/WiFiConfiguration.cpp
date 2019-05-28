@@ -112,14 +112,15 @@ void WiFiConfiguration::addNetwork(std::string SSID, std::string password)
 
 void WiFiConfiguration::saveConfiguration()
 {
-    std::string fileContent = "";
+    std::string *fileContent = new std::string("");
     for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
     {
-        fileContent += (*elementPointer)->toCSVLine();
-        fileContent += "\n";
+        *fileContent += (*elementPointer)->toCSVLine();
+        *fileContent += "\n";
     }
     this->deleteConfigurationFile();
     sdManager->writeFile(WIFI_CONFIGURATION_FILENAME, fileContent);
+    delete fileContent;
 }
 
 void WiFiConfiguration::deleteConfigurationFile()
@@ -129,16 +130,16 @@ void WiFiConfiguration::deleteConfigurationFile()
 
 std::string WiFiConfiguration::listNetworks()
 {
-    std::string list = "";
+    std::string *list = new std::string("");
     for (std::vector<WiFiNetwork *>::iterator elementPointer = networks->begin(); elementPointer != networks->end(); ++elementPointer)
     {
-        list += (*elementPointer)->getSSID();
+        *list += (*elementPointer)->getSSID();
         if (elementPointer + 1 != networks->end())
         {
-            list += ",";
+            *list += ",";
         }
     }
-    return list;
+    return *list;
 }
 
 WiFiNetwork *WiFiConfiguration::getNetwork(std::string SSID){

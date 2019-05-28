@@ -47,19 +47,25 @@ void Orchestator::startBluetoothServer(BluetoothServer *btServer)
 void Orchestator::startNetworkDataSender()
 {
 }
-void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps)
+void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialController *serialController)
 {
+    bool actualizado_aux = false;
+    bool actualizado = false;
     while (true)
     {
-        if (gps->actualizado())
+        actualizado = gps->actualizado();
+        if (actualizado)
         {
-            Serial.println("actualizado");
-            ioManager->write(gps->getGPSData().getNormalizedData());
+            std::string *line = new std::string(gps->getGPSData().getNormalizedData());
+            ioManager->write(line);
+            delete line;
         }
         else
         {
             delay(500);
-            Serial.println("no actualizado");
+        }
+        if(actualizado != actualizado_aux){
+            actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
         }
     }
 }
@@ -80,7 +86,7 @@ void Orchestator::start()
     wifiConnector->beginConnectionLoop();
     */
     serialController->println("Iniciando captura de datos GPS");
-    //std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps);
+    //std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps, serialController);
     //GPSThread->join();
     //delete GPSThread;
     bool actualizado_aux = false;
@@ -90,14 +96,16 @@ void Orchestator::start()
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            ioManager->write(gps->getGPSData().getNormalizedData());
+            std::string *line = new std::string(gps->getGPSData().getNormalizedData());
+            ioManager->write(line);
+            delete line;
         }
         else
         {
             delay(500);
         }
         if(actualizado != actualizado_aux){
-            actualizado ? Serial.println("actualizado") : Serial.println("no actualizado");
+            actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
         }
     }
 }
