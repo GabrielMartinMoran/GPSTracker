@@ -38,7 +38,7 @@ $.ajax({
         'Access-Control-Allow-Origin': '*'
     },
     success: function(result) {
-        obtainedData = JSON.parse(result);
+        obtainedData = result;
         fillDevicesSelect();
         drawDeviceCoordinates(null);
     }

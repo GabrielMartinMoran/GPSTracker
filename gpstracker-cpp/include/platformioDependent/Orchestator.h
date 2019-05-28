@@ -13,6 +13,9 @@
 #include <GPS/GPS.h>
 #include <platformioDependent/GPSController.h>
 #include <platformioDependent/IOManager.h>
+#include <platformioDependent/HTTPClient.h>
+
+#include <Arduino.h>
 
 class Orchestator
 {
@@ -26,7 +29,7 @@ private:
     GPS *gps;
     IOManager *ioManager;
     EndConfigurationCallback *endConfigurationCallback;
-    static void startWiFiConnector();
+    static void startWiFiConnector(WiFiConnector *wifiConnector);
     static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
     static void startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialController *serialController);

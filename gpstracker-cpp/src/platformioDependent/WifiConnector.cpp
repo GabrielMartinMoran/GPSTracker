@@ -18,6 +18,8 @@ bool WiFiConnector::connect(std::string SSID, std::string password)
     delay(500);
 
     WiFi.begin(SSID.c_str(), password.c_str());
+    IPAddress primaryDNS(8, 8, 8, 8);   //optional
+    IPAddress secondaryDNS(1, 1, 1, 1); //optional
     byte intentos = 0;
     while (WiFi.status() != WL_CONNECTED)
     {

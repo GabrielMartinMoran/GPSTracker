@@ -1,8 +1,7 @@
-from flask import Flask,request,render_template
+from flask import Flask,request, render_template, make_response, jsonify
 from pymongo import MongoClient
 from DataObject import DataObject
 from datetime import datetime
-import json
 import mimetypes
 from flask_cors import CORS
 
@@ -37,18 +36,20 @@ collection = db['Data']
 
 @app.route('/',methods=['GET'])
 def root():
-	return "200"
+	return make_response("OK", 200)
 
 @app.route('/store-data',methods=['POST'])
 def store_data():
-	data = request.get_json()#json.loads(request.data)
+	data = request.get_json()
+	if("data" not in data or "device" not in data):
+		return make_response("BAD REQUEST", 400)
 	data_objects = parse_data_block(data["data"])
 	for x in data_objects:
 		dict_to_insert = x.to_dict()
 		dict_to_insert["device"] = data["device"]
 		inserted_id = collection.insert_one(dict_to_insert).inserted_id
 		print("> Inserted DataObject with Id: {0}".format(inserted_id))
-	return "200"
+	return make_response("OK", 200)
 
 @app.route('/get-all-data',methods=['GET'])
 def get_all_data():
@@ -62,7 +63,7 @@ def get_all_data():
 			"longitude"	: x["longitude"]
 		}
 		documents.append(data_row)
-	return json.dumps(documents)
+	return make_response(jsonify(documents), 200)
 
 @app.route('/map',methods=['GET'])
 def report():
