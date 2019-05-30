@@ -17,10 +17,10 @@ void SerialController::println(int data)
 
 void SerialController::print(std::string data)
 {
-    Serial.println(data.c_str());
+    Serial.print(data.c_str());
 }
 
 void SerialController::print(int data)
 {
-    Serial.println(data);
+    Serial.print(data);
 }
