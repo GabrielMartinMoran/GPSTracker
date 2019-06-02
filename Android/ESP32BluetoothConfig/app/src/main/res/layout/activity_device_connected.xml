@@ -30,7 +30,7 @@
             android:layout_height="@android:dimen/thumbnail_height"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:src="@drawable/ESP32" />
+            android:src="@drawable/esp32" />
 
         <Button
             android:id="@+id/openWiFiListActivityBtn"

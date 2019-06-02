@@ -38,6 +38,7 @@ public class DeviceConnectedActivity extends AppCompatActivity {
         });
 
         connectedDeviceTextView = findViewById(R.id.connectedDeviceTextView);
+        connectedDeviceTextView.setText(GlobalObjectManager.bluetoothHelper.connectedDeviceName);
     }
 
     public void openWiFiListListActivity() {
@@ -53,6 +54,11 @@ public class DeviceConnectedActivity extends AppCompatActivity {
         Log.d("RESPONSE", received);
         Toast.makeText(this, received,
                 Toast.LENGTH_LONG).show();
+        if(received.equals("200")){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
 
