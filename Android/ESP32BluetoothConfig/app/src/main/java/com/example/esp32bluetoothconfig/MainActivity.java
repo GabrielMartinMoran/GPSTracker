@@ -14,11 +14,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity{
 
     Button openBLEListActivityBtn;
-    Button openWiFiListActivityBtn;
-    Button sendButton;
-    Button endConfiguration;
     Button openMap;
-    EditText textInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +30,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        openWiFiListActivityBtn = (Button) findViewById(R.id.openWiFiListActivityBtn);
-        openWiFiListActivityBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                openWiFiListListActivity();
-            }
-        });
-
-        sendButton = (Button) findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                sendData();
-            }
-        });
-
-        endConfiguration = (Button) findViewById(R.id.endConfigurationBtn);
-        endConfiguration.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                endConfiguration();
-            }
-        });
-
         openMap = (Button) findViewById(R.id.openMap);
         openMap.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -65,8 +37,6 @@ public class MainActivity extends AppCompatActivity{
                 openMapActivity();
             }
         });
-
-        textInput = (EditText) findViewById(R.id.textInput);
     }
 
     /*private void evaluateBLECompatibility() {
@@ -81,32 +51,6 @@ public class MainActivity extends AppCompatActivity{
     public void openBLEDevicesListActivity() {
         Intent intent = new Intent(this, BluetoothListActivity.class);
         startActivity(intent);
-    }
-
-    public void openWiFiListListActivity() {
-        Intent intent = new Intent(this, WiFiListActivity.class);
-        startActivity(intent);
-    }
-
-    public void sendData() {
-        String text = textInput.getText().toString();
-        String received = GlobalObjectManager.bluetoothHelper.makeRequest(text);
-        if(received == null){
-            received = "";
-        }
-        Log.d("RESPONSE", received);
-        Toast.makeText(this, received,
-                Toast.LENGTH_LONG).show();
-    }
-
-    public void endConfiguration() {
-        String received = GlobalObjectManager.bluetoothHelper.makeRequest("$END_CONFIGURATION$");
-        if(received == null){
-            received = "";
-        }
-        Log.d("RESPONSE", received);
-        Toast.makeText(this, received,
-                Toast.LENGTH_LONG).show();
     }
 
     public void openMapActivity(){

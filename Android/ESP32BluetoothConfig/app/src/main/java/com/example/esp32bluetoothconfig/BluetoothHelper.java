@@ -126,7 +126,9 @@ public class BluetoothHelper {
                     descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                     mBluetoothGatt.writeDescriptor(descriptor);
 
-                    ((Activity)contextToFinishActivity).finish();
+                    //((Activity)contextToFinishActivity).finish();
+                    Intent intent = new Intent(((Activity)contextToFinishActivity), DeviceConnectedActivity.class);
+                    ((Activity)contextToFinishActivity).startActivity(intent);
                 }
             });
         }
