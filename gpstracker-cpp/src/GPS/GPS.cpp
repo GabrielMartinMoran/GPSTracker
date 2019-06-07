@@ -7,7 +7,7 @@ GPS::GPS(IGPSController *GPSController)
 
 bool GPS::posicionValida(GPSData *gpsData)
 {
-    return haversine_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(), gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud()) > 2.5;
+    return haversine_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(), gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud()) > METROS_ENTRE_PUNTOS;
 }
 
 bool GPS::actualizado()
@@ -19,17 +19,20 @@ bool GPS::actualizado()
         {
             if (this->gpsData == nullptr)
             {
-                delete this->gpsData;
                 this->gpsData = nuevo;
                 return true;
             }
-            if (posicionValida(nuevo))
+            else
             {
-                delete this->gpsData;
-                this->gpsData = nuevo;
-                return true;
+                if (posicionValida(nuevo))
+                {
+                    delete this->gpsData;
+                    this->gpsData = nuevo;
+                    return true;
+                }
             }
         }
+        delete nuevo;
     }
     return false;
 }

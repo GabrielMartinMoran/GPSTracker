@@ -16,19 +16,19 @@ GPSData::GPSData(std::string data)
             unsigned int hora, minuto, segundo;
             parsearTiempo(tiempo, &hora, &minuto, &segundo);
 
-            if (tokens->nextToken() == std::string("A"))
+            if (tokens->nextToken() == "A")
             {
                 latitud_s = new std::string(tokens->nextToken());
                 double latitud = parsearCoordenada(latitud_s);
 
-                if (tokens->nextToken() == std::string("S"))
+                if (tokens->nextToken() == "S")
                 {
                     latitud *= -1;
                 }
                 longitud_s = new std::string(tokens->nextToken());
                 double longitud = parsearCoordenada(longitud_s);
 
-                if (tokens->nextToken() == std::string("W"))
+                if (tokens->nextToken() == "W")
                 {
                     longitud *= -1;
                 }
@@ -48,13 +48,11 @@ GPSData::GPSData(std::string data)
                 tokens->nextToken(); //Magnetic variation 20.3 deg East
 
                 tokens->nextToken(); //mandatory checksum
-                this->valido = true;
             }
         }
     }
     catch (NoMoreTokensException)
     {
-        this->valido = false;
         delete this->coordenada;
         delete this->date_time;
         delete this->rawData;
@@ -93,7 +91,7 @@ Coordenada GPSData::getCoordenada()
 
 bool GPSData::isValido()
 {
-    return this->valido;
+    return this->coordenada == nullptr || this->date_time == nullptr;
 }
 
 std::string GPSData::getRawData()

@@ -62,21 +62,26 @@ TEST(GPSData, valido)
 TEST(GPSData, invalido)
 {
     std::string data;
-    GPSData *gpsData = new GPSData(data);
+    GPSData *gpsData;
     bool esperado = false;
     bool obtenido;
 
     data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3";
+    gpsData = new GPSData(data);
     obtenido = gpsData->isValido();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-
+    delete gpsData;
+    
     data = "$GPRMC,081836,V,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
+    gpsData = new GPSData(data);
     obtenido = gpsData->isValido();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
+    delete gpsData;
     data = "$GPZMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
+    gpsData = new GPSData(data);
     obtenido = gpsData->isValido();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;

@@ -1,6 +1,8 @@
 #ifndef GPS_h
 #define GPS_h
 
+#define METROS_ENTRE_PUNTOS 10
+
 #include <iostream>
 #include <interfaces/IGPSController.h>
 #include <utils/Haversine.h>

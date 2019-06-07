@@ -59,9 +59,8 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialCon
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string *line = new std::string(gps->getGPSData().getNormalizedData());
+            std::string line = gps->getGPSData().getNormalizedData();
             ioManager->write(line);
-            delete line;
         }
         else
         {
@@ -111,9 +110,8 @@ void Orchestator::start()
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string *line = new std::string(gps->getGPSData().getNormalizedData());
+            std::string line = gps->getGPSData().getNormalizedData();
             ioManager->write(line);
-            delete line;
         }
         else
         {

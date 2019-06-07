@@ -16,7 +16,6 @@ private:
     Coordenada *coordenada = nullptr;
     void parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
     double parsearCoordenada(std::string *coordenada);
-    bool valido = false;
     std::string *rawData;
 
 public:
