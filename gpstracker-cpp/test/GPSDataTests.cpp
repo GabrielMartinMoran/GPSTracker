@@ -57,6 +57,15 @@ TEST(GPSData, valido)
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsData;
+
+    data = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47";
+    gpsData = new GPSData(data);
+    esperado = true;
+    obtenido = gpsData->isValido();
+    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+                                  << "obtenido: " << obtenido;
+    delete gpsData;
+    
 }
 
 TEST(GPSData, invalido)

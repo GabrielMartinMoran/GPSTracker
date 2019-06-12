@@ -10,8 +10,8 @@ TEST(GPS, posicionesValidas)
     double esperado;
     double obtenido;
 
+    //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     EXPECT_TRUE(gps->actualizado());
-    //"$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62"
     esperado = -1 * (37 + 51.65 / 60);
     
     obtenido = gps->getGPSData().getCoordenada().getLatitud();
