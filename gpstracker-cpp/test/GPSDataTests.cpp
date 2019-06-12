@@ -66,6 +66,7 @@ TEST(GPSData, invalido)
     bool esperado = false;
     bool obtenido;
 
+    //falta un token
     data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3";
     gpsData = new GPSData(data);
     obtenido = gpsData->isValido();
@@ -73,6 +74,7 @@ TEST(GPSData, invalido)
                                   << "obtenido: " << obtenido;
     delete gpsData;
     
+    //tiene V
     data = "$GPRMC,081836,V,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
     gpsData = new GPSData(data);
     obtenido = gpsData->isValido();
@@ -80,6 +82,8 @@ TEST(GPSData, invalido)
                                   << "obtenido: " << obtenido;
 
     delete gpsData;
+
+    //no es GPRMC
     data = "$GPZMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
     gpsData = new GPSData(data);
     obtenido = gpsData->isValido();

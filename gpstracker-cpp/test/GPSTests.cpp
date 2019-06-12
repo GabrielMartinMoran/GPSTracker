@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <GPSControllerMockup.h>
 #include <GPS/GPS.h>
-/*
+
 TEST(GPS, posicionesValidas)
 {
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
@@ -18,17 +18,17 @@ TEST(GPS, posicionesValidas)
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    /*
+    
     esperado = (145 + 07.36 / 60);
     obtenido = gps->getGPSData().getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    /*
+    
     //"$GPRMC,054454.529,V,3654.929,N,07302.499,W,9.6,2.63,160519,,E*7F"
     EXPECT_FALSE(gps->actualizado());
 
-    /*esperado = 36 + 54.929 / 60;
+    esperado = 36 + 54.929 / 60;
     obtenido = gps->getGPSData().getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -58,7 +58,7 @@ TEST(GPS, posicionesValidas)
     //"$GPRMC,054500.529,A,3654.927,N,07302.502,W,75.7,2.56,160519,,E*4E"
     EXPECT_FALSE(gps->actualizado());
 
-    /*esperado = 36 + 54.927 / 60;
+    esperado = 36 + 54.927 / 60;
     obtenido = gps->getGPSData().getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -193,4 +193,4 @@ TEST(GPS, getLongitud)
                                          << "obtenido: " << obtenido;
     delete gpsControllerMockup;
     delete gps;
-}*/
+}

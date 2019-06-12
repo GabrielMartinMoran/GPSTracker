@@ -54,7 +54,9 @@ GPSData::GPSData(std::string data)
     catch (NoMoreTokensException)
     {
         delete this->coordenada;
+        this->coordenada = nullptr;
         delete this->date_time;
+        this->date_time= nullptr;
         delete this->rawData;
     }
 
@@ -91,7 +93,7 @@ Coordenada GPSData::getCoordenada()
 
 bool GPSData::isValido()
 {
-    return this->coordenada == nullptr || this->date_time == nullptr;
+    return this->coordenada != nullptr && this->date_time != nullptr;
 }
 
 std::string GPSData::getRawData()
