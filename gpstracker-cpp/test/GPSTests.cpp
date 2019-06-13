@@ -13,7 +13,7 @@ TEST(GPS, posicionesValidas)
 
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     EXPECT_TRUE(gps->actualizado());
-    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47",gps->getGPSData().getRawData());
+    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40",gps->getGPSData().getRawData());
     esperado = (36 + 54.928 / 60);
     
     obtenido = gps->getGPSData().getCoordenada().getLatitud();
@@ -27,7 +27,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
     
-    //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*45"
+    //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.923 / 60;
@@ -60,7 +60,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
+    //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.928 / 60;
@@ -75,7 +75,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    //"$GPRMC,054500,A,3654.907,N,07302.482,W,75.7,2.56,160519,,E*4E"
+    //"$GPRMC,054500,A,3654.907,N,07302.482,W,75.7,2.56,160519,,E*42"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.907 / 60;
@@ -91,9 +91,9 @@ TEST(GPS, posicionesValidas)
                                          << "obtenido: " << obtenido;
 
 
-    //"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*48"
+    //"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F"
     EXPECT_TRUE(gps->actualizado());
-    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*48");
+    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
 
     esperado = 36 + 54.925 / 60;
     obtenido = gps->getGPSData().getCoordenada().getLatitud();
@@ -110,7 +110,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_FALSE(gps->actualizado());
     
     //lo mismo de antes
-    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*48");
+    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
 
     //esperado = 36 + 54.925 / 60;
     //obtenido = gps->getGPSData().getCoordenada().getLatitud();
@@ -124,7 +124,7 @@ TEST(GPS, posicionesValidas)
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
     
-    //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*45"
+    //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.923 / 60;

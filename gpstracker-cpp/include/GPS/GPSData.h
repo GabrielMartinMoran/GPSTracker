@@ -19,7 +19,8 @@ private:
     std::string *rawData;
     bool _inmovil = false;
     bool isInmovil();
-
+    void invalidar();
+    std::string calculateChecksum(std::string sentencias);
 public:
     GPSData(std::string data);
     DateTime dateTime();

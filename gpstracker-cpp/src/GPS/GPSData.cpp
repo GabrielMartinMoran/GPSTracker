@@ -2,70 +2,112 @@
 
 GPSData::GPSData(std::string data)
 {
-    StringTokenizer *tokens = new StringTokenizer(data, ",");
     this->rawData = new std::string(data);
-    std::string *tiempo = nullptr;
-    std::string *fecha = nullptr;
-    std::string *latitud_s = nullptr;
-    std::string *longitud_s = nullptr;
+
+    std::string sentencias;
+    std::string checksum;
+
+    StringTokenizer dataTokens = StringTokenizer(data, "*");
     try
     {
-        if (tokens->nextToken() == "$GPRMC")
+        sentencias = dataTokens.nextToken();
+        checksum = dataTokens.nextToken();
+
+        if (calculateChecksum(sentencias) == checksum)
         {
-            tiempo = new std::string(tokens->nextToken()); // 08:18:36 UTC
-            unsigned int hora, minuto, segundo;
-            parsearTiempo(tiempo, &hora, &minuto, &segundo);
+            StringTokenizer sentenciasTokens = StringTokenizer(sentencias, ",");
 
-            if (tokens->nextToken() == "A")
+            std::string *tiempo = nullptr;
+            std::string *fecha = nullptr;
+            std::string *latitud_s = nullptr;
+            std::string *longitud_s = nullptr;
+            try
             {
-                latitud_s = new std::string(tokens->nextToken());
-                double latitud = parsearCoordenada(latitud_s);
-
-                if (tokens->nextToken() == "S")
+                if (sentenciasTokens.nextToken() == "$GPRMC")
                 {
-                    latitud *= -1;
+                    tiempo = new std::string(sentenciasTokens.nextToken()); // 08:18:36 UTC
+                    unsigned int hora, minuto, segundo;
+                    parsearTiempo(tiempo, &hora, &minuto, &segundo);
+
+                    if (sentenciasTokens.nextToken() == "A")
+                    {
+                        latitud_s = new std::string(sentenciasTokens.nextToken());
+                        double latitud = parsearCoordenada(latitud_s);
+
+                        if (sentenciasTokens.nextToken() == "S")
+                        {
+                            latitud *= -1;
+                        }
+                        longitud_s = new std::string(sentenciasTokens.nextToken());
+                        double longitud = parsearCoordenada(longitud_s);
+
+                        if (sentenciasTokens.nextToken() == "W")
+                        {
+                            longitud *= -1;
+                        }
+                        delete this->coordenada;
+                        this->coordenada = new Coordenada(latitud, longitud);
+
+                        sentenciasTokens.nextToken();
+
+                        sentenciasTokens.nextToken(); //Course Made Good, True
+
+                        fecha = new std::string(sentenciasTokens.nextToken()); //13 Sep 1998
+                        unsigned int dia, mes, anio;
+                        parsearTiempo(fecha, &dia, &mes, &anio);
+
+                        delete this->date_time;
+                        this->date_time = new DateTime(dia, mes, anio, hora, minuto, segundo);
+                        sentenciasTokens.nextToken(); //Magnetic variation 20.3 deg
+
+                        sentenciasTokens.nextToken(); //East
+                    }
                 }
-                longitud_s = new std::string(tokens->nextToken());
-                double longitud = parsearCoordenada(longitud_s);
-
-                if (tokens->nextToken() == "W")
-                {
-                    longitud *= -1;
-                }
-                delete this->coordenada;
-                this->coordenada = new Coordenada(latitud, longitud);
-
-                tokens->nextToken();
-
-                tokens->nextToken(); //Course Made Good, True
-
-                fecha = new std::string(tokens->nextToken()); //13 Sep 1998
-                unsigned int dia, mes, anio;
-                parsearTiempo(fecha, &dia, &mes, &anio);
-
-                delete this->date_time;
-                this->date_time = new DateTime(dia, mes, anio, hora, minuto, segundo);
-                tokens->nextToken(); //Magnetic variation 20.3 deg East
-
-                tokens->nextToken(); //mandatory checksum
             }
+            catch (NoMoreTokensException)
+            {
+                invalidar();
+            }
+
+            delete fecha;
+            delete tiempo;
+            delete latitud_s;
+            delete longitud_s;
+        }
+        else
+        {
+            invalidar();
         }
     }
     catch (NoMoreTokensException)
     {
-        delete this->coordenada;
-        this->coordenada = nullptr;
-        delete this->date_time;
-        this->date_time = nullptr;
-        delete this->rawData;
+        invalidar();
     }
-
-    delete tokens;
-    delete fecha;
-    delete tiempo;
-    delete latitud_s;
-    delete longitud_s;
 }
+
+std::string GPSData::calculateChecksum(std::string sentencias){
+    const char *s = sentencias.c_str();
+    s++;
+    int c = 0;
+
+    while(*s)
+        c ^= *s++;
+
+    unsigned int t = 3;
+    char buffer[t];
+    snprintf(buffer, t, "%X", c);
+    std::string hexstring = std::string(buffer); 
+    return hexstring;
+}
+void GPSData::invalidar()
+{
+    delete this->coordenada;
+    this->coordenada = nullptr;
+    delete this->date_time;
+    this->date_time = nullptr;
+    delete this->rawData;
+}
+
 void GPSData::parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio)
 {
     *horaDia = stringToNumber<unsigned int>(tiempo->substr(0, 2));

@@ -9,14 +9,14 @@ TEST(GPSControllerMockup, getInformation)
     GPSControllerMockup *m2 = new GPSControllerMockup();
     std::string command;
     
-    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47";
+    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40";
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
 
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation());
 
-    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*45";
+    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42";
 
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
@@ -51,7 +51,7 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47";
+    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40";
 
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
@@ -75,7 +75,7 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    command = "$GPRMC,054500,A,3654.907,N,07302.482,W,75.7,2.56,160519,,E*4E";
+    command = "$GPRMC,054500,A,3654.907,N,07302.482,W,75.7,2.56,160519,,E*42";
 
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
@@ -99,7 +99,7 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    command = "$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*48";
+    command = "$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F";
 
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
@@ -150,7 +150,7 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*45";
+    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42";
 
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
@@ -172,12 +172,12 @@ TEST(GPSControllerMockup, getInformation)
     EXPECT_TRUE(m1->isDataWaiting());
     EXPECT_TRUE(m2->isDataWaiting());
 
-    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47";
+    command = "$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40";
 
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
 
-    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*45";
+    command = "$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42";
 
     EXPECT_EQ(command, m1->getInformation());
     EXPECT_EQ(command, m2->getInformation()); 
