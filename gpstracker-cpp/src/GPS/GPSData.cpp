@@ -42,7 +42,7 @@ GPSData::GPSData(std::string data)
                 fecha = new std::string(tokens->nextToken()); //13 Sep 1998
                 unsigned int dia, mes, anio;
                 parsearTiempo(fecha, &dia, &mes, &anio);
-                
+
                 delete this->date_time;
                 this->date_time = new DateTime(dia, mes, anio, hora, minuto, segundo);
                 tokens->nextToken(); //Magnetic variation 20.3 deg East
@@ -56,7 +56,7 @@ GPSData::GPSData(std::string data)
         delete this->coordenada;
         this->coordenada = nullptr;
         delete this->date_time;
-        this->date_time= nullptr;
+        this->date_time = nullptr;
         delete this->rawData;
     }
 
@@ -96,6 +96,16 @@ bool GPSData::isValido()
     return this->coordenada != nullptr && this->date_time != nullptr;
 }
 
+void GPSData::inmovil()
+{
+    this->_inmovil = true;
+}
+
+bool GPSData::isInmovil()
+{
+    return this->_inmovil;
+}
+
 std::string GPSData::getRawData()
 {
     return *this->rawData;
@@ -103,15 +113,16 @@ std::string GPSData::getRawData()
 
 std::string GPSData::getNormalizedData()
 {
-    unsigned int t = 41;
+    unsigned int t = 43;
     char buffer[t];
-    snprintf(buffer, t,"%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
-            dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
-            dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
-            getCoordenada().getLatitud() > 0 ? '+' : '-',
-            std::abs(getCoordenada().getLatitud()),
-            getCoordenada().getLongitud() > 0 ? '+' : '-',
-            std::abs(getCoordenada().getLongitud()));
+    snprintf(buffer, t, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f,%c\n",
+             dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
+             dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
+             getCoordenada().getLatitud() > 0 ? '+' : '-',
+             std::abs(getCoordenada().getLatitud()),
+             getCoordenada().getLongitud() > 0 ? '+' : '-',
+             std::abs(getCoordenada().getLongitud()),
+             this->isInmovil() ? '1' : '0');
     return std::string(buffer);
 }
 

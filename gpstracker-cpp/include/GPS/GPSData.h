@@ -17,12 +17,15 @@ private:
     void parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
     double parsearCoordenada(std::string *coordenada);
     std::string *rawData;
+    bool _inmovil = false;
+    bool isInmovil();
 
 public:
     GPSData(std::string data);
     DateTime dateTime();
     Coordenada getCoordenada();
     bool isValido();
+    void inmovil();
     std::string getRawData();
     std::string getNormalizedData();
     ~GPSData();

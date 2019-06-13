@@ -13,6 +13,8 @@ private:
     GPSData *gpsData = nullptr;
     bool posicionValida(GPSData *gpsData);
     double metrosEntrePuntos;
+    unsigned int posicionesInvariadas = 0;
+    unsigned int maxPosicionesInvariadas = 10;
 
 public:
     GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos);
