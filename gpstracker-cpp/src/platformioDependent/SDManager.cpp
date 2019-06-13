@@ -136,22 +136,22 @@ std::string SDManager::readLine(const char *path, unsigned int index)
     return "EOF";
 }
 
-bool SDManager::writeFile(const char *path, const std::string *data)
+bool SDManager::writeFile(const char *path, const std::string data)
 {
     if (!isValidSD())
         return false;
     File file = SD.open(path, FILE_WRITE);
-    bool result = file && file.print(data->c_str());
+    bool result = file && file.print(data.c_str());
     file.close();
     return result;
 }
 
-bool SDManager::appendFile(const char *path, const std::string *data)
+bool SDManager::appendFile(const char *path, const std::string data)
 {
     if (!isValidSD())
         return false;
     File file = SD.open(path, FILE_APPEND);
-    bool result = file && file.print(data->c_str());
+    bool result = file && file.print(data.c_str());
     file.close();
     return result;
 }

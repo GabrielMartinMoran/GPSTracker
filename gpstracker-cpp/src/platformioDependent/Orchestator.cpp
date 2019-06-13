@@ -38,7 +38,7 @@ Orchestator::~Orchestator()
 }
 
 void Orchestator::startWiFiConnector(WiFiConnector *wifiConnector)
-{    
+{
     wifiConnector->beginConnectionLoop();
 }
 void Orchestator::startBluetoothServer(BluetoothServer *btServer)
@@ -65,7 +65,8 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialCon
         {
             delay(500);
         }
-        if(actualizado != actualizado_aux){
+        if (actualizado != actualizado_aux)
+        {
             actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
         }
     }
@@ -95,34 +96,36 @@ void Orchestator::start()
     bool actualizado = false;
 
     HTTPClient client = HTTPClient("gpstrackerapi.herokuapp.com");
+    client.setContentType("application/json");
     while (true)
     {
-        if(wifiConnector->isConnected()){            
-            String response;
-            //int statusCode = client.get("/", &response);
-            char postBody[] = "{\"device\": \"ESP32_GPSTracker\", \"data\": \"19-05-28 00:34:51,-034.56571,-058.53415\\n19-05-28 00:34:51,-034.56607,-058.53430\\n19-05-28 00:34:51,-034.56633,-058.53437\\n19-05-28 00:34:51,-034.56656,-058.53411\\n19-05-28 00:34:51,-034.56685,-058.53374\\n19-05-28 00:34:51,-034.56707,-058.53347\\n19-05-28 00:34:51,-034.56725,-058.53323\\n19-05-28 00:34:51,-034.56762,-058.53280\\n19-05-28 00:34:51,-034.56804,-058.53231\\n19-05-28 00:34:51,-034.56830,-058.53239\\n19-05-28 00:34:51,-034.56858,-058.53270\\n19-05-28 00:34:51,-034.56879,-058.53297\\n19-05-28 00:34:51,-034.56915,-058.53334\\n19-05-28 00:34:51,-034.56943,-058.53369\\n19-05-28 00:34:51,-034.56967,-058.53400\\n19-05-28 00:34:51,-034.56995,-058.53431\\n19-05-28 00:34:51,-034.57021,-058.53464\\n19-05-28 00:34:51,-034.57062,-058.53515\\n19-05-28 00:34:51,-034.57105,-058.53565\\n19-05-28 00:34:51,-034.57137,-058.53603\\n19-05-28 00:34:51,-034.57168,-058.53643\\n19-05-28 00:34:51,-034.57197,-058.53678\\n19-05-28 00:34:51,-034.57237,-058.53623\\n19-05-28 00:34:51,-034.57282,-058.53575\\n19-05-28 00:34:51,-034.57321,-058.53515\\n19-05-28 00:34:51,-034.57365,-058.53469\\n19-05-28 00:34:51,-034.57402,-058.53422\\n19-05-28 00:34:51,-034.57454,-058.53367\\n19-05-28 00:34:51,-034.57483,-058.53399\\n19-05-28 00:34:51,-034.57517,-058.53438\\n19-05-28 00:34:51,-034.57560,-058.53486\\n19-05-28 00:34:51,-034.57607,-058.53541\\n19-05-28 00:34:51,-034.57645,-058.53582\\n19-05-28 00:34:51,-034.57683,-058.53627\\n19-05-28 00:34:51,-034.57723,-058.53679\\n\"}";
-            client.setContentType("application/json");
-            int statusCode = client.post("/store-data", postBody, &response);
-            serialController->print("Status code: ");
-            serialController->println(statusCode);
-            serialController->print("Response: ");
-            serialController->println(std::string(response.c_str()));
-            delay(1000);
-            continue;
-        }
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string *line = new std::string(gps->getGPSData().getNormalizedData());            
+            std::string line = gps->getGPSData().getNormalizedData();
             ioManager->write(line);
-            delete line;
+        }
+        if (wifiConnector->isConnected())
+        {
+            if (ioManager->availableToSend())
+            {
+                String response;
+                //int statusCode = client.get("/", &response);
+                std::string postBody = "{\"device\": \"ESP32_GPSTracker\", \"data\": \"" + ioManager->read() + "\"}";
+                int statusCode = client.post("/store-data", postBody.c_str(), &response);
+                serialController->print("Status code: ");
+                serialController->println(statusCode);
+                serialController->print("Response: ");
+                serialController->println(std::string(response.c_str()));
+            }
+        }
+        if (actualizado != actualizado_aux)
+        {
+            actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
         }
         else
         {
             delay(500);
-        }
-        if(actualizado != actualizado_aux){
-            actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
         }
     }
     wifiConnectorThread->join();
