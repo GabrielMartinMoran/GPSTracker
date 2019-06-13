@@ -1,7 +1,7 @@
 #ifndef GPS_h
 #define GPS_h
 
-#define METROS_ENTRE_PUNTOS 2.5
+#define METROS_ENTRE_PUNTOS 2
 
 #include <iostream>
 #include <interfaces/IGPSController.h>
