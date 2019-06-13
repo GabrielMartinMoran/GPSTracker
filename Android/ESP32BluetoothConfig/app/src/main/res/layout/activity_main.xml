@@ -5,38 +5,6 @@
     android:background="#202020"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="150dp"
-        android:textColor="#fff"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Escriba el texto a enviar por Bluetooth (BLE)"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-
-    <EditText
-        android:id="@+id/textInput"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:backgroundTint="#E91E63"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingTop="40dp"
-        android:textColor="#fff" />
-
-    <Button
-        android:id="@+id/sendButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:text="Enviar"
-        android:background="@drawable/btn_rounded"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-
     <android.support.constraint.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
@@ -46,41 +14,21 @@
         android:id="@+id/openBLEListActivityBtn"
         android:layout_width="100pt"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginTop="50dp"
-        android:text="Buscar dispositivos BLE"
         android:background="@drawable/btn_rounded"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-
-    <Button
-        android:id="@+id/openWiFiListActivityBtn"
-        android:layout_width="100pt"
-        android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:layout_marginTop="20dp"
-        android:text="Configurar redes WiFi"
-        android:background="@drawable/btn_rounded"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-
-    <Button
-        android:id="@+id/endConfigurationBtn"
-        android:layout_width="100pt"
-        android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:layout_marginTop="20dp"
-        android:text="Finalizar Configuración"
-        android:background="@drawable/btn_rounded"
-        android:layout_gravity="center_vertical|center_horizontal"/>
+        android:text="Configurar dispositivo"
+        android:textColor="#fff" />
 
     <Button
         android:id="@+id/openMap"
         android:layout_width="100pt"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Mostrar Mapa"
         android:background="@drawable/btn_rounded"
-        android:layout_gravity="center_vertical|center_horizontal"/>
+        android:text="Mostrar Mapa"
+        android:textColor="#fff" />
 
 
 </LinearLayout>

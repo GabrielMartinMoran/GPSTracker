@@ -181,7 +181,7 @@ int HTTPClient::request(const char* method, const char* path,
   write("\r\n");
 
   if(body != NULL){
-      Serial.println(body);
+    //Serial.println(body);
     write(body);
     write("\r\n");
     write("\r\n");
@@ -292,6 +292,16 @@ int HTTPClient::readResponse(String* response) {
 
       if (client.available()) {
         HTTP_DEBUG_PRINT(",");
+
+        String readed = client.readString();
+        if(readed.length() > 0){
+          String code = readed.substring(9,12);
+          //Serial.print("CODE: ");
+          //Serial.println(code);
+          return atoi(code.c_str());
+        }else{
+          return 0;
+        }
 
         char c = client.read();
         HTTP_DEBUG_PRINT(c);

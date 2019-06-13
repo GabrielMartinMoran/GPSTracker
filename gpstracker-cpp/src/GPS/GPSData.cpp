@@ -16,19 +16,19 @@ GPSData::GPSData(std::string data)
             unsigned int hora, minuto, segundo;
             parsearTiempo(tiempo, &hora, &minuto, &segundo);
 
-            if (tokens->nextToken() == std::string("A"))
+            if (tokens->nextToken() == "A")
             {
                 latitud_s = new std::string(tokens->nextToken());
                 double latitud = parsearCoordenada(latitud_s);
 
-                if (tokens->nextToken() == std::string("S"))
+                if (tokens->nextToken() == "S")
                 {
                     latitud *= -1;
                 }
                 longitud_s = new std::string(tokens->nextToken());
                 double longitud = parsearCoordenada(longitud_s);
 
-                if (tokens->nextToken() == std::string("W"))
+                if (tokens->nextToken() == "W")
                 {
                     longitud *= -1;
                 }
@@ -48,15 +48,15 @@ GPSData::GPSData(std::string data)
                 tokens->nextToken(); //Magnetic variation 20.3 deg East
 
                 tokens->nextToken(); //mandatory checksum
-                this->valido = true;
             }
         }
     }
     catch (NoMoreTokensException)
     {
-        this->valido = false;
         delete this->coordenada;
+        this->coordenada = nullptr;
         delete this->date_time;
+        this->date_time= nullptr;
         delete this->rawData;
     }
 
@@ -93,7 +93,7 @@ Coordenada GPSData::getCoordenada()
 
 bool GPSData::isValido()
 {
-    return this->valido;
+    return this->coordenada != nullptr && this->date_time != nullptr;
 }
 
 std::string GPSData::getRawData()
@@ -104,7 +104,7 @@ std::string GPSData::getRawData()
 std::string GPSData::getNormalizedData()
 {
     unsigned int t = 41;
-    char *buffer = new char[t];
+    char buffer[t];
     snprintf(buffer, t,"%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f\n",
             dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
             dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),

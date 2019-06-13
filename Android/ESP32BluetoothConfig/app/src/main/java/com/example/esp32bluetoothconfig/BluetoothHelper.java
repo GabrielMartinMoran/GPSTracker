@@ -54,6 +54,8 @@ public class BluetoothHelper {
 
     private String readBuffer;
 
+    public String connectedDeviceName;
+
     private class GattClientCallback extends BluetoothGattCallback {
 
         Context contextToFinishActivity;
@@ -71,6 +73,7 @@ public class BluetoothHelper {
                         showToastNotification("No se pudo establecer la conexión con el dispositivo. " +
                                 "El dispositivo no se encuentra conectado");
                         mBluetoothGatt.disconnect();
+                        connectedDeviceName = "";
                     }
                 });
             }else if (newState == BluetoothProfile.STATE_CONNECTED) {
@@ -126,7 +129,11 @@ public class BluetoothHelper {
                     descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                     mBluetoothGatt.writeDescriptor(descriptor);
 
-                    ((Activity)contextToFinishActivity).finish();
+                    connectedDeviceName = gatt.getDevice().getName();
+
+                    //((Activity)contextToFinishActivity).finish();
+                    Intent intent = new Intent(((Activity)contextToFinishActivity), DeviceConnectedActivity.class);
+                    ((Activity)contextToFinishActivity).startActivity(intent);
                 }
             });
         }

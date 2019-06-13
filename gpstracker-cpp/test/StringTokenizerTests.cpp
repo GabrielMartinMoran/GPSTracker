@@ -58,6 +58,11 @@ TEST(StringTokenizer, tokens)
 
 TEST(StringTokenizer, NoMoreTokensException)
 {
-    StringTokenizer tokens("", ",");
+    StringTokenizer tokens = StringTokenizer("", ",");
+    EXPECT_THROW(tokens.nextToken(), NoMoreTokensException);
+
+    tokens = StringTokenizer("$GPRMC,081836", ",");
+    EXPECT_NO_THROW(tokens.nextToken());
+    EXPECT_NO_THROW(tokens.nextToken());
     EXPECT_THROW(tokens.nextToken(), NoMoreTokensException);
 }
