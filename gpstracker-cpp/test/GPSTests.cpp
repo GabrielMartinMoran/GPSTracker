@@ -4,8 +4,9 @@
 
 TEST(GPS, posicionesValidas)
 {
+    unsigned int metrosEntrePuntos = 2;
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
 
     double esperado;
     double obtenido;
@@ -144,9 +145,10 @@ TEST(GPS, posicionesValidas)
 
 TEST(GPS, getHora)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     EXPECT_TRUE(gps->actualizado());
     int esperado = 5;
     int obtenido = gps->getGPSData().dateTime().getHora();
@@ -158,9 +160,10 @@ TEST(GPS, getHora)
 
 TEST(GPS, getMinuto)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 44;
     int obtenido = gps->getGPSData().dateTime().getMinuto();
@@ -172,9 +175,10 @@ TEST(GPS, getMinuto)
 
 TEST(GPS, getSegundo)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 57;
     int obtenido = gps->getGPSData().dateTime().getSegundo();
@@ -186,9 +190,10 @@ TEST(GPS, getSegundo)
 
 TEST(GPS, getDia)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 16;
     int obtenido = gps->getGPSData().dateTime().getDia();
@@ -200,9 +205,10 @@ TEST(GPS, getDia)
 
 TEST(GPS, getMes)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 5;
     int obtenido = gps->getGPSData().dateTime().getMes();
@@ -214,9 +220,10 @@ TEST(GPS, getMes)
 
 TEST(GPS, getAnio)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 19;
     int obtenido = gps->getGPSData().dateTime().getAnio();
@@ -228,9 +235,10 @@ TEST(GPS, getAnio)
 
 TEST(GPS, getLatitud)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     double esperado = (36 + 54.928 / 60);
     double obtenido = gps->getGPSData().getCoordenada().getLatitud();
@@ -242,9 +250,10 @@ TEST(GPS, getLatitud)
 
 TEST(GPS, getLongitud)
 {
+    unsigned int metrosEntrePuntos = 2;
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     GPSControllerMockup *gpsControllerMockup = new GPSControllerMockup();
-    GPS *gps = new GPS(gpsControllerMockup);
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     double esperado = -1 * (73 + 02.5 / 60);
     double obtenido = gps->getGPSData().getCoordenada().getLongitud();

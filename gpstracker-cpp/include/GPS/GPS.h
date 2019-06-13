@@ -1,8 +1,6 @@
 #ifndef GPS_h
 #define GPS_h
 
-#define METROS_ENTRE_PUNTOS 2
-
 #include <iostream>
 #include <interfaces/IGPSController.h>
 #include <utils/Haversine.h>
@@ -14,9 +12,10 @@ private:
     IGPSController *GPSController = nullptr;
     GPSData *gpsData = nullptr;
     bool posicionValida(GPSData *gpsData);
+    double metrosEntrePuntos;
 
 public:
-    GPS(IGPSController *GPSController);
+    GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos);
     bool actualizado(); //devuelve true si actualizo
     GPSData getGPSData();
     ~GPS();

@@ -1,15 +1,14 @@
 #include <GPS/GPS.h>
 
-GPS::GPS(IGPSController *GPSController)
+GPS::GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos):GPSController(GPSController),metrosEntrePuntos(metrosEntrePuntos)
 {
-    this->GPSController = GPSController;
 }
 
 bool GPS::posicionValida(GPSData *gpsData)
 {
     return haversine_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(),
                              gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud())
-                             > METROS_ENTRE_PUNTOS;
+                             > this->metrosEntrePuntos;
 }
 
 bool GPS::actualizado()
