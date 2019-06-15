@@ -53,7 +53,6 @@ TEST(StringTokenizer, tokens)
     obtenido = tokens.nextToken();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
 }
 
 TEST(StringTokenizer, NoMoreTokensException)

@@ -1,7 +1,6 @@
 #ifndef Bluetooth_h
 #define Bluetooth_h
 
-
 #include <interfaces/IBluetooth.h>
 #include <iostream>
 #include <BLEDevice.h>
@@ -27,14 +26,14 @@ class BluetoothServerCallbacks;
 
 class Bluetooth : public IBluetooth
 {
-  private:    
+private:
     BLECharacteristic *pCharacteristic;
     BluetoothWriteCallback *writeCallback;
     bool firstInit = true;
     bool deviceConnected = false;
     float txValue = 0;
 
-  public:
+public:
     ~Bluetooth();
     void start(IBluetoothServer *btServer);
     void stop();

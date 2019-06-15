@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <GPS/Coordenada.h>
 
-TEST(Coordenadas, Coordenadas){
+TEST(Coordenadas, Coordenadas)
+{
     double latitud;
     double longitud;
     double esperado;
@@ -16,14 +17,15 @@ TEST(Coordenadas, Coordenadas){
     obtenido = c.getLatitud();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     esperado = longitud;
     obtenido = c.getLongitud();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 }
 
-TEST(Coordenadas, InvalidCoordinateExeption){
+TEST(Coordenadas, InvalidCoordinateExeption)
+{
 
     double latitud;
     double longitud;

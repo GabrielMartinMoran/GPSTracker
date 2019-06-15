@@ -28,7 +28,7 @@ void runThread(long value)
 {
     while (true)
     {
-        
+
         set(value);
         delay(1);
     }
@@ -84,12 +84,13 @@ void setup()
     {
         t2[i].join();
     }
-    
+
     Serial.print("Suma total esperada: ");
-    Serial.println(n*sumas);
+    Serial.println(n * sumas);
     Serial.print("Suma total obtenida: ");
     Serial.println(sum2);
-    if(n*sumas !=sum2){
+    if (n * sumas != sum2)
+    {
         Serial.println("race condition");
     }
 }

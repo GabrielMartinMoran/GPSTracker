@@ -37,7 +37,8 @@ bool WiFiConfiguration::addNetworkToMemory(std::string SSIDNetworkCSV)
     {
         SSID = tokens.nextToken();
         std::size_t found = SSID.find("\n");
-        if (found!=std::string::npos){
+        if (found != std::string::npos)
+        {
             SSID.replace(SSID.find("\n"), SSID.find("\n") - 2, "");
         }
     }
@@ -49,7 +50,8 @@ bool WiFiConfiguration::addNetworkToMemory(std::string SSIDNetworkCSV)
     {
         password = tokens.nextToken();
         std::size_t found = password.find("\n");
-        if (found!=std::string::npos){
+        if (found != std::string::npos)
+        {
             password.replace(password.find("\n"), password.find("\n") - 2, "");
         }
     }
@@ -141,11 +143,13 @@ std::string WiFiConfiguration::listNetworks()
     return list;
 }
 
-WiFiNetwork *WiFiConfiguration::getNetwork(std::string SSID){
+WiFiNetwork *WiFiConfiguration::getNetwork(std::string SSID)
+{
     size_t networks = getConfiguredNetworks();
     for (size_t i = 0; i < networks; i++)
     {
-        if(getNetworkAtPosition(i)->getSSID() == SSID){
+        if (getNetworkAtPosition(i)->getSSID() == SSID)
+        {
             return getNetworkAtPosition(i);
         }
     }

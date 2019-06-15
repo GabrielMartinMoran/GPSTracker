@@ -31,7 +31,7 @@ TEST(DateTime, Coordenadas)
     obtenido = c.getMes();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-    
+
     esperado = anio;
     obtenido = c.getAnio();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -51,7 +51,6 @@ TEST(DateTime, Coordenadas)
     obtenido = c.getSegundo();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
-
 }
 
 TEST(DateTime, InvalidTimeException)

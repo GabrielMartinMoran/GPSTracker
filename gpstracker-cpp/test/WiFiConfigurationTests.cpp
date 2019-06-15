@@ -6,9 +6,9 @@
 TEST(WiFiConfiguration, getConfiguredNetworks)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     dataLines->push_back(std::string("Wifi_03,Pass03"));
@@ -18,7 +18,7 @@ TEST(WiFiConfiguration, getConfiguredNetworks)
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     size_t obtainedNetowks = wifiConfiguration.getConfiguredNetworks();
-    
+
     EXPECT_EQ(obtainedNetowks, vectorSize);
 
     delete sdManager;
@@ -27,9 +27,9 @@ TEST(WiFiConfiguration, getConfiguredNetworks)
 TEST(WiFiConfiguration, getNetworkAtPosition)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -37,7 +37,7 @@ TEST(WiFiConfiguration, getNetworkAtPosition)
 
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
-    
+
     WiFiNetwork *network = wifiConfiguration.getNetworkAtPosition(1);
 
     EXPECT_EQ(network->getSSID(), "Wifi_02");
@@ -49,9 +49,9 @@ TEST(WiFiConfiguration, getNetworkAtPosition)
 TEST(WiFiConfiguration, removeNetwork)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -60,7 +60,7 @@ TEST(WiFiConfiguration, removeNetwork)
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     wifiConfiguration.removeNetwork(0);
-    
+
     EXPECT_EQ(wifiConfiguration.getConfiguredNetworks(), vectorSize - 1);
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(0)->getSSID(), "Wifi_02");
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(0)->getPassword(), "Pass02");
@@ -71,9 +71,9 @@ TEST(WiFiConfiguration, removeNetwork)
 TEST(WiFiConfiguration, addNetwork)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -83,7 +83,7 @@ TEST(WiFiConfiguration, addNetwork)
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     wifiConfiguration.addNetwork("Wifi_03", "Pass03");
     std::string writtenFile = sdManager->writtenFile;
-    
+
     EXPECT_EQ(wifiConfiguration.getConfiguredNetworks(), vectorSize + 1);
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(vectorSize)->getSSID(), "Wifi_03");
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(vectorSize)->getPassword(), "Pass03");
@@ -95,9 +95,9 @@ TEST(WiFiConfiguration, addNetwork)
 TEST(WiFiConfiguration, addNetwork_multiple_times)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     sdManager->dataLines = dataLines;
 
@@ -108,7 +108,7 @@ TEST(WiFiConfiguration, addNetwork_multiple_times)
     wifiConfiguration.addNetwork("Wifi_04", "Pass04");
     wifiConfiguration.addNetwork("Wifi_05", "Pass05");
     std::string writtenFile = sdManager->writtenFile;
-    
+
     EXPECT_EQ(wifiConfiguration.getConfiguredNetworks(), 5);
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(2)->getSSID(), "Wifi_03");
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(2)->getPassword(), "Pass03");
@@ -122,9 +122,9 @@ TEST(WiFiConfiguration, addNetwork_multiple_times)
 TEST(WiFiConfiguration, addNetworkFromCSVLine)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -133,7 +133,7 @@ TEST(WiFiConfiguration, addNetworkFromCSVLine)
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     wifiConfiguration.addNetworkFromCSVLine("Wifi_03,Pass03");
-    
+
     EXPECT_EQ(wifiConfiguration.getConfiguredNetworks(), vectorSize + 1);
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(vectorSize)->getSSID(), "Wifi_03");
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(vectorSize)->getPassword(), "Pass03");
@@ -144,7 +144,7 @@ TEST(WiFiConfiguration, addNetworkFromCSVLine)
 TEST(WiFiConfiguration, deleteConfigurationFile)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     sdManager->dataLines = dataLines;
 
@@ -160,9 +160,9 @@ TEST(WiFiConfiguration, deleteConfigurationFile)
 TEST(WiFiConfiguration, listNetworks)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     dataLines->push_back(std::string("Wifi_03,Pass03"));
@@ -170,7 +170,7 @@ TEST(WiFiConfiguration, listNetworks)
 
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
-    
+
     EXPECT_EQ(wifiConfiguration.listNetworks(), std::string("Wifi_01,Wifi_02,Wifi_03"));
 
     delete sdManager;
@@ -179,9 +179,9 @@ TEST(WiFiConfiguration, listNetworks)
 TEST(WiFiConfiguration, deleteNetwork)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -190,7 +190,7 @@ TEST(WiFiConfiguration, deleteNetwork)
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
     wifiConfiguration.deleteNetwork("Wifi_01");
-    
+
     EXPECT_EQ(wifiConfiguration.getConfiguredNetworks(), vectorSize - 1);
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(0)->getSSID(), "Wifi_02");
     EXPECT_EQ(wifiConfiguration.getNetworkAtPosition(0)->getPassword(), "Pass02");
@@ -201,9 +201,9 @@ TEST(WiFiConfiguration, deleteNetwork)
 TEST(WiFiConfiguration, getNetwork)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -211,7 +211,7 @@ TEST(WiFiConfiguration, getNetwork)
 
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
-    
+
     WiFiNetwork *network = wifiConfiguration.getNetwork("Wifi_02");
 
     EXPECT_EQ(network->getSSID(), "Wifi_02");
@@ -223,9 +223,9 @@ TEST(WiFiConfiguration, getNetwork)
 TEST(WiFiConfiguration, getNetwork_that_not_exists)
 {
     SDManagerMockup *sdManager = new SDManagerMockup();
-    
+
     //Llenamos un vector con lineas de texto y se lo pasamos al mockup
-    std::vector<std::string>  *dataLines = new std::vector<std::string>();
+    std::vector<std::string> *dataLines = new std::vector<std::string>();
     dataLines->push_back(std::string("Wifi_01,Pass01"));
     dataLines->push_back(std::string("Wifi_02,Pass02"));
     sdManager->dataLines = dataLines;
@@ -233,7 +233,7 @@ TEST(WiFiConfiguration, getNetwork_that_not_exists)
 
     //Cuando se inicializa hace un delete de dataLines
     WiFiConfiguration wifiConfiguration = WiFiConfiguration(sdManager);
-    
+
     WiFiNetwork *network = wifiConfiguration.getNetwork("Wifi_03");
 
     EXPECT_EQ(network, nullptr);

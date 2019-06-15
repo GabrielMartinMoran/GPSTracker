@@ -6,7 +6,7 @@
 
 class IWiFiConnector
 {
-  public:
+public:
     ~IWiFiConnector() {}
     virtual bool connect(std::string SSID, std::string password) = 0;
     virtual void disconnect() = 0;

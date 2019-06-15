@@ -48,7 +48,7 @@ bool GPS::actualizado()
     return false;
 }
 
-GPSData* GPS::getGPSData()
+GPSData *GPS::getGPSData()
 {
     return this->gpsData;
 }

@@ -20,7 +20,7 @@ private:
 public:
     GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos);
     bool actualizado(); //devuelve true si actualizo
-    GPSData* getGPSData();
+    GPSData *getGPSData();
     ~GPS();
 };
 

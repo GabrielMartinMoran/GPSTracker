@@ -6,7 +6,7 @@
 class NoMoreTokensException : public std::exception
 {
 public:
-    const char* what() const throw()
+    const char *what() const throw()
     {
         return "NoMoreTokensException: No hay mas tokens";
     }
