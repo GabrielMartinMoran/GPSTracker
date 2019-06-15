@@ -87,9 +87,10 @@ std::string GPSData::calculateChecksum(std::string sentencias)
     unsigned int t = 3;
     char buffer[t];
     snprintf(buffer, t, "%X", c);
-    std::string hexstring = std::string(buffer);
-    return hexstring;
+
+    return std::string(buffer);
 }
+
 void GPSData::invalidar()
 {
     delete this->coordenada;
@@ -116,7 +117,7 @@ double GPSData::parsearCoordenada(std::string coordenada)
 
 DateTime GPSData::dateTime()
 {
-    if (this->date_time == nullptr)
+    if (!this->isValido())
     {
         throw InvalidReadGPSDataException();
     }
@@ -125,7 +126,7 @@ DateTime GPSData::dateTime()
 
 Coordenada GPSData::getCoordenada()
 {
-    if (this->date_time == nullptr)
+    if (!this->isValido())
     {
         throw InvalidReadGPSDataException();
     }
@@ -144,7 +145,7 @@ void GPSData::inmovil()
 
 bool GPSData::isInmovil()
 {
-    if (this->date_time == nullptr)
+    if (!this->isValido())
     {
         throw InvalidReadGPSDataException();
     }
@@ -158,7 +159,7 @@ std::string GPSData::getRawData()
 
 std::string GPSData::getNormalizedData()
 {
-    if (this->date_time == nullptr)
+    if (!this->isValido())
     {
         throw InvalidReadGPSDataException();
     }
@@ -177,4 +178,6 @@ std::string GPSData::getNormalizedData()
 
 GPSData::~GPSData()
 {
+    delete this->coordenada;
+    delete this->date_time;
 }

@@ -36,12 +36,10 @@ bool GPS::actualizado()
             if (this->posicionesInvariadas < this->maxPosicionesInvariadas)
             {
                 this->posicionesInvariadas++;
-                //Serial.println(this->posicionesInvariadas);
             }
             else
             {
                 this->gpsData->inmovil();
-                //Serial.println("inmovil");
             }
         }
 
@@ -50,11 +48,12 @@ bool GPS::actualizado()
     return false;
 }
 
-GPSData GPS::getGPSData()
+GPSData* GPS::getGPSData()
 {
-    return *this->gpsData;
+    return this->gpsData;
 }
 
 GPS::~GPS()
 {
+    delete this->gpsData;
 }

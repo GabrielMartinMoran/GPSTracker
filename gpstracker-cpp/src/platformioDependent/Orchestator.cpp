@@ -13,7 +13,7 @@ Orchestator::Orchestator()
     ioManager = new IOManager(sdManager);
     int uartNumber = 2;
     GPSController *gpsController = new GPSController(uartNumber);
-    unsigned int metrosEntrePuntos = 2;
+    unsigned int metrosEntrePuntos = 0;
     this->gps = new GPS(gpsController, metrosEntrePuntos);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
@@ -60,7 +60,7 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialCon
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string line = gps->getGPSData().getNormalizedData();
+            std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
         }
         else
@@ -116,7 +116,7 @@ void Orchestator::start()
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string line = gps->getGPSData().getNormalizedData();
+            std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
         }/*
         if (wifiConnector->isConnected())
@@ -137,6 +137,7 @@ void Orchestator::start()
         if(actualizado != actualizado_aux){
             actualizado_aux = actualizado;
             actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
+            Serial.println((unsigned long)ESP.getFreeHeap());
         }
         else
         {
