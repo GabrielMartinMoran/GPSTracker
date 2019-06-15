@@ -9,7 +9,7 @@ void Bluetooth::start(IBluetoothServer *btServer)
 {
     // Create the BLE Device
     BLEDevice::init(DEVICE_BT_NAME);
-    
+
     // Create the BLE Server
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new BluetoothServerCallbacks(this));
@@ -40,7 +40,6 @@ void Bluetooth::start(IBluetoothServer *btServer)
     writeCallback->configureServer(btServer);
 
     Serial.println("BLE Turned On!");
-
 }
 
 void Bluetooth::stop()
@@ -80,7 +79,6 @@ void Bluetooth::transmitData(std::string data)
     //data.toCharArray(buffer, data.length() + 1);
     pCharacteristic->setValue(data);
     pCharacteristic->notify(); // Send the value
-
 }
 
 void Bluetooth::setConnectionStatus(bool value)

@@ -5,6 +5,7 @@
 #include <interfaces/IGPSController.h>
 #include <utils/Haversine.h>
 #include <GPS/GPSData.h>
+//#include <Arduino.h>
 
 class GPS
 {
@@ -19,7 +20,7 @@ private:
 public:
     GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos);
     bool actualizado(); //devuelve true si actualizo
-    GPSData getGPSData();
+    GPSData *getGPSData();
     ~GPS();
 };
 

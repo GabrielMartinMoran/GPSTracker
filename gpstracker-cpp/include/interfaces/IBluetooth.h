@@ -9,7 +9,7 @@ class IBluetoothServer;
 
 class IBluetooth
 {
-  public:
+public:
     virtual ~IBluetooth() {}
     virtual void start(IBluetoothServer *btServer) = 0;
     virtual void stop() = 0;

@@ -10,11 +10,11 @@ class IBluetoothServer;
 
 class BluetoothWriteCallback : public BLECharacteristicCallbacks
 {
-  private:
+private:
     IBluetoothServer *btServer;
     void onWrite(BLECharacteristic *pCharacteristic);
 
-  public:
+public:
     void configureServer(IBluetoothServer *btServer);
 };
 

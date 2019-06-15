@@ -8,12 +8,12 @@ class Bluetooth;
 
 class BluetoothServerCallbacks : public BLEServerCallbacks
 {
-  private:
+private:
     Bluetooth *bluetooth;
     void onConnect(BLEServer *pServer);
     void onDisconnect(BLEServer *pServer);
 
-  public:
+public:
     BluetoothServerCallbacks(Bluetooth *bluetooth);
     ~BluetoothServerCallbacks();
 };

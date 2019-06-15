@@ -6,9 +6,9 @@
 class InvalidCoordinateException : public std::exception
 {
 public:
-    const char* what() const throw()
+    const char *what() const throw()
     {
-        return "Error: Coordenada Invalida";
+        return "InvalidCoordinateException: Coordenada Invalida";
     }
 };
 #endif

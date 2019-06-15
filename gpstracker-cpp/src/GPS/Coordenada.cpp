@@ -1,7 +1,9 @@
 #include <GPS/Coordenada.h>
 
-Coordenada::Coordenada(double latitud, double longitud){
-    if(latitud > 180 || latitud < -180 || longitud > 180 || longitud < -180){
+Coordenada::Coordenada(double latitud, double longitud)
+{
+    if (latitud > 180 || latitud < -180 || longitud > 180 || longitud < -180)
+    {
         throw InvalidCoordinateException();
     }
     this->latitud = latitud;
@@ -17,5 +19,6 @@ double Coordenada::getLongitud()
     return this->longitud;
 }
 
-Coordenada::~Coordenada() {
+Coordenada::~Coordenada()
+{
 }

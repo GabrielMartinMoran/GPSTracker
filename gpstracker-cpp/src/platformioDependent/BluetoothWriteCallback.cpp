@@ -43,5 +43,4 @@ void BluetoothWriteCallback::onWrite(BLECharacteristic *pCharacteristic)
         Serial.println("*********");
     }
     */
-    
 }

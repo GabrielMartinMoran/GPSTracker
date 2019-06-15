@@ -13,31 +13,31 @@ TEST(GPS, posicionesValidas)
 
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     EXPECT_TRUE(gps->actualizado());
-    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40",gps->getGPSData().getRawData());
+    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40", gps->getGPSData()->getRawData());
     esperado = (36 + 54.928 / 60);
-    
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    
+
     esperado = -1 * (73 + 02.5 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    
+
     //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.923 / 60;
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 *(73 + 02.506 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    esperado = -1 * (73 + 02.506 / 60);
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
@@ -47,14 +47,14 @@ TEST(GPS, posicionesValidas)
     EXPECT_FALSE(gps->actualizado()); //porque no dataWaiting
 
     //esperado = 36 + 54.929 / 60;
-    //obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    //obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     //espero lo mismo que el de antes
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
     //esperado = -1 *(73 + 02.499 / 60);
-    //obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    //obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     //espero lo mismo que el de antes
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
@@ -64,13 +64,13 @@ TEST(GPS, posicionesValidas)
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.928 / 60;
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 *(73 + 02.500 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    esperado = -1 * (73 + 02.500 / 60);
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
@@ -79,66 +79,65 @@ TEST(GPS, posicionesValidas)
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.907 / 60;
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 *(73 + 02.482 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    esperado = -1 * (73 + 02.482 / 60);
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-
 
     //"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F"
     EXPECT_TRUE(gps->actualizado());
-    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
+    EXPECT_EQ(gps->getGPSData()->getRawData(), "$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
 
     esperado = 36 + 54.925 / 60;
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 *(73 + 02.503 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    esperado = -1 * (73 + 02.503 / 60);
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
     EXPECT_FALSE(gps->actualizado());
-    
+
     //lo mismo de antes
-    EXPECT_EQ(gps->getGPSData().getRawData(),"$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
+    EXPECT_EQ(gps->getGPSData()->getRawData(), "$GPRMC,054503,A,3654.925,N,07302.503,W,82.8,2.57,160519,,E*4F");
 
     //esperado = 36 + 54.925 / 60;
-    //obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    //obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
     //esperado = -1 *(73 + 02.503 / 60);
-    //obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    //obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    
+
     //"$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"
     EXPECT_TRUE(gps->actualizado());
 
     esperado = 36 + 54.923 / 60;
-    obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    obtenido = gps->getGPSData()->getCoordenada().getLatitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
 
-    esperado = -1 *(73 + 02.506 / 60);
-    obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    esperado = -1 * (73 + 02.506 / 60);
+    obtenido = gps->getGPSData()->getCoordenada().getLongitud();
 
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
-    
+
     delete gpsControllerMockup;
     delete gps;
 }
@@ -151,7 +150,7 @@ TEST(GPS, getHora)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     EXPECT_TRUE(gps->actualizado());
     int esperado = 5;
-    int obtenido = gps->getGPSData().dateTime().getHora();
+    int obtenido = gps->getGPSData()->dateTime().getHora();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -166,7 +165,7 @@ TEST(GPS, getMinuto)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 44;
-    int obtenido = gps->getGPSData().dateTime().getMinuto();
+    int obtenido = gps->getGPSData()->dateTime().getMinuto();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -181,7 +180,7 @@ TEST(GPS, getSegundo)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 57;
-    int obtenido = gps->getGPSData().dateTime().getSegundo();
+    int obtenido = gps->getGPSData()->dateTime().getSegundo();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -196,7 +195,7 @@ TEST(GPS, getDia)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 16;
-    int obtenido = gps->getGPSData().dateTime().getDia();
+    int obtenido = gps->getGPSData()->dateTime().getDia();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -211,7 +210,7 @@ TEST(GPS, getMes)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 5;
-    int obtenido = gps->getGPSData().dateTime().getMes();
+    int obtenido = gps->getGPSData()->dateTime().getMes();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -226,7 +225,7 @@ TEST(GPS, getAnio)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     int esperado = 19;
-    int obtenido = gps->getGPSData().dateTime().getAnio();
+    int obtenido = gps->getGPSData()->dateTime().getAnio();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -241,7 +240,7 @@ TEST(GPS, getLatitud)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     double esperado = (36 + 54.928 / 60);
-    double obtenido = gps->getGPSData().getCoordenada().getLatitud();
+    double obtenido = gps->getGPSData()->getCoordenada().getLatitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
     delete gpsControllerMockup;
@@ -256,7 +255,7 @@ TEST(GPS, getLongitud)
     GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
     gps->actualizado();
     double esperado = -1 * (73 + 02.5 / 60);
-    double obtenido = gps->getGPSData().getCoordenada().getLongitud();
+    double obtenido = gps->getGPSData()->getCoordenada().getLongitud();
     EXPECT_DOUBLE_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                          << "obtenido: " << obtenido;
     delete gpsControllerMockup;
