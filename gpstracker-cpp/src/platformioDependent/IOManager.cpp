@@ -57,5 +57,5 @@ void IOManager::unlock()
 }
 bool IOManager::availableToSend()
 {
-    return this->sdManager->existFile("/test.txt");
+    return true;//this->sdManager->existFile("/test.txt");
 }

@@ -18,26 +18,30 @@ bool GPS::actualizado()
 
         if (nuevo->isValido())
         {
-            this->posicionesInvariadas = 0;
             if (this->gpsData == nullptr)
             {
+                this->posicionesInvariadas = 0;
                 this->gpsData = nuevo;
                 return true;
             }
 
             if (posicionValida(nuevo))
             {
+                this->posicionesInvariadas = 0;
                 delete this->gpsData;
                 this->gpsData = nuevo;
                 return true;
             }
-        }
-        this->posicionesInvariadas++;
-        if (this->posicionesInvariadas >= this->maxPosicionesInvariadas)
-        {
-            if (this->gpsData != nullptr)
+
+            if (this->posicionesInvariadas < this->maxPosicionesInvariadas)
+            {
+                this->posicionesInvariadas++;
+                //Serial.println(this->posicionesInvariadas);
+            }
+            else
             {
                 this->gpsData->inmovil();
+                //Serial.println("inmovil");
             }
         }
 

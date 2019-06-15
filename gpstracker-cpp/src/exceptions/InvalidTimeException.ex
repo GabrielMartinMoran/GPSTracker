@@ -8,7 +8,7 @@ class InvalidTimeException : public std::exception
 public:
     const char* what() const throw()
     {
-        return "Error: Hora Invalida";
+        return "InvalidTimeException: Hora Invalida";
     }
 };
 #endif

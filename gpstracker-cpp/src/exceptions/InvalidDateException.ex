@@ -8,7 +8,7 @@ class InvalidDateException : public std::exception
 public:
     const char* what() const throw()
     {
-        return "Error: Fecha Invalida";
+        return "InvalidDateException: Fecha Invalida";
     }
 };
 #endif

@@ -94,6 +94,76 @@ TEST(GPSData, rawData)
     delete gpsData;
 }
 
+TEST(GPSData, sentenciaCompleta)
+{
+    std::string data;
+    GPSData *gpsData;
+    bool esperado = true;
+    bool obtenido;
+
+    data = "$GPRMC,062359.00,A,3436.59962,S,05833.36400,W,1.430,,150619,,,A*77";
+    gpsData = new GPSData(data);
+    obtenido = gpsData->isValido();
+    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+                                  << "obtenido: " << obtenido;
+
+    int esperadoINT;
+    int obtenidoINT;
+
+    //hora
+    esperadoINT = 6;
+    obtenidoINT = gpsData->dateTime().getHora();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //minuto
+    esperadoINT = 23;
+    obtenidoINT = gpsData->dateTime().getMinuto();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                  << "obtenido: " << obtenidoINT;
+
+    //segundo
+    esperadoINT = 59;
+    obtenidoINT = gpsData->dateTime().getSegundo();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                  << "obtenido: " << obtenidoINT;
+
+    //dia
+    esperadoINT = 15;
+    obtenidoINT = gpsData->dateTime().getDia();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                  << "obtenido: " << obtenidoINT;
+
+    //mes
+    esperadoINT = 6;
+    obtenidoINT = gpsData->dateTime().getMes();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                  << "obtenido: " << obtenidoINT;
+
+    //anio
+    esperadoINT = 19;
+    obtenidoINT = gpsData->dateTime().getAnio();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                  << "obtenido: " << obtenidoINT;
+
+    double esperadoDOUBLE;
+    double obtenidoDOUBLE;
+
+    //latitud 3436.59962 S
+    esperadoDOUBLE = -1 * (34 + 36.59962 / 60);
+    obtenidoDOUBLE = gpsData->getCoordenada().getLatitud();
+    EXPECT_DOUBLE_EQ(esperadoDOUBLE, obtenidoDOUBLE) << "esperado: " << esperadoDOUBLE << "\n"
+                                                     << "obtenido: " << obtenidoDOUBLE;
+
+    //longitud 05833.36400 W
+    esperadoDOUBLE = -1 * (58 + 33.36400 / 60);
+    obtenidoDOUBLE = gpsData->getCoordenada().getLongitud();
+    EXPECT_DOUBLE_EQ(esperadoDOUBLE, obtenidoDOUBLE) << "esperado: " << esperadoDOUBLE << "\n"
+                                         << "obtenido: " << obtenidoDOUBLE;
+
+    delete gpsData;
+}
+
 TEST(GPSData, valido)
 {
     std::string data;
