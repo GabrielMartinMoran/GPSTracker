@@ -17,7 +17,7 @@ void setup()
     usb = new HardwareSerial(UART_USB);
     gpsController = new GPSController(UART_GPS);
     usb->begin(115200);
-    gps = new GPS(gpsController);
+    gps = new GPS(gpsController, 2);
 }
 
 void loop()
