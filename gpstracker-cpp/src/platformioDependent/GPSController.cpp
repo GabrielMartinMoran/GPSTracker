@@ -8,10 +8,9 @@ GPSController::GPSController(int uartNumber)
 
 std::string GPSController::getInformation()
 {
-    char line[100];
-    this->uart->readStringUntil('\n').toCharArray(line, 100);
-
-    return std::string(line);
+    std::string sentencia = std::string(this->uart->readStringUntil('\r').c_str());
+    this->uart->readStringUntil('\n');
+    return sentencia;
 }
 
 bool GPSController::isDataWaiting()

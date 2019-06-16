@@ -125,7 +125,7 @@ void setup()
         }
         delay(200);
     }*/
-    
+
     //serialController->println("~~ Fin del setup ~~");
 
     //Deletes (ver donde ubicar) ya que aqui cuando termine el setup van a morir

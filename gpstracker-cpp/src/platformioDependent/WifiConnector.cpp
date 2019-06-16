@@ -79,28 +79,32 @@ bool WiFiConnector::isConnected()
 
 void WiFiConnector::beginConnectionLoop()
 {
-    while(true){
-        if(WiFi.status() != WL_CONNECTED){
+    while (true)
+    {
+        if (WiFi.status() != WL_CONNECTED)
+        {
             connected = false;
             Serial.println("> EL WIFI NO ESTA CONECTADO!");
             tryToConnectToAnAvaliableNetwork();
-        }    
+        }
         delay(200);
     }
 }
 
-void WiFiConnector::tryToConnectToAnAvaliableNetwork(){
+void WiFiConnector::tryToConnectToAnAvaliableNetwork()
+{
     std::vector<std::string> avaliableNetworks = getAvaliableNetworks();
     for (size_t i = 0; i < avaliableNetworks.size(); i++)
     {
         std::string currSSID = avaliableNetworks.at(i);
         IWiFiNetwork *currNetwork = wifiConfiguration->getNetwork(currSSID);
-        if(currNetwork != nullptr){
+        if (currNetwork != nullptr)
+        {
             bool couldConnect = connect(currNetwork->getSSID(), currNetwork->getPassword());
-            if(couldConnect){
+            if (couldConnect)
+            {
                 return;
             }
         }
     }
-    
 }

@@ -15,6 +15,6 @@ TEST(WiFiNetwork, toCSVLine)
     std::string SSID = "Test SSID";
     std::string password = "TestPassword";
     WiFiNetwork wifiNetwork = WiFiNetwork("Test SSID", "TestPassword");
-    
+
     EXPECT_TRUE(wifiNetwork.toCSVLine() == "Test SSID,TestPassword");
 }

@@ -13,7 +13,8 @@ Orchestator::Orchestator()
     ioManager = new IOManager(sdManager);
     int uartNumber = 2;
     GPSController *gpsController = new GPSController(uartNumber);
-    this->gps = new GPS(gpsController, 2);
+    unsigned int metrosEntrePuntos = 0;
+    this->gps = new GPS(gpsController, metrosEntrePuntos);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 
@@ -59,7 +60,7 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialCon
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string line = gps->getGPSData().getNormalizedData();
+            std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
         }
         else
@@ -76,7 +77,7 @@ void Orchestator::startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialCon
 void Orchestator::start()
 {
     serialController->println("Orchestator Start");
-    
+
     std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
     while (endConfigurationCallback->configurationEnded == false)
     {
@@ -85,9 +86,9 @@ void Orchestator::start()
     btServer->stop();
     serialController->println("Finalizo el Bluetooth");
     bluetoothServerThread.join();
-    
+
     //wifiConnector->beginConnectionLoop();
-    
+
     serialController->println("Iniciando captura de datos GPS");
     //std::thread *GPSThread = new std::thread(Orchestator::startGPSDataProvider, ioManager, gps, serialController);
     //GPSThread->join();
@@ -107,11 +108,10 @@ void Orchestator::start()
             serialController->print(millis()/1000);
             serialController->print(" Response status code: ");
             serialController->println(statusCode);
-        }
         actualizado = gps->actualizado();
         if (actualizado)
         {
-            std::string line = gps->getGPSData().getNormalizedData();
+            std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
         }
         if (wifiConnector->isConnected())
@@ -131,6 +131,7 @@ void Orchestator::start()
         if(actualizado != actualizado_aux){
             actualizado_aux = actualizado;
             actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
+            Serial.println((unsigned long)ESP.getFreeHeap());
         }
         else
         {

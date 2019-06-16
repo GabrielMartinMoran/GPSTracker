@@ -6,38 +6,43 @@ TEST(GPSData, normalizedData)
     std::string data;
     std::string esperado;
     std::string obtenido;
+    GPSData *gpsData;
 
     data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
-    GPSData gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
     esperado = "98-09-13 08:18:36,-037.86083,+145.12267,0\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,221315,A,3751.65,N,14507.36,W,000.0,360.0,150418,011.3,E*6C";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
     esperado = "18-04-15 22:13:15,+037.86083,-145.12267,0\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,000000,A,3751.65,S,14507.36,W,000.0,360.0,010100,011.3,E*7E";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
     esperado = "00-01-01 00:00:00,-037.86083,-145.12267,0\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,000000,A,3751.65,N,14507.36,E,000.0,360.0,010100,011.3,E*71";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
     esperado = "00-01-01 00:00:00,+037.86083,+145.12267,0\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 }
 
 TEST(GPSData, normalizedDataInmovil)
@@ -45,42 +50,47 @@ TEST(GPSData, normalizedDataInmovil)
     std::string data;
     std::string esperado;
     std::string obtenido;
+    GPSData *gpsData;
 
     data = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
-    GPSData gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
-    gpsData.inmovil();
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
+    gpsData->inmovil();
     esperado = "98-09-13 08:18:36,-037.86083,+145.12267,1\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,221315,A,3751.65,N,14507.36,W,000.0,360.0,150418,011.3,E*6C";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
-    gpsData.inmovil();
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
+    gpsData->inmovil();
     esperado = "18-04-15 22:13:15,+037.86083,-145.12267,1\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,000000,A,3751.65,S,14507.36,W,000.0,360.0,010100,011.3,E*7E";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
-    gpsData.inmovil();
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
+    gpsData->inmovil();
     esperado = "00-01-01 00:00:00,-037.86083,-145.12267,1\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 
     data = "$GPRMC,000000,A,3751.65,N,14507.36,E,000.0,360.0,010100,011.3,E*71";
-    gpsData = GPSData(data);
-    EXPECT_EQ(gpsData.getRawData(), data);
-    gpsData.inmovil();
+    gpsData = new GPSData(data);
+    EXPECT_EQ(gpsData->getRawData(), data);
+    gpsData->inmovil();
     esperado = "00-01-01 00:00:00,+037.86083,+145.12267,1\n";
-    obtenido = gpsData.getNormalizedData();
+    obtenido = gpsData->getNormalizedData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
 }
 
 TEST(GPSData, rawData)
@@ -91,6 +101,76 @@ TEST(GPSData, rawData)
     std::string obtenido = gpsData->getRawData();
     EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
+    delete gpsData;
+}
+
+TEST(GPSData, sentenciaCompleta)
+{
+    std::string data;
+    GPSData *gpsData;
+    bool esperado = true;
+    bool obtenido;
+
+    data = "$GPRMC,062359.00,A,3436.59962,S,05833.36400,W,1.430,,150619,,,A*77";
+    gpsData = new GPSData(data);
+    obtenido = gpsData->isValido();
+    EXPECT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
+                                  << "obtenido: " << obtenido;
+
+    int esperadoINT;
+    int obtenidoINT;
+
+    //hora
+    esperadoINT = 6;
+    obtenidoINT = gpsData->dateTime().getHora();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //minuto
+    esperadoINT = 23;
+    obtenidoINT = gpsData->dateTime().getMinuto();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //segundo
+    esperadoINT = 59;
+    obtenidoINT = gpsData->dateTime().getSegundo();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //dia
+    esperadoINT = 15;
+    obtenidoINT = gpsData->dateTime().getDia();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //mes
+    esperadoINT = 6;
+    obtenidoINT = gpsData->dateTime().getMes();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    //anio
+    esperadoINT = 19;
+    obtenidoINT = gpsData->dateTime().getAnio();
+    EXPECT_EQ(esperadoINT, obtenidoINT) << "esperado: " << esperadoINT << "\n"
+                                        << "obtenido: " << obtenidoINT;
+
+    double esperadoDOUBLE;
+    double obtenidoDOUBLE;
+
+    //latitud 3436.59962 S
+    esperadoDOUBLE = -1 * (34 + 36.59962 / 60);
+    obtenidoDOUBLE = gpsData->getCoordenada().getLatitud();
+    EXPECT_DOUBLE_EQ(esperadoDOUBLE, obtenidoDOUBLE) << "esperado: " << esperadoDOUBLE << "\n"
+                                                     << "obtenido: " << obtenidoDOUBLE;
+
+    //longitud 05833.36400 W
+    esperadoDOUBLE = -1 * (58 + 33.36400 / 60);
+    obtenidoDOUBLE = gpsData->getCoordenada().getLongitud();
+    EXPECT_DOUBLE_EQ(esperadoDOUBLE, obtenidoDOUBLE) << "esperado: " << esperadoDOUBLE << "\n"
+                                                     << "obtenido: " << obtenidoDOUBLE;
+
     delete gpsData;
 }
 

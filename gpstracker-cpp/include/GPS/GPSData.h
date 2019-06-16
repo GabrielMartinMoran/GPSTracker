@@ -8,19 +8,21 @@
 #include <utils/StringToNumber.h>
 #include <GPS/DateTime.h>
 #include <GPS/Coordenada.h>
+#include <exceptions/InvalidReadGPSDataException.ex>
 
 class GPSData
 {
 private:
     DateTime *date_time = nullptr;
     Coordenada *coordenada = nullptr;
-    void parsearTiempo(std::string *tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
-    double parsearCoordenada(std::string *coordenada);
-    std::string *rawData;
+    void parsearTiempo(std::string tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
+    double parsearCoordenada(std::string coordenada);
+    std::string rawData;
     bool _inmovil = false;
     bool isInmovil();
     void invalidar();
     std::string calculateChecksum(std::string sentencias);
+
 public:
     GPSData(std::string data);
     DateTime dateTime();
