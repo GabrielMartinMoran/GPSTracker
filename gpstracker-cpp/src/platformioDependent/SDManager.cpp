@@ -20,6 +20,30 @@ bool SDManager::isValidSD()
     return true;
 }
 
+std::vector<std::string> SDManager::getFiles(const char *dirname){
+    std::vector<std::string> files = std::vector<std::string>();
+    if (!isValidSD())
+    {
+        return files;
+    }
+    File root = SD.open(dirname);
+    if (!root || !root.isDirectory())
+    {
+        return files;
+    }
+    File file = root.openNextFile();
+    while (file)
+    {
+        if (!file.isDirectory())
+        {
+            files.push_back(file.name());
+        }
+        file.close();
+        file = root.openNextFile();
+    }
+    file.close();
+}
+
 void SDManager::listDir(const char *dirname, uint8_t levels)
 {
     if (!isValidSD())
@@ -173,4 +197,16 @@ bool SDManager::deleteFile(const char *path)
 uint64_t SDManager::getCardSize()
 {
     return SD.cardSize() / (1024 * 1024);
+}
+
+bool SDManager::fileExists(std::string filename) 
+{
+    if (!isValidSD())
+    {
+        return false;
+    }
+    File file = SD.open(filename.c_str());
+    bool exists = file && !file.isDirectory();
+    file.close();
+    return exists;
 }

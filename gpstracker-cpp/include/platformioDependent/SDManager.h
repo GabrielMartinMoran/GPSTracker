@@ -14,6 +14,7 @@ class SDManager : public ISDManager {
         SDManager(uint8_t ssPin);
         bool isValidSD();
         void listDir(const char * dirname, uint8_t levels);
+        std::vector<std::string> getFiles(const char *dirname);
         void createDir(const char * path);
         void removeDir(const char * path);
         std::string readLine(const char * path, unsigned int index);
@@ -26,6 +27,7 @@ class SDManager : public ISDManager {
          * Returns SD card size in MB
          */
         uint64_t getCardSize();
+        bool fileExists(std::string filename);
     private:
         uint8_t ssPin;
 };

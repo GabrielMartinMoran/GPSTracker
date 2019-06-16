@@ -13,7 +13,7 @@ Orchestator::Orchestator()
     ioManager = new IOManager(sdManager);
     int uartNumber = 2;
     GPSController *gpsController = new GPSController(uartNumber);
-    this->gps = new GPS(gpsController);
+    this->gps = new GPS(gpsController, 2);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 
