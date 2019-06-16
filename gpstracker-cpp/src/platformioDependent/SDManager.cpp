@@ -43,8 +43,8 @@ std::vector<std::string> SDManager::getFiles(const char *dirname)
         file.close();
         file = root.openNextFile();
     }
-    root.close();
     file.close();
+    root.close();
     SD.end();
     return files;
 }
@@ -96,6 +96,7 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
         file.close();
         file = root.openNextFile();
     }
+    file.close();
     root.close();
     SD.end();
     return;
