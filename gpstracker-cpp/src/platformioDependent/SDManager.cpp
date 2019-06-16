@@ -43,6 +43,7 @@ std::vector<std::string> SDManager::getFiles(const char *dirname)
         file.close();
         file = root.openNextFile();
     }
+    root.close();
     file.close();
     SD.end();
     return files;
@@ -67,6 +68,7 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
     }
     if (!root.isDirectory())
     {
+        root.close();
         Serial.println("Not a directory");
         SD.end();
         return;
@@ -91,8 +93,10 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
             Serial.print(" SIZE: ");
             Serial.println(file.size());
         }
+        file.close();
         file = root.openNextFile();
     }
+    root.close();
     SD.end();
     return;
 }
