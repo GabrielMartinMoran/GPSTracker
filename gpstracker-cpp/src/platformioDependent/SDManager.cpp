@@ -242,8 +242,9 @@ bool SDManager::deleteFile(const char *path)
         SD.end();
         return false;
     }
+    bool result = SD.remove(path);
     SD.end();
-    return SD.remove(path);
+    return result;
 }
 
 uint64_t SDManager::getCardSize()
