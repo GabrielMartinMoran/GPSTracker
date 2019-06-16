@@ -10,10 +10,15 @@ class SDManagerMockup : public ISDManager {
         std::vector<std::string>  *dataLines;
         std::string deletedFilePath;
         std::string writtenFile;
+
         bool isValidSD() {
             return true;
         }
         void listDir(const char * dirname, uint8_t levels) {}
+        std::vector<std::string> getFiles(const char *dirname){
+            //no implementado
+            return *dataLines;
+        }
         void createDir(const char * path) {}
         void removeDir(const char * path) {}
         std::string readLine(const char * path, unsigned int index) {
@@ -39,6 +44,10 @@ class SDManagerMockup : public ISDManager {
         virtual uint64_t getCardSize(){
             return 0;
         }
+        bool fileExists(std::string filename){
+            //no implementado
+            return true;
+        };
 };
 
 #endif

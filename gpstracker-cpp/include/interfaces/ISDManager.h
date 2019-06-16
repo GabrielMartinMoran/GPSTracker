@@ -7,7 +7,7 @@
 class ISDManager {
 
     public:
-        virtual ~ISDManager() {}
+        virtual ~ISDManager() {};
         virtual bool isValidSD() = 0;
         virtual void listDir(const char * dirname, uint8_t levels) = 0;
         virtual std::vector<std::string> getFiles(const char *dirname) = 0;
