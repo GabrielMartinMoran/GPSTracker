@@ -16,9 +16,6 @@ Orchestator::Orchestator()
     unsigned int metrosEntrePuntos = 0;
     this->gps = new GPS(gpsController, metrosEntrePuntos);
 
-    httpClient = new HTTPClient("gpstrackerapi.herokuapp.com");
-    httpClient->setContentType("application/json");
-
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 
     //------- PARA TESTEAR CONFIGURAMOS ACA LAS REDES WIFI --------
@@ -107,20 +104,18 @@ void Orchestator::start()
     bool actualizado_aux = false;
     bool actualizado = false;
 
+    /*
     //Para tests
     int seconds = -1;
     int minutes = 0;
     int hours = 0;
     //----------
+    */
+    HTTPClient httpClient = HTTPClient("gpstrackerapi.herokuapp.com");
+    httpClient.setContentType("application/json");
 
     while (true)
     {
-        //Envio de datos por HTTP
-        if (wifiConnector->isConnected())
-        {
-            sendAvaliableData();
-        }
-
         actualizado = gps->actualizado();
         //actualizado = true; //Solo para pruebas
         if (actualizado)
@@ -139,11 +134,32 @@ void Orchestator::start()
             }
             char datetime[18];
             sprintf(datetime, "%s %02d:%02d:%02d", "19-05-18", hours, minutes, seconds);
-            line = ",-034.61005,-058.55567,0\n";
+            std::string line = ",-034.61005,-058.55567,0\n";
             line.insert(0, datetime);
             //-----------
             */
             ioManager->write(line);
+        }
+        //Envio de datos por HTTP
+        if (wifiConnector->isConnected())
+        {
+            std::string fileToSendData = ioManager->getFilenameToSend();
+            if (fileToSendData != "")
+            {
+                std::string fileContent = ioManager->getFileContent(fileToSendData);
+                serialController->println("Tratando de enviar el archivo: " + fileToSendData);
+                std::string postBody = "{\"device\": \"" + std::string(DEVICE_NAME) + "\", \"data\": \"" + fileContent + "\"}";
+                int statusCode = httpClient.post("/store-data", postBody.c_str());
+                if(statusCode == HTTP_CODE_OK){
+                    ioManager->deleteFile(fileToSendData);
+                }
+                serialController->print("Response status code: ");
+                serialController->println(statusCode);
+            }
+            else
+            {
+                serialController->println("Nada para enviar");
+            }
         }
         if (actualizado != actualizado_aux)
         {
@@ -158,21 +174,4 @@ void Orchestator::start()
     }
     //delete postBody;
     //wifiConnectorThread->join();
-}
-
-void Orchestator::sendAvaliableData()
-{
-    std::string fileToSendData = ioManager->getFilenameToSend();
-    if (fileToSendData != "")
-    {
-        std::string fileContent = ioManager->getFileContent(fileToSendData);
-        serialController->println("Tratando de enviar el archivo: " + fileToSendData);
-        std::string postBody = "{\"device\": \"" + std::string(DEVICE_NAME) + "\", \"data\": \"" + fileContent + "\"}";
-        int statusCode = httpClient->post("/store-data", postBody.c_str());
-        if(statusCode == HTTP_CODE_OK){
-            ioManager->deleteFile(fileToSendData);
-        }
-        serialController->print("Response status code: ");
-        serialController->println(statusCode);
-    }
 }
