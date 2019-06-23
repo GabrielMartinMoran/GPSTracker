@@ -4,6 +4,7 @@ from DataObject import DataObject
 from datetime import datetime
 import mimetypes
 from flask_cors import CORS
+import json
 
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('text/javascript', '.js')
@@ -41,6 +42,8 @@ def root():
 @app.route('/store-data',methods=['POST'])
 def store_data():
 	data = request.get_json()
+	if(type(data) is str):
+		data = json.loads(data)
 	if("data" not in data or "device" not in data):
 		return make_response("BAD REQUEST", 400)
 	data_objects = parse_data_block(data["data"])

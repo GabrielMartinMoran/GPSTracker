@@ -17,6 +17,10 @@
 
 #include <Arduino.h>
 
+#define DEVICE_NAME "SRG-SVMI"
+#define HTTP_CODE_OK 200
+
+
 class Orchestator
 {
 private:
@@ -29,10 +33,12 @@ private:
     GPS *gps;
     IOManager *ioManager;
     EndConfigurationCallback *endConfigurationCallback;
+    HTTPClient *httpClient;
     static void startWiFiConnector(WiFiConnector *wifiConnector);
     static void startBluetoothServer(BluetoothServer *btServer);
     static void startNetworkDataSender();
     static void startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialController *serialController);
+    void sendAvaliableData();
 
 public:
     Orchestator();

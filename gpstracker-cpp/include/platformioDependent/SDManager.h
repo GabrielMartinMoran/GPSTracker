@@ -28,6 +28,11 @@ class SDManager : public ISDManager {
          */
         uint64_t getCardSize();
         bool fileExists(std::string filename);
+        /**
+         * Returns file size in bytes
+         */
+        size_t getFileSize(std::string filename);
+        std::string readFile(std::string filename);
     private:
         uint8_t ssPin;
 };

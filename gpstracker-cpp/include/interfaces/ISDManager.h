@@ -21,6 +21,8 @@ class ISDManager {
         virtual bool deleteFile(const char * path) = 0;
         virtual uint64_t getCardSize() = 0;
         virtual bool fileExists(std::string filename) = 0;
+        virtual size_t getFileSize(std::string filename) = 0;
+        virtual std::string readFile(std::string filename) = 0;
 };
 
 #endif

@@ -29,6 +29,7 @@ void blinkLed()
 
 void setup()
 {
+    delay(2000);
     Orchestator *orchestator = new Orchestator();
     orchestator->start();
     /*

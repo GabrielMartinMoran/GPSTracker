@@ -24,13 +24,13 @@ std::vector<std::string> SDManager::getFiles(const char *dirname)
     std::vector<std::string> files = std::vector<std::string>();
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return files;
     }
     File root = SD.open(dirname);
     if (!root || !root.isDirectory())
     {
-        SD.end();
+        //SD.end();
         return files;
     }
     File file = root.openNextFile();
@@ -45,7 +45,7 @@ std::vector<std::string> SDManager::getFiles(const char *dirname)
     }
     file.close();
     root.close();
-    SD.end();
+    //SD.end();
     return files;
 }
 
@@ -53,7 +53,7 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return;
     }
     Serial.printf("Listing directory: %s\n", dirname);
@@ -63,14 +63,14 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
     if (!root)
     {
         Serial.println("Failed to open directory");
-        SD.end();
+        //SD.end();
         return;
     }
     if (!root.isDirectory())
     {
         root.close();
         Serial.println("Not a directory");
-        SD.end();
+        //SD.end();
         return;
     }
 
@@ -98,7 +98,7 @@ void SDManager::listDir(const char *dirname, uint8_t levels)
     }
     file.close();
     root.close();
-    SD.end();
+    //SD.end();
     return;
 }
 
@@ -106,7 +106,7 @@ void SDManager::createDir(const char *path)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return;
     }
     Serial.printf("Creating Dir: %s\n", path);
@@ -118,7 +118,7 @@ void SDManager::createDir(const char *path)
     {
         Serial.println("mkdir failed");
     }
-    SD.end();
+    //SD.end();
     return;
 }
 
@@ -126,7 +126,7 @@ void SDManager::removeDir(const char *path)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return;
     }
     Serial.printf("Removing Dir: %s\n", path);
@@ -138,7 +138,7 @@ void SDManager::removeDir(const char *path)
     {
         Serial.println("rmdir failed");
     }
-    SD.end();
+    //SD.end();
     return;
 }
 
@@ -147,13 +147,13 @@ std::vector<std::string> *SDManager::readFileLines(const char *path)
     std::vector<std::string> *list = new std::vector<std::string>();
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return list;
     }
     File file = SD.open(path);
     if (!file)
     {
-        SD.end();
+        //SD.end();
         return list;
     }
     while (file.available())
@@ -162,7 +162,7 @@ std::vector<std::string> *SDManager::readFileLines(const char *path)
         list->push_back(data);
     }
     file.close();
-    SD.end();
+    //SD.end();
     return list;
 }
 
@@ -170,13 +170,13 @@ std::string SDManager::readLine(const char *path, unsigned int index)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return "ERR";
     }
     File file = SD.open(path);
     if (!file)
     {
-        SD.end();
+        //SD.end();
         return "ERR";
     }
     size_t recNum = 1;
@@ -186,13 +186,13 @@ std::string SDManager::readLine(const char *path, unsigned int index)
         if (recNum == index)
         {
             file.close();
-            SD.end();
+            //SD.end();
             return list;
         }
         recNum++;
     }
     file.close();
-    SD.end();
+    //SD.end();
     return "EOF";
 }
 
@@ -200,13 +200,13 @@ bool SDManager::writeFile(const char *path, const std::string data)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     File file = SD.open(path, FILE_WRITE);
     bool result = file && file.print(data.c_str());
     file.close();
-    SD.end();
+    //SD.end();
     return result;
 }
 
@@ -214,13 +214,13 @@ bool SDManager::appendFile(const char *path, const std::string data)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     File file = SD.open(path, FILE_APPEND);
     bool result = file && file.print(data.c_str());
     file.close();
-    SD.end();
+    //SD.end();
     return result;
 }
 
@@ -228,11 +228,11 @@ bool SDManager::renameFile(const char *path1, const char *path2)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     bool result = SD.rename(path1, path2);
-    SD.end();
+    //SD.end();
     return result;
 }
 
@@ -240,11 +240,11 @@ bool SDManager::deleteFile(const char *path)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     bool result = SD.remove(path);
-    SD.end();
+    //SD.end();
     return result;
 }
 
@@ -252,11 +252,11 @@ uint64_t SDManager::getCardSize()
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     uint64_t result = SD.cardSize() / (1024 * 1024);
-    SD.end();
+    //SD.end();
     return result;
 }
 
@@ -264,12 +264,46 @@ bool SDManager::fileExists(std::string filename)
 {
     if (!isValidSD())
     {
-        SD.end();
+        //SD.end();
         return false;
     }
     File file = SD.open(filename.c_str());
     bool exists = file && !file.isDirectory();
     file.close();
-    SD.end();
+    //SD.end();
     return exists;
+}
+
+size_t SDManager::getFileSize(std::string filename){
+    size_t size = -1;
+    if (!isValidSD())
+    {
+        return size;
+    }
+    File file = SD.open(filename.c_str());
+    size = file.size();
+    file.close();
+    return size;
+}
+
+std::string SDManager::readFile(std::string filename)
+{
+    if (!isValidSD())
+    {
+        return "";
+    }
+    File file = SD.open(filename.c_str());
+    if (!file)
+    {
+        return "";
+    }
+    std::string fileContent = "";
+    while (file.available())
+    {
+        std::string line = file.readStringUntil('\n').c_str();
+        fileContent.append(line);
+        fileContent.append("\\n");
+    }
+    file.close();
+    return fileContent;
 }
