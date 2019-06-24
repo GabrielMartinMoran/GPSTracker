@@ -48,6 +48,15 @@ class SDManagerMockup : public ISDManager {
             //no implementado
             return true;
         };
+        size_t getFileSize(std::string filename){
+            //no implementado
+            return 0;
+        }
+
+        std::string readFile(std::string filename){
+            //no implementado
+            return std::string("no implementado");
+        }
 };
 
 #endif
