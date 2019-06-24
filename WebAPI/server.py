@@ -22,7 +22,8 @@ def parse_data_block(data_block):
 		data_row = x.split(",")
 		timestamp = datetime.strptime(data_row[0], '%y-%m-%d %H:%M:%S')
 		timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
-		data_obj = DataObject(timestamp, float(data_row[1]), float(data_row[2]))
+		stopped = int(data_row[3]) == 1
+		data_obj = DataObject(timestamp, float(data_row[1]), float(data_row[2]), stopped)
 		data_objects.append(data_obj)
 	return data_objects
 
@@ -63,7 +64,8 @@ def get_all_data():
 			"device"	: x["device"],
 			"timestamp" : x["timestamp"],
 			"latitude"	: x["latitude"],
-			"longitude"	: x["longitude"]
+			"longitude"	: x["longitude"],
+			"stopped"	: x["stopped"]
 		}
 		documents.append(data_row)
 	return make_response(jsonify(documents), 200)

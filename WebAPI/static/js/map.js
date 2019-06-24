@@ -1,6 +1,6 @@
 var style = new ol.style.Style({
     image: new ol.style.Circle({
-        radius: 5,
+        radius: 8,
         fill: new ol.style.Fill({
             color: '#ffa500'
         }),
@@ -10,19 +10,43 @@ var style = new ol.style.Style({
         })
     })
 });
+var stoppedStyle = new ol.style.Style({
+    image: new ol.style.Circle({
+        radius: 8,
+        fill: new ol.style.Fill({
+            color: '#b81da9'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'red',
+            width: 0.5
+        })
+    })
+});
+var lineStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({
+        color: '#d34731',
+        width: 2
+      }),
+});
 var vectorSource = new ol.source.Vector({});
 var vectorSourcePoint = new ol.source.Vector({});
+var stoppedVectorSourcePoint = new ol.source.Vector({});
 var map = new ol.Map({
     layers: [
         new ol.layer.Tile({
             source: new ol.source.OSM()
         }),
         new ol.layer.Vector({
-            source: vectorSource
+            source: vectorSource,
+            style: lineStyle
         }),
         new ol.layer.Vector({
             source: vectorSourcePoint,
             style: style
+        }),
+        new ol.layer.Vector({
+            source: stoppedVectorSourcePoint,
+            style: stoppedStyle
         })
     ],
     target: 'map',
@@ -66,7 +90,11 @@ function drawDeviceCoordinates(deviceName) {
             var fea = new ol.Feature({
                 geometry: point
             });
-            vectorSourcePoint.addFeature(fea);
+            if(!element.stopped) {
+                vectorSourcePoint.addFeature(fea);
+            } else {
+                stoppedVectorSourcePoint.addFeature(fea);
+            }
         }
     });
     map.getView().setCenter(ol.proj.transform([longitudesSum / elementsSum, latitudesSum / elementsSum], 'EPSG:4326', 'EPSG:3857'));
