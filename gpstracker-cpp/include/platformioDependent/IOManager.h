@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <mutex>
 #include <Arduino.h>
-#include <platformioDependent/SDManager.h>
+#include <interfaces/ISDManager.h>
 #include <platformioDependent/WiFiConnector.h>
 
 #define LINE_DATE_LENGTH 17 //Largo fijo desde el inicio de la cadena a escribir que corresponde a la fecha y hora del GPS
@@ -18,7 +18,7 @@ class IOManager
 {
 private:
     bool locked;
-    SDManager *sdManager;
+    ISDManager *sdManager;
     WiFiConnector *wifiConnector;
     std::mutex io_mutex;
     void ioConcurrencia(bool writing, std::string line);
@@ -27,7 +27,7 @@ private:
     void unlock();
 
 public:
-    IOManager(SDManager *sdManager, WiFiConnector *wifiConnector);
+    IOManager(ISDManager *sdManager, WiFiConnector *wifiConnector);
     void write(std::string line);
     std::string read();
     bool availableToSend();

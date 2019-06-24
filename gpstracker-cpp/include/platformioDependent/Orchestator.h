@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <iostream>
+#include <interfaces/ISDManager.h>
 #include <platformioDependent/SDManager.h>
 #include <platformioDependent/SerialController.h>
 #include <BluetoothServer.h>
@@ -25,7 +26,7 @@ class Orchestator
 {
 private:
     SerialController *serialController;
-    SDManager *sdManager;
+    ISDManager *sdManager;
     WiFiConfiguration *wifiConfiguration;
     Bluetooth *bluetooth;
     BluetoothServer *btServer;

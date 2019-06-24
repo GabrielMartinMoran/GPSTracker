@@ -1,6 +1,6 @@
 #include <platformioDependent/IOManager.h>
 
-IOManager::IOManager(SDManager *sdManager, WiFiConnector *wifiConnector)
+IOManager::IOManager(ISDManager *sdManager, WiFiConnector *wifiConnector)
 {
     this->sdManager = sdManager;
     this->wifiConnector = wifiConnector;
