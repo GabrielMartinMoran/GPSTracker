@@ -15,13 +15,13 @@ TEST(GPS, inmovil)
     //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
     EXPECT_TRUE(gps->actualizado());
     EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40", gps->getGPSData()->getRawData());
-    EXPECT_FALSE(gps->getGPSData()->isInmovil());
+    EXPECT_EQ("19-05-16 05:44:57,+036.91547,-073.04167,0\n", gps->getGPSData()->getNormalizedData());
     EXPECT_TRUE(gps->actualizado());
     EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40", gps->getGPSData()->getRawData());
-    EXPECT_TRUE(gps->getGPSData()->isInmovil());
+    EXPECT_EQ("19-05-16 05:44:57,+036.91547,-073.04167,1\n", gps->getGPSData()->getNormalizedData());
     EXPECT_TRUE(gps->actualizado());
     EXPECT_EQ("$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42", gps->getGPSData()->getRawData());
-    EXPECT_FALSE(gps->getGPSData()->isInmovil());
+    EXPECT_EQ("19-05-16 05:45:09,+036.91538,-073.04177,0\n", gps->getGPSData()->getNormalizedData());
 
     delete gpsControllerMockup;
     delete gps;

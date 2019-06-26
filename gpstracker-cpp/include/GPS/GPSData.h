@@ -18,6 +18,7 @@ private:
     void parsearTiempo(std::string tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
     double parsearCoordenada(std::string coordenada);
     std::string rawData;
+    bool isInmovil();
     bool _inmovil = false;
     void invalidar();
     std::string calculateChecksum(std::string sentencias);
@@ -28,7 +29,6 @@ public:
     Coordenada getCoordenada();
     bool isValido();
     void inmovil();
-    bool isInmovil();
     std::string getRawData();
     std::string getNormalizedData();
     ~GPSData();

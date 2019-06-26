@@ -34,7 +34,7 @@ bool GPS::actualizado()
 
             if (posicionValida(nuevo))
             {
-                if (this->gpsData->isInmovil())
+                if (this->posicionesInvariadas >= this->maxPosicionesInvariadas)
                 {
                     this->gpsDataBuffer = nuevo;
                 }
@@ -50,7 +50,6 @@ bool GPS::actualizado()
             if (this->posicionesInvariadas < this->maxPosicionesInvariadas)
             {
                 this->posicionesInvariadas++;
-                std::cout << this->posicionesInvariadas << std::endl;
             }
             else
             {
