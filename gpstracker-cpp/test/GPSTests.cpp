@@ -1,6 +1,31 @@
 #include <gtest/gtest.h>
 #include <GPSControllerMockup.h>
+#include <GPSControllerMockup2.h>
 #include <GPS/GPS.h>
+
+TEST(GPS, inmovil)
+{
+    unsigned int metrosEntrePuntos = 10;
+    GPSControllerMockup2 *gpsControllerMockup = new GPSControllerMockup2();
+    GPS *gps = new GPS(gpsControllerMockup, metrosEntrePuntos);
+
+    double esperado;
+    double obtenido;
+
+    //"$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*47"
+    EXPECT_TRUE(gps->actualizado());
+    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40", gps->getGPSData()->getRawData());
+    EXPECT_FALSE(gps->getGPSData()->isInmovil());
+    EXPECT_TRUE(gps->actualizado());
+    EXPECT_EQ("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40", gps->getGPSData()->getRawData());
+    EXPECT_TRUE(gps->getGPSData()->isInmovil());
+    EXPECT_TRUE(gps->actualizado());
+    EXPECT_EQ("$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42", gps->getGPSData()->getRawData());
+    EXPECT_FALSE(gps->getGPSData()->isInmovil());
+
+    delete gpsControllerMockup;
+    delete gps;
+}
 
 TEST(GPS, posicionesValidas)
 {

@@ -12,6 +12,7 @@ class GPS
 private:
     IGPSController *GPSController = nullptr;
     GPSData *gpsData = nullptr;
+    GPSData *gpsDataBuffer = nullptr;
     bool posicionValida(GPSData *gpsData);
     double metrosEntrePuntos;
     unsigned int posicionesInvariadas = 0;

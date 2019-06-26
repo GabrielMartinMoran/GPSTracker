@@ -12,6 +12,13 @@ bool GPS::posicionValida(GPSData *gpsData)
 
 bool GPS::actualizado()
 {
+    if (this->gpsDataBuffer != nullptr)
+    {
+        this->gpsData = this->gpsDataBuffer;
+        this->gpsDataBuffer = nullptr;
+        return true;
+    }
+
     while (this->GPSController->isDataWaiting())
     {
         GPSData *nuevo = new GPSData(this->GPSController->getInformation());
@@ -27,15 +34,23 @@ bool GPS::actualizado()
 
             if (posicionValida(nuevo))
             {
+                if (this->gpsData->isInmovil())
+                {
+                    this->gpsDataBuffer = nuevo;
+                }
+                else
+                {
+                    delete this->gpsData;
+                    this->gpsData = nuevo;
+                }
                 this->posicionesInvariadas = 0;
-                delete this->gpsData;
-                this->gpsData = nuevo;
                 return true;
             }
 
             if (this->posicionesInvariadas < this->maxPosicionesInvariadas)
             {
                 this->posicionesInvariadas++;
+                std::cout << this->posicionesInvariadas << std::endl;
             }
             else
             {

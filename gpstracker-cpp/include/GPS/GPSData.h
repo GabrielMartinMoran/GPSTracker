@@ -19,7 +19,6 @@ private:
     double parsearCoordenada(std::string coordenada);
     std::string rawData;
     bool _inmovil = false;
-    bool isInmovil();
     void invalidar();
     std::string calculateChecksum(std::string sentencias);
 
@@ -29,6 +28,7 @@ public:
     Coordenada getCoordenada();
     bool isValido();
     void inmovil();
+    bool isInmovil();
     std::string getRawData();
     std::string getNormalizedData();
     ~GPSData();
