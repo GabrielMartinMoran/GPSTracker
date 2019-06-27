@@ -172,6 +172,5 @@ void Orchestator::start()
             delay(500);
         }
     }
-    //delete postBody;
-    //wifiConnectorThread->join();
+    wifiConnectorThread->join();
 }
