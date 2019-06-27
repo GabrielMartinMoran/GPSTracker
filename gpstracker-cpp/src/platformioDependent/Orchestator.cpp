@@ -13,7 +13,7 @@ Orchestator::Orchestator()
     ioManager = new IOManager(sdManager, wifiConnector);
     int uartNumber = 2;
     GPSController *gpsController = new GPSController(uartNumber);
-    unsigned int metrosEntrePuntos = 0;
+    unsigned int metrosEntrePuntos = 10;
     this->gps = new GPS(gpsController, metrosEntrePuntos);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
