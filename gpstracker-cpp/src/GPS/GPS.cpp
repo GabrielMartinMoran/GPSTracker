@@ -14,6 +14,7 @@ bool GPS::actualizado()
 {
     if (this->gpsDataBuffer != nullptr)
     {
+        delete this->gpsData;
         this->gpsData = this->gpsDataBuffer;
         this->gpsDataBuffer = nullptr;
         return true;

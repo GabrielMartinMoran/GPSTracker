@@ -173,4 +173,5 @@ void Orchestator::start()
         }
     }
     wifiConnectorThread->join();
+    delete wifiConnectorThread;
 }
