@@ -21,7 +21,6 @@
 #define DEVICE_NAME "SRG-SVMI"
 #define HTTP_CODE_OK 200
 
-
 class Orchestator
 {
 private:
@@ -32,12 +31,12 @@ private:
     BluetoothServer *btServer;
     WiFiConnector *wifiConnector;
     GPS *gps;
+    GPSController *gpsController;
     IOManager *ioManager;
     EndConfigurationCallback *endConfigurationCallback;
     static void startWiFiConnector(WiFiConnector *wifiConnector);
     static void startBluetoothServer(BluetoothServer *btServer);
-    static void startNetworkDataSender();
-    static void startGPSDataProvider(IOManager *ioManager, GPS *gps, SerialController *serialController);
+    void sendAvailableData();
 
 public:
     Orchestator();

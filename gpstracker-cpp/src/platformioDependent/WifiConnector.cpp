@@ -7,6 +7,10 @@ WiFiConnector::WiFiConnector(IWiFiConfiguration *wifiConfiguration)
     disconnect();
 }
 
+WiFiConnector::~WiFiConnector()
+{
+}
+
 bool WiFiConnector::connect(std::string SSID, std::string password)
 {
     Serial.println("WiFi module is trying to connect to:");

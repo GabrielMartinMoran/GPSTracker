@@ -20,6 +20,7 @@ private:
 
 public:
     WiFiConnector(IWiFiConfiguration *wifiConfiguration);
+    ~WiFiConnector();
     bool connect(std::string SSID, std::string password);
     void disconnect();
     std::vector<std::string> getAvaliableNetworks();

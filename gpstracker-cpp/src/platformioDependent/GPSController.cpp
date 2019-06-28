@@ -10,6 +10,7 @@ std::string GPSController::getInformation()
 {
     std::string sentencia = std::string(this->uart->readStringUntil('\r').c_str());
     this->uart->readStringUntil('\n');
+    Serial.println(sentencia.c_str());
     return sentencia;
 }
 

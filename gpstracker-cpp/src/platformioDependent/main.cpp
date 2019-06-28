@@ -29,9 +29,16 @@ void blinkLed()
 
 void setup()
 {
-    delay(2000);
-    Orchestator *orchestator = new Orchestator();
-    orchestator->start();
+
+    try
+    {
+        Orchestator *orchestator = new Orchestator();
+        orchestator->start();
+    }
+    catch (std::exception &e)
+    {
+        Serial.println(e.what());
+    }
     /*
     SerialController *serialController = new SerialController();
     serialController->println("~~ Inicio del setup ~~");
