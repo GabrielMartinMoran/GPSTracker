@@ -46,7 +46,6 @@ std::string BluetoothServer::getData(std::string request, std::string command)
 void BluetoothServer::onRequest(std::string request)
 {
     serialController->println("REQUEST: " + std::string(request.c_str()));
-    endConfigurationCallback->setDeviceConnected();
     if (request.length() > 0)
     {
         if (request == TURN_LED_ON)
@@ -107,9 +106,12 @@ void BluetoothServer::onRequest(std::string request)
             sendResponse(getData(request, ECHO));
             return;
         }
-        //Comentado porque sino habria que importar Arduino.h y romperia los tests
-        //Igualmente habria que utilizar el SerialController en todo caso
-        //Serial.println("Unrecognized Bluetooth request: " + String(request.c_str()));
+        if (isCommand(request, CLIENT_CONNECTED))
+        {
+            endConfigurationCallback->setDeviceConnected();
+            sendResponse(OK);
+            return;
+        }
         serialController->println("Unrecognized Bluetooth request: " + std::string(request.c_str()));
         sendResponse(ERROR);
     }

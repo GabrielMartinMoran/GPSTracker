@@ -99,6 +99,7 @@ public class BluetoothHelper {
         public void onMtuChanged(BluetoothGatt gatt, int mtu, int status){
             super.onMtuChanged(gatt, mtu, status);
             mtuConfirmed = true;
+            makeRequest("$CLIENT_CONNECTED$");
         }
 
         @Override

@@ -1,6 +1,10 @@
 package com.example.esp32bluetoothconfig;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +17,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity{
 
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     Button openBLEListActivityBtn;
     Button openMap;
 
@@ -37,16 +42,23 @@ public class MainActivity extends AppCompatActivity{
                 openMapActivity();
             }
         });
-    }
 
-    /*private void evaluateBLECompatibility() {
-        // Use this check to determine whether BLE is supported on the device. Then
-        // res.
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            }
         }
-    }*/
+    }
 
     public void openBLEDevicesListActivity() {
         Intent intent = new Intent(this, BluetoothListActivity.class);

@@ -20,6 +20,7 @@
 #define ADD_NETWORK "$ADD_NETWORK$"
 #define END_CONFIGURATION "$END_CONFIGURATION$"
 #define ECHO "$ECHO$"
+#define CLIENT_CONNECTED "$CLIENT_CONNECTED$"
 
 //Forward declaration
 class IBluetooth;
