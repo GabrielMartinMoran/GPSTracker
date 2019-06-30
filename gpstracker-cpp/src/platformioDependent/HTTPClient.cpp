@@ -1,13 +1,136 @@
 #include "platformioDependent/HTTPClient.h"
-#include "Arduino.h"
 
-#ifdef HTTP_DEBUG
-#define HTTP_DEBUG_PRINT(string) (Serial.print(string))
-#endif
 
-#ifndef HTTP_DEBUG
-#define HTTP_DEBUG_PRINT(string)
-#endif
+HTTPClient::HTTPClient(const char * host)
+{
+    this->host = host;
+    num_headers = 0;
+    port = 80;
+    contentType = "application/json";
+}
+
+HTTPClient::~HTTPClient()
+{
+}
+
+int HTTPClient::request(const char *method, const char *path, const char *body)
+{
+    //Normal connection
+    if (!client.connect(host, port))
+    {
+        return 0;
+    }
+
+    // Make a HTTP request line:
+    write(method);
+    write(" ");
+    write(path);
+    write(" HTTP/1.1\r\n");
+    for (int i = 0; i < num_headers; i++)
+    {
+        write(headers[i]);
+        write("\r\n");
+    }
+    write("Host: ");
+    write(host);
+    write("\r\n");
+    write("Connection: close\r\n");
+
+    if (body != NULL)
+    {
+        char contentLength[30];
+        sprintf(contentLength, "Content-Length: %d\r\n", strlen(body));
+        write(contentLength);
+
+        write("Content-Type: ");
+        write(contentType);
+        write("\r\n");
+    }
+
+    write("\r\n");
+
+    if (body != NULL)
+    {
+        write(body);
+        write("\r\n");
+        write("\r\n");
+    }
+
+    //make sure you write all those bytes.
+    delay(100);
+
+    String *response;
+    int statusCode = readResponse(response);
+
+    //cleanup
+    num_headers = 0;
+    client.stop();
+    delay(50);
+    return statusCode;
+}
+
+void HTTPClient::write(const char *string)
+{
+    client.print(string);
+}
+
+int HTTPClient::readResponse(String *response)
+{
+
+    // an http request ends with a blank line
+    /*boolean currentLineIsBlank = true;
+    boolean httpBody = false;
+    boolean inStatus = false;
+
+    char statusCode[4];
+    int i = 0;
+    */
+    int code = 0;
+
+    while (client.connected())
+    {
+        if (client.available())
+        {
+            String readed = client.readString();
+            if (readed.length() > 0)
+            {
+                String code = readed.substring(9, 12);
+                return atoi(code.c_str());
+            }
+            return 0;        
+        }
+    }
+    return code;
+}
+
+int HTTPClient::post(std::string path, std::string body)
+{
+    return request("POST", path.c_str(), body.c_str());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+HTTPClient::HTTPClient(const char *_host)
+{
+    host = _host;
+    port = 80;
+    num_headers = 0;
+    contentType = "application/x-www-form-urlencoded"; // default
+    use_https = false;
+    fingerprint = "";
+}
 
 HTTPClient::HTTPClient(const char *_host)
 {
@@ -107,19 +230,6 @@ int HTTPClient::del(const char *path, const char *body, String *response)
     return request("DELETE", path, body, response);
 }
 
-void HTTPClient::write(const char *string)
-{
-    HTTP_DEBUG_PRINT(string);
-    if (use_https)
-    {
-        client_s.print(string);
-    }
-    else
-    {
-        client.print(string);
-    }
-}
-
 void HTTPClient::setHeader(const char *header)
 {
     headers[num_headers] = header;
@@ -146,270 +256,4 @@ void HTTPClient::setFingerprint(const char *fingerPrint)
 
 // The mother- generic request method.
 //
-int HTTPClient::request(const char *method, const char *path,
-                        const char *body, String *response)
-{
-
-    HTTP_DEBUG_PRINT("HTTP: connect\n");
-
-    if (use_https)
-    {
-        //Secure connection
-        if (!client_s.connect(host, port))
-        {
-            HTTP_DEBUG_PRINT("HTTPS Connection failed\n");
-            return 0;
-        }
-
-        if (client_s.verify(fingerprint, host))
-        {
-            HTTP_DEBUG_PRINT("SSL fingerprint certificate matches!");
-        }
-        else
-        {
-            HTTP_DEBUG_PRINT("SSL fingerprint certificate doesn't match!");
-            return 0;
-        }
-    }
-    else
-    {
-        //Normal connection
-        if (!client.connect(host, port))
-        {
-            HTTP_DEBUG_PRINT("HTTP Connection failed\n");
-            return 0;
-        }
-    }
-
-    HTTP_DEBUG_PRINT("HTTP: connected\n");
-    HTTP_DEBUG_PRINT("REQUEST: \n");
-
-    // Make a HTTP request line:
-    write(method);
-    write(" ");
-    write(path);
-    write(" HTTP/1.1\r\n");
-    for (int i = 0; i < num_headers; i++)
-    {
-        write(headers[i]);
-        write("\r\n");
-    }
-    write("Host: ");
-    write(host);
-    write("\r\n");
-    write("Connection: close\r\n");
-
-    if (body != NULL)
-    {
-        char contentLength[30];
-        sprintf(contentLength, "Content-Length: %d\r\n", strlen(body));
-        write(contentLength);
-
-        write("Content-Type: ");
-        write(contentType);
-        write("\r\n");
-    }
-
-    write("\r\n");
-
-    if (body != NULL)
-    {
-        //Serial.println(body);
-        write(body);
-        write("\r\n");
-        write("\r\n");
-    }
-
-    //make sure you write all those bytes.
-    delay(100);
-
-    HTTP_DEBUG_PRINT("HTTP: call readResponse\n");
-    int statusCode = readResponse(response);
-    HTTP_DEBUG_PRINT("HTTP: return readResponse\n");
-
-    //cleanup
-    HTTP_DEBUG_PRINT("HTTP: stop client\n");
-    num_headers = 0;
-
-    if (use_https)
-    {
-        client_s.stop();
-    }
-    else
-    {
-        client.stop();
-    }
-
-    delay(50);
-    HTTP_DEBUG_PRINT("HTTP: client stopped\n");
-
-    return statusCode;
-}
-
-int HTTPClient::readResponse(String *response)
-{
-
-    // an http request ends with a blank line
-    boolean currentLineIsBlank = true;
-    boolean httpBody = false;
-    boolean inStatus = false;
-
-    char statusCode[4];
-    int i = 0;
-    int code = 0;
-
-    if (use_https)
-    {
-        //Secure connection
-        if (response == NULL)
-        {
-            HTTP_DEBUG_PRINT("HTTPS: NULL RESPONSE POINTER: \n");
-        }
-        else
-        {
-            HTTP_DEBUG_PRINT("HTTPS: NON-NULL RESPONSE POINTER: \n");
-        }
-
-        HTTP_DEBUG_PRINT("HTTPS: RESPONSE: \n");
-
-        while (client_s.connected())
-        {
-            HTTP_DEBUG_PRINT(".");
-
-            if (client_s.available())
-            {
-                HTTP_DEBUG_PRINT(",");
-
-                char c = client_s.read();
-                HTTP_DEBUG_PRINT(c);
-
-                if (c == ' ' && !inStatus)
-                {
-                    inStatus = true;
-                }
-
-                if (inStatus && i < 3 && c != ' ')
-                {
-                    statusCode[i] = c;
-                    i++;
-                }
-                if (i == 3)
-                {
-                    statusCode[i] = '\0';
-                    code = atoi(statusCode);
-                }
-
-                if (httpBody)
-                {
-                    //only write response if its not null
-                    if (response != NULL)
-                        response->concat(c);
-                }
-                else
-                {
-                    if (c == '\n' && currentLineIsBlank)
-                    {
-                        httpBody = true;
-                    }
-
-                    if (c == '\n')
-                    {
-                        // you're starting a new line
-                        currentLineIsBlank = true;
-                    }
-                    else if (c != '\r')
-                    {
-                        // you've gotten a character on the current line
-                        currentLineIsBlank = false;
-                    }
-                }
-            }
-        }
-
-        HTTP_DEBUG_PRINT("HTTPS: return readResponse3\n");
-        return code;
-    }
-    else
-    {
-        //Normal connection
-        if (response == NULL)
-        {
-            HTTP_DEBUG_PRINT("HTTP: NULL RESPONSE POINTER: \n");
-        }
-        else
-        {
-            HTTP_DEBUG_PRINT("HTTP: NON-NULL RESPONSE POINTER: \n");
-        }
-
-        HTTP_DEBUG_PRINT("HTTP: RESPONSE: \n");
-        while (client.connected())
-        {
-            HTTP_DEBUG_PRINT(".");
-
-            if (client.available())
-            {
-                HTTP_DEBUG_PRINT(",");
-
-                String readed = client.readString();
-                if (readed.length() > 0)
-                {
-                    String code = readed.substring(9, 12);
-                    //Serial.print("CODE: ");
-                    //Serial.println(code);
-                    return atoi(code.c_str());
-                }
-                else
-                {
-                    return 0;
-                }
-
-                char c = client.read();
-                HTTP_DEBUG_PRINT(c);
-
-                if (c == ' ' && !inStatus)
-                {
-                    inStatus = true;
-                }
-
-                if (inStatus && i < 3 && c != ' ')
-                {
-                    statusCode[i] = c;
-                    i++;
-                }
-                if (i == 3)
-                {
-                    statusCode[i] = '\0';
-                    code = atoi(statusCode);
-                }
-
-                if (httpBody)
-                {
-                    //only write response if its not null
-                    if (response != NULL)
-                        response->concat(c);
-                }
-                else
-                {
-                    if (c == '\n' && currentLineIsBlank)
-                    {
-                        httpBody = true;
-                    }
-
-                    if (c == '\n')
-                    {
-                        // you're starting a new line
-                        currentLineIsBlank = true;
-                    }
-                    else if (c != '\r')
-                    {
-                        // you've gotten a character on the current line
-                        currentLineIsBlank = false;
-                    }
-                }
-            }
-        }
-
-        HTTP_DEBUG_PRINT("HTTP: return readResponse3\n");
-        return code;
-    }
-}
+*/

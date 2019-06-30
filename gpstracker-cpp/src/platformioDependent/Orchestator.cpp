@@ -1,20 +1,17 @@
 #include <platformioDependent/Orchestator.h>
 
 Orchestator::Orchestator()
-{
+{   
     serialController = new SerialController();
-    uint8_t ssPin = 5;
-    sdManager = new SDManager(ssPin);
+    sdManager = new SDManager(SD_CARD_PIN);
     wifiConfiguration = new WiFiConfiguration(sdManager);
     bluetooth = new Bluetooth();
     btServer = new BluetoothServer(wifiConfiguration, bluetooth, serialController);
     wifiConnector = new WiFiConnector(wifiConfiguration);
     endConfigurationCallback = new EndConfigurationCallback();
     ioManager = new IOManager(sdManager, wifiConnector);
-    int uartNumber = 2;
-    gpsController = new GPSController(uartNumber);
-    unsigned int metrosEntrePuntos = 10;
-    gps = new GPS(gpsController, metrosEntrePuntos);
+    gpsController = new GPSController(GPS_UART_NUMBER);
+    gps = new GPS(gpsController, METERS_BETWEEN_POINTS);
 
     btServer->setEndConfigurationCallback(endConfigurationCallback);
 }
@@ -33,13 +30,16 @@ Orchestator::~Orchestator()
     delete gps;
 }
 
-void Orchestator::startWiFiConnector(WiFiConnector *wifiConnector)
+void *Orchestator::startWiFiConnector(void *wifiConnector)
 {
-    wifiConnector->beginConnectionLoop();
+    (static_cast<WiFiConnector *>(wifiConnector))->beginConnectionLoop();
+    return NULL;
 }
-void Orchestator::startBluetoothServer(BluetoothServer *btServer)
+
+void *Orchestator::startBluetoothServer(void *btServer)
 {
-    btServer->start();
+    (static_cast<BluetoothServer *>(btServer))->start();
+    return NULL;
 }
 
 void Orchestator::sendAvailableData()
@@ -47,14 +47,13 @@ void Orchestator::sendAvailableData()
     if (wifiConnector->isConnected())
     {
         HTTPClient httpClient = HTTPClient("gpstrackerapi.herokuapp.com");
-        httpClient.setContentType("application/json");
         std::string fileToSendData = ioManager->getFilenameToSend();
         if (fileToSendData != "")
         {
             std::string fileContent = ioManager->getFileContent(fileToSendData);
             serialController->println("Tratando de enviar el archivo: " + fileToSendData);
             std::string postBody = "{\"device\": \"" + std::string(DEVICE_NAME) + "\", \"data\": \"" + fileContent + "\"}";
-            int statusCode = httpClient.post("/store-data", postBody.c_str());
+            int statusCode = httpClient.post("/store-data", postBody);
             if (statusCode == HTTP_CODE_OK)
             {
                 ioManager->deleteFile(fileToSendData);
@@ -69,35 +68,50 @@ void Orchestator::sendAvailableData()
     }
 }
 
+void Orchestator::startBluetoothConfiguration()
+{
+    pthread_attr_t threadConfig;
+    pthread_attr_init(&threadConfig);
+    pthread_attr_setstacksize(&threadConfig, BLUETOOTH_SERVER_THREAD_STACK_SIZE);
+    //std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
+    pthread_t bluetoothServerThread;
+    pthread_create(&bluetoothServerThread, &threadConfig, &Orchestator::startBluetoothServer, (void *)btServer);
+
+    while (!endConfigurationCallback->configurationDone())
+    {
+        delay(200);
+        endConfigurationCallback->increaseTimer(200);
+    }
+
+    // Para poder terminarlo desde afuera
+    pthread_cancel(bluetoothServerThread);
+    btServer->stop();
+    serialController->println("La configuracion Bluetooth ha finalizado");
+    //bluetoothServerThread.join();
+    char *btServerRet;
+    pthread_join(bluetoothServerThread, (void **)&btServerRet);
+}
+
 void Orchestator::start()
 {
     serialController->println("Orchestator Start");
+    LedBlinker::blink(4, 100, 100);
 
     /* ~~~  BLUETOOTH SERVER  ~~~ */
-    
-    std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
-
-    while (!endConfigurationCallback->configurationEnded)
-    {
-        delay(200);
-    }
-
-    btServer->stop();
-    
-    serialController->println("Finalizo el Bluetooth");
-    bluetoothServerThread.join();
-    
+    this->startBluetoothConfiguration();
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-    serialController->println("Iniciando captura de datos GPS");
-
+    LedBlinker::blink(2, 500, 500);
     /* ~~~  CONEXION WiFi  ~~~ */
-    std::thread *wifiConnectorThread = new std::thread(Orchestator::startWiFiConnector, wifiConnector);
+    pthread_attr_t threadConfig;
+    pthread_attr_init(&threadConfig);
+    pthread_attr_setstacksize(&threadConfig, WIFI_CONNECTOR_THREAD_STACK_SIZE);
+    pthread_t wifiConnectorThread;
+    pthread_create(&wifiConnectorThread, &threadConfig, &Orchestator::startWiFiConnector, (void *)wifiConnector);
     /* ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+    serialController->println("Iniciando la captura de datos del GPS");
     bool actualizado_aux = false;
     bool actualizado = false;
-
-    
 
     while (true)
     {
@@ -109,20 +123,19 @@ void Orchestator::start()
         }
         //Envio de datos por HTTP
         this->sendAvailableData();
+        /*
         if (actualizado != actualizado_aux)
         {
             actualizado_aux = actualizado;
             actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
             //Serial.print("HEAP DISPONIBLE: ");
             //Serial.println((unsigned long)ESP.getFreeHeap());
-            
         }
         else
         {
             delay(500);
-        }
+        }*/
+        delay(500);
     }
-    wifiConnectorThread->join();
-    delete wifiConnectorThread;
-    
+    pthread_cancel(wifiConnectorThread);
 }

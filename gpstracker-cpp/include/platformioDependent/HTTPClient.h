@@ -1,13 +1,34 @@
-#include <Arduino.h>
-#include <WiFiClientSecure.h>
-
 #ifndef HTTPClient_h
 #define HTTPClient_h
 
+#include <Arduino.h>
+#include <WiFiClientSecure.h>
+#include <iostream>
+
 class HTTPClient
 {
+private:
+    WiFiClient client;
+    int port;
+    int num_headers;
+    const char *headers[10];
+    const char *contentType;
+    const char *host;
+    int readResponse(String *);
+    void write(const char *);  
+    int request(const char *method, const char *path, const char *body);
 
 public:
+    HTTPClient(const char * host);
+    ~HTTPClient();
+    int post(std::string path, std::string body);
+    /*
+
+
+
+
+
+
     HTTPClient(const char *host);
     HTTPClient(const char *_host, int _port);
 
@@ -15,12 +36,11 @@ public:
     int begin(const char *ssid, const char *pass);
 
     //Generic HTTP Request
-    int request(const char *method, const char *path,
-                const char *body, String *response);
+
     // Set a Request Header
     void setHeader(const char *);
     // Set Content-Type Header
-    void setContentType(const char *);
+    void setContentType(const char *);HTTPClient
 
     //Set to use a secure connection
     void setSecureConnection(bool secureConn);
@@ -64,6 +84,7 @@ private:
     bool use_https;
     const char *fingerprint;
     const char *contentType;
+    */
 };
 
 #endif

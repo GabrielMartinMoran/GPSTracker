@@ -10,6 +10,9 @@ BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetoo
 
 BluetoothServer::~BluetoothServer()
 {
+    if(bluetooth->isConnected()){
+        this->stop();
+    }
 }
 
 void BluetoothServer::start()
@@ -43,6 +46,7 @@ std::string BluetoothServer::getData(std::string request, std::string command)
 void BluetoothServer::onRequest(std::string request)
 {
     serialController->println("REQUEST: " + std::string(request.c_str()));
+    endConfigurationCallback->setDeviceConnected();
     if (request.length() > 0)
     {
         if (request == TURN_LED_ON)
@@ -93,7 +97,7 @@ void BluetoothServer::onRequest(std::string request)
         {
             if (this->endConfigurationCallback != NULL)
             {
-                this->endConfigurationCallback->configurationEnded = true;
+                this->endConfigurationCallback->endConfiguration();
             }
             sendResponse(OK);
             return;

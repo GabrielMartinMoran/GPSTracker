@@ -2,7 +2,6 @@
 
 Bluetooth::~Bluetooth()
 {
-    stop();
 }
 
 void Bluetooth::start(IBluetoothServer *btServer)
@@ -11,31 +10,34 @@ void Bluetooth::start(IBluetoothServer *btServer)
     BLEDevice::init(DEVICE_BT_NAME);
 
     // Create the BLE Server
-    BLEServer *pServer = BLEDevice::createServer();
-    pServer->setCallbacks(new BluetoothServerCallbacks(this));
+    pServer = BLEDevice::createServer();
+    serverCallbacks = new BluetoothServerCallbacks(this);
+    pServer->setCallbacks(serverCallbacks);
 
     // Create the BLE Service
-    BLEService *pService = pServer->createService(SERVICE_UUID);
+    pService = pServer->createService(SERVICE_UUID);
 
     // Create a BLE Characteristic
-    pCharacteristic = pService->createCharacteristic(
+    txCharacteristic = pService->createCharacteristic(
         CHARACTERISTIC_UUID_TX,
         BLECharacteristic::PROPERTY_NOTIFY);
 
-    pCharacteristic->addDescriptor(new BLE2902());
+    descriptor = new BLE2902();
+    txCharacteristic->addDescriptor(descriptor);
 
-    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+    rxCharacteristic = pService->createCharacteristic(
         CHARACTERISTIC_UUID_RX,
         BLECharacteristic::PROPERTY_WRITE);
 
     writeCallback = new BluetoothWriteCallback();
-    pCharacteristic->setCallbacks(writeCallback);
+    rxCharacteristic->setCallbacks(writeCallback);
 
     // Start the service
     pService->start();
 
     // Start advertising
-    pServer->getAdvertising()->start();
+    adverising = pServer->getAdvertising();
+    adverising->start();
 
     writeCallback->configureServer(btServer);
 
@@ -43,28 +45,16 @@ void Bluetooth::start(IBluetoothServer *btServer)
 }
 
 void Bluetooth::stop()
-{
-    /*
-    // Start the service
-    pService->stop();
-
-    // Start advertising
-    pServer->getAdvertising()->stop();
-    */
-
-    // Start the service
-    //pService->stop();
-
-    //pServer->getAdvertising()->stop();
+{    
     BLEDevice::deinit();
-    /*
     delete pServer;
+    delete serverCallbacks;
     delete pService;
+    delete txCharacteristic;
     delete descriptor;
+    delete rxCharacteristic;
     delete writeCallback;
-    delete serverCallback;
-    delete notifyCharacteristic;
-    delete writeCharacteristic;*/
+    delete adverising;    
 
     Serial.println("BLE Turned Off!");
 }
@@ -75,10 +65,8 @@ void Bluetooth::transmitData(std::string data)
     {
         return;
     }
-    //char buffer[data.length() + 1];
-    //data.toCharArray(buffer, data.length() + 1);
-    pCharacteristic->setValue(data);
-    pCharacteristic->notify(); // Send the value
+    txCharacteristic->setValue(data);
+    txCharacteristic->notify();
 }
 
 void Bluetooth::setConnectionStatus(bool value)
