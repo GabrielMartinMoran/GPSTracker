@@ -4,22 +4,6 @@
 #include <WiFiConfigurationMockup.h>
 #include <SerialControllerMockup.h>
 
-TEST(BluetoothServer, onRequest_A)
-{
-    BluetoothMockup *bluetooth = new BluetoothMockup();
-    WiFiConfigurationMockup *wifiConfiguration = new WiFiConfigurationMockup();
-    SerialControllerMockup *serialController = new SerialControllerMockup();
-
-    BluetoothServer server = BluetoothServer(wifiConfiguration, bluetooth, serialController);
-
-    server.onRequest("A");
-
-    EXPECT_EQ(bluetooth->transmittedData, "200");
-
-    delete bluetooth;
-    delete wifiConfiguration;
-    delete serialController;
-}
 
 TEST(BluetoothServer, onRequest_DELETE_WIFI)
 {

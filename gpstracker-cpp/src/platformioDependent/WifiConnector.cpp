@@ -88,7 +88,7 @@ void WiFiConnector::beginConnectionLoop()
         if (WiFi.status() != WL_CONNECTED)
         {
             connected = false;
-            Serial.println("> EL WIFI NO ESTA CONECTADO!");
+            //Serial.println("> EL WIFI NO ESTA CONECTADO!");
             tryToConnectToAnAvaliableNetwork();
         }
         delay(200);

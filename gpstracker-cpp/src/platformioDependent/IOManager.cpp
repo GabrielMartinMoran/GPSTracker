@@ -17,21 +17,14 @@ void IOManager::ioConcurrencia(bool writing, std::string line)
             delay(100);
         }
         this->lock();
-        //this->sdManager->appendFile("/test.txt", line);
         std::string filename = this->getFilenameToWrite(line);
 
-        //Serial.print("Archivo a escribir: ");
-        //Serial.println(filename.c_str());
-        
         this->sdManager->appendFile(filename.c_str(), line);
-        //Consultar el file size y cambiar de nombre el archivo
-        //Serial.println("escribiendo SD");
+
         if(this->hasMaxFileSize(filename)){
             std::string newFilename = filename.c_str();
             newFilename.erase(1, sizeof(CURRENT_FILE_IDENTIFIER));
             this->sdManager->renameFile(filename.c_str(), newFilename.c_str());
-            //Serial.print("Cambio de nombre en el archivo: ");
-            //Serial.println(filename.c_str());
         }
         this->unlock();
     }
@@ -69,10 +62,6 @@ void IOManager::lock()
 void IOManager::unlock()
 {
     this->locked = false;
-}
-bool IOManager::availableToSend()
-{
-    return this->sdManager->fileExists("/test.txt");
 }
 
 std::string IOManager::getFilenameToWrite(std::string line)

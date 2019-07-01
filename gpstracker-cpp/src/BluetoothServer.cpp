@@ -5,12 +5,12 @@ BluetoothServer::BluetoothServer(IWiFiConfiguration *wifiConfiguration, IBluetoo
     this->wifiConfiguration = wifiConfiguration;
     this->bluetooth = bluetooth;
     this->serialController = serialController;
-    //bluetooth->configureWriteCallback(this);
 }
 
 BluetoothServer::~BluetoothServer()
 {
-    if(bluetooth->isConnected()){
+    if (bluetooth->isConnected())
+    {
         this->stop();
     }
 }
@@ -48,18 +48,6 @@ void BluetoothServer::onRequest(std::string request)
     serialController->println("REQUEST: " + std::string(request.c_str()));
     if (request.length() > 0)
     {
-        if (request == TURN_LED_ON)
-        {
-            //digitalWrite(LED_BUILTIN, HIGH); //Comentado porque sino habria que importar Arduino.h y romperia los tests
-            sendResponse(OK);
-            return;
-        }
-        if (request == TURN_LED_OFF)
-        {
-            //digitalWrite(LED_BUILTIN, LOW); //Comentado porque sino habria que importar Arduino.h y romperia los tests
-            sendResponse(OK);
-            return;
-        }
         if (isCommand(request, DELETE_NETWORK))
         {
             std::string networkToDelete = getData(request, DELETE_NETWORK);

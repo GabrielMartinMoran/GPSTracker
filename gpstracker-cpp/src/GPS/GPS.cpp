@@ -1,13 +1,15 @@
 #include <GPS/GPS.h>
 
-GPS::GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos) : GPSController(GPSController), metrosEntrePuntos(metrosEntrePuntos)
+GPS::GPS(IGPSController *GPSController, double metrosEntrePuntos) : GPSController(GPSController), metrosEntrePuntos(metrosEntrePuntos)
 {
 }
 
 bool GPS::posicionValida(GPSData *gpsData)
 {
-    return haversine_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(),
-                       gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud()) > this->metrosEntrePuntos;
+    double distancia = distance_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(),
+                       gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud());
+    std::cout << "distancia en metros : " << distancia << std::endl;
+    return distancia > this->metrosEntrePuntos;
 }
 
 bool GPS::actualizado()

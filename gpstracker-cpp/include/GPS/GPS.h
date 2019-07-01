@@ -3,9 +3,8 @@
 
 #include <iostream>
 #include <interfaces/IGPSController.h>
-#include <utils/Haversine.h>
+#include <utils/DistanceCalculator.h>
 #include <GPS/GPSData.h>
-//#include <Arduino.h>
 
 class GPS
 {
@@ -19,8 +18,8 @@ private:
     unsigned int maxPosicionesInvariadas = 10;
 
 public:
-    GPS(IGPSController *GPSController, unsigned int metrosEntrePuntos);
-    bool actualizado(); //devuelve true si actualizo
+    GPS(IGPSController *GPSController, double metrosEntrePuntos);
+    bool actualizado();
     GPSData *getGPSData();
     ~GPS();
 };

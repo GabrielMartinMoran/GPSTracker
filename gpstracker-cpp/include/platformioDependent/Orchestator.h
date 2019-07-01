@@ -25,7 +25,7 @@
 #define WIFI_CONNECTOR_THREAD_STACK_SIZE (2 * 1024)
 #define SD_CARD_PIN 5
 #define GPS_UART_NUMBER 2
-#define METERS_BETWEEN_POINTS 10
+#define METERS_BETWEEN_POINTS 20
 
 class Orchestator
 {

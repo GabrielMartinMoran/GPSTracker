@@ -73,7 +73,6 @@ void Orchestator::startBluetoothConfiguration()
     pthread_attr_t threadConfig;
     pthread_attr_init(&threadConfig);
     pthread_attr_setstacksize(&threadConfig, BLUETOOTH_SERVER_THREAD_STACK_SIZE);
-    //std::thread bluetoothServerThread = std::thread(Orchestator::startBluetoothServer, btServer);
     pthread_t bluetoothServerThread;
     pthread_create(&bluetoothServerThread, &threadConfig, &Orchestator::startBluetoothServer, (void *)btServer);
 
@@ -87,7 +86,6 @@ void Orchestator::startBluetoothConfiguration()
     pthread_cancel(bluetoothServerThread);
     btServer->stop();
     serialController->println("La configuracion Bluetooth ha finalizado");
-    //bluetoothServerThread.join();
     char *btServerRet;
     pthread_join(bluetoothServerThread, (void **)&btServerRet);
 }
@@ -110,31 +108,17 @@ void Orchestator::start()
     /* ~~~~~~~~~~~~~~~~~~~~~~~ */
 
     serialController->println("Iniciando la captura de datos del GPS");
-    bool actualizado_aux = false;
-    bool actualizado = false;
 
     while (true)
     {
-        actualizado = gps->actualizado();
-        if (actualizado)
+        if (gps->actualizado())
         {
             std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
         }
         //Envio de datos por HTTP
         this->sendAvailableData();
-        /*
-        if (actualizado != actualizado_aux)
-        {
-            actualizado_aux = actualizado;
-            actualizado ? serialController->println("actualizado") : serialController->println("no actualizado");
-            //Serial.print("HEAP DISPONIBLE: ");
-            //Serial.println((unsigned long)ESP.getFreeHeap());
-        }
-        else
-        {
-            delay(500);
-        }*/
+
         delay(500);
     }
     pthread_cancel(wifiConnectorThread);

@@ -30,7 +30,6 @@ public:
     IOManager(ISDManager *sdManager, WiFiConnector *wifiConnector);
     void write(std::string line);
     std::string read();
-    bool availableToSend();
     std::string getFilenameToWrite(std::string line);
     bool hasMaxFileSize(std::string filename);
     std::string getFilenameToSend();

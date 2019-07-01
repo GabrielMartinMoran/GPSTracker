@@ -14,8 +14,6 @@
 
 // SERVER COMMANDS
 #define DELETE_NETWORK "$DELETE_NETWORK$"
-#define TURN_LED_ON "A"  //"$TURN_LED_ON$";
-#define TURN_LED_OFF "B" //"$TURN_LED_OFF$";
 #define LIST_NETWORKS "$LIST_NETWORKS$"
 #define ADD_NETWORK "$ADD_NETWORK$"
 #define END_CONFIGURATION "$END_CONFIGURATION$"
@@ -25,7 +23,6 @@
 //Forward declaration
 class IBluetooth;
 class IWiFiConfiguration;
-//class ISerialController;
 
 class BluetoothServer : public IBluetoothServer
 {
