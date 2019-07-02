@@ -22,26 +22,26 @@ void setup()
 
 void loop()
 {
-    if (gps->actualizado())
+    if (gps->updated())
     {
         usb->print("Raw Data: ");
         usb->println(gps->getGPSData().getRawData().c_str());
         usb->print("Latitud: ");
-        usb->println(gps->getGPSData().getCoordenada().getLatitud(), DECIMALES);
+        usb->println(gps->getGPSData().getCoordinate().getLatitude(), DECIMALES);
         usb->print("Longitud: ");
-        usb->println(gps->getGPSData().getCoordenada().getLongitud(), DECIMALES);
+        usb->println(gps->getGPSData().getCoordinate().getLongitude(), DECIMALES);
         usb->print("Hora: ");
-        usb->print(gps->getGPSData().dateTime().getHora());
+        usb->print(gps->getGPSData().getDateTime().getHour());
         usb->print(":");
-        usb->print(gps->getGPSData().dateTime().getMinuto());
+        usb->print(gps->getGPSData().getDateTime().getMinute());
         usb->print(":");
-        usb->println(gps->getGPSData().dateTime().getSegundo());
+        usb->println(gps->getGPSData().getDateTime().getSecond());
         usb->print("Fecha: ");
-        usb->print(gps->getGPSData().dateTime().getDia());
+        usb->print(gps->getGPSData().getDateTime().getDay());
         usb->print("/");
-        usb->print(gps->getGPSData().dateTime().getMes());
+        usb->print(gps->getGPSData().getDateTime().getMonth());
         usb->print("/");
-        usb->println(gps->getGPSData().dateTime().getAnio());
+        usb->println(gps->getGPSData().getDateTime().getYear());
         usb->println();
     }
 

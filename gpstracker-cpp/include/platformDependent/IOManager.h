@@ -8,7 +8,7 @@
 #include <interfaces/ISDManager.h>
 #include <platformDependent/WiFiConnector.h>
 
-#define LINE_DATE_LENGTH 17 //Largo fijo desde el inicio de la cadena a escribir que corresponde a la fecha y hora del GPS
+#define LINE_DATE_LENGTH 17 //Largo fijo desde el inicio de la cadena a escribir que corresponde a la date y hour del GPS
 #define CURRENT_FILE_IDENTIFIER "C-" //Esta cadena se concatena al inicio del nombre del archivo en uso
 #define FILESIZE_WITH_CONNECTION 200
 #define FILESIZE_WITHOUT_CONNECTION 4000

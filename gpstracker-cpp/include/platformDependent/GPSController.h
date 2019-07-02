@@ -12,5 +12,5 @@ public:
     GPSController(int uartNumber);
     ~GPSController();
     std::string getInformation();
-    bool isDataWaiting();
+    bool isWaitingData();
 };

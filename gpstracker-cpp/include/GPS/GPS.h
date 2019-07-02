@@ -12,14 +12,14 @@ private:
     IGPSController *GPSController = nullptr;
     GPSData *gpsData = nullptr;
     GPSData *gpsDataBuffer = nullptr;
-    bool posicionValida(GPSData *gpsData);
-    double metrosEntrePuntos;
-    unsigned int posicionesInvariadas = 0;
-    unsigned int maxPosicionesInvariadas = 10;
+    bool validPosition(GPSData *gpsData);
+    double metersBetweenPoints;
+    unsigned int staticPositions = 0;
+    unsigned int maxStaticPositions = 10;
 
 public:
-    GPS(IGPSController *GPSController, double metrosEntrePuntos);
-    bool actualizado();
+    GPS(IGPSController *GPSController, double metersBetweenPoints);
+    bool updated();
     GPSData *getGPSData();
     ~GPS();
 };

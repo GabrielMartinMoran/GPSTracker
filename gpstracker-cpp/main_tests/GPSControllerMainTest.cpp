@@ -19,7 +19,7 @@ void loop()
 {
     if (usb->availableForWrite())
     {
-        if (gpsController->isDataWaiting())
+        if (gpsController->isWaitingData())
         {
             digitalWrite(LED_BUILTIN, HIGH);
             usb->println(gpsController->getInformation().c_str());

@@ -5,23 +5,23 @@
 class GPSControllerMockup2 : public IGPSController
 {
 private:
-    std::queue<std::string> sentencias;
+    std::queue<std::string> sentences;
     void rellenarSentencias()
     {
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40"); //valido
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
-        this->sentencias.push("$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"); //valido
-        this->sentencias.push("");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40"); //valido
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054457,A,3654.928,N,07302.500,W,41.7,2.65,160519,,E*40");
+        this->sentences.push("$GPRMC,054509,A,3654.923,N,07302.506,W,51.1,2.54,160519,,E*42"); //valido
+        this->sentences.push("");
     }
 
 public:
@@ -35,24 +35,24 @@ public:
     }
     std::string getInformation()
     {
-        std::string sentencia;
-        sentencia = this->sentencias.front();
-        this->sentencias.pop();
-        return sentencia;
+        std::string sentence;
+        sentence = this->sentences.front();
+        this->sentences.pop();
+        return sentence;
     }
 
-    bool isDataWaiting()
+    bool isWaitingData()
     {
-        if (this->sentencias.empty())
+        if (this->sentences.empty())
         {
             this->rellenarSentencias();
 
             return false;
         }
-        std::string sentencia = this->sentencias.front();
-        if (sentencia == "")
+        std::string sentence = this->sentences.front();
+        if (sentence == "")
         {
-            this->sentencias.pop();
+            this->sentences.pop();
             return false;
         }
         return true;

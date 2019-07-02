@@ -1,25 +1,25 @@
 #include <gtest/gtest.h>
-#include <GPS/Coordenada.h>
+#include <GPS/Coordinate.h>
 
 TEST(Coordenadas, Coordenadas)
 {
-    double latitud;
-    double longitud;
+    double latitude;
+    double longitude;
     double esperado;
     double obtenido;
 
-    latitud = 51.5007;
-    longitud = 0.1246;
+    latitude = 51.5007;
+    longitude = 0.1246;
 
-    Coordenada c = Coordenada(latitud, longitud);
+    Coordinate c = Coordinate(latitude, longitude);
 
-    esperado = latitud;
-    obtenido = c.getLatitud();
+    esperado = latitude;
+    obtenido = c.getLatitude();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = longitud;
-    obtenido = c.getLongitud();
+    esperado = longitude;
+    obtenido = c.getLongitude();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 }
@@ -27,31 +27,31 @@ TEST(Coordenadas, Coordenadas)
 TEST(Coordenadas, InvalidCoordinateExeption)
 {
 
-    double latitud;
-    double longitud;
+    double latitude;
+    double longitude;
 
-    latitud = 251.5007;
-    longitud = 0.1246;
+    latitude = 251.5007;
+    longitude = 0.1246;
 
-    EXPECT_THROW(Coordenada(latitud, longitud), InvalidCoordinateException);
+    EXPECT_THROW(Coordinate(latitude, longitude), InvalidCoordinateException);
 
-    longitud = 251.5007;
-    latitud = 0.1246;
+    longitude = 251.5007;
+    latitude = 0.1246;
 
-    EXPECT_THROW(Coordenada(latitud, longitud), InvalidCoordinateException);
+    EXPECT_THROW(Coordinate(latitude, longitude), InvalidCoordinateException);
 
-    latitud = -251.5007;
-    longitud = 0.1246;
+    latitude = -251.5007;
+    longitude = 0.1246;
 
-    EXPECT_THROW(Coordenada(latitud, longitud), InvalidCoordinateException);
+    EXPECT_THROW(Coordinate(latitude, longitude), InvalidCoordinateException);
 
-    longitud = -251.5007;
-    latitud = 0.1246;
+    longitude = -251.5007;
+    latitude = 0.1246;
 
-    EXPECT_THROW(Coordenada(latitud, longitud), InvalidCoordinateException);
+    EXPECT_THROW(Coordinate(latitude, longitude), InvalidCoordinateException);
 
-    longitud = 151.5007;
-    latitud = 0.1246;
+    longitude = 151.5007;
+    latitude = 0.1246;
 
-    EXPECT_NO_THROW(Coordenada(latitud, longitud));
+    EXPECT_NO_THROW(Coordinate(latitude, longitude));
 }

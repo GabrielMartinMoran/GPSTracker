@@ -4,80 +4,80 @@ GPSData::GPSData(std::string data)
 {
     this->rawData = std::string(data);
 
-    std::string sentencias;
+    std::string sentences;
     std::string checksum;
 
     StringTokenizer dataTokens = StringTokenizer(data, "*");
     try
     {
-        sentencias = dataTokens.nextToken();
+        sentences = dataTokens.nextToken();
         checksum = dataTokens.nextToken();
 
-        if (calculateChecksum(sentencias) == checksum)
+        if (calculateChecksum(sentences) == checksum)
         {
-            StringTokenizer sentenciasTokens = StringTokenizer(sentencias, ",");
+            StringTokenizer tokenSentences = StringTokenizer(sentences, ",");
 
-            std::string tiempo;
-            std::string fecha;
-            std::string latitud_s;
-            std::string longitud_s;
+            std::string time;
+            std::string date;
+            std::string signedLatitude;
+            std::string signedLongitude;
 
-            if (sentenciasTokens.nextToken() == "$GPRMC")
+            if (tokenSentences.nextToken() == "$GPRMC")
             {
-                tiempo = std::string(sentenciasTokens.nextToken()); // 08:18:36 UTC
-                unsigned int hora, minuto, segundo;
-                parsearTiempo(tiempo, &hora, &minuto, &segundo);
+                time = std::string(tokenSentences.nextToken()); // 08:18:36 UTC
+                unsigned int hour, minute, second;
+                parseTime(time, &hour, &minute, &second);
 
-                if (sentenciasTokens.nextToken() == "A")
+                if (tokenSentences.nextToken() == "A")
                 {
-                    latitud_s = std::string(sentenciasTokens.nextToken());
-                    double latitud = parsearCoordenada(latitud_s);
+                    signedLatitude = std::string(tokenSentences.nextToken());
+                    double latitude = parseCoordinate(signedLatitude);
 
-                    if (sentenciasTokens.nextToken() == "S")
+                    if (tokenSentences.nextToken() == "S")
                     {
-                        latitud *= -1;
+                        latitude *= -1;
                     }
-                    longitud_s = std::string(sentenciasTokens.nextToken());
-                    double longitud = parsearCoordenada(longitud_s);
+                    signedLongitude = std::string(tokenSentences.nextToken());
+                    double longitude = parseCoordinate(signedLongitude);
 
-                    if (sentenciasTokens.nextToken() == "W")
+                    if (tokenSentences.nextToken() == "W")
                     {
-                        longitud *= -1;
+                        longitude *= -1;
                     }
 
-                    this->coordenada = new Coordenada(latitud, longitud);
+                    this->coordinate = new Coordinate(latitude, longitude);
 
-                    sentenciasTokens.nextToken();
+                    tokenSentences.nextToken();
 
-                    sentenciasTokens.nextToken(); //Course Made Good, True
+                    tokenSentences.nextToken(); //Course Made Good, True
 
-                    fecha = std::string(sentenciasTokens.nextToken()); //13 Sep 1998
+                    date = std::string(tokenSentences.nextToken()); //13 Sep 1998
 
-                    unsigned int dia, mes, anio;
-                    parsearTiempo(fecha, &dia, &mes, &anio);
+                    unsigned int day, month, year;
+                    parseTime(date, &day, &month, &year);
 
-                    this->date_time = new DateTime(dia, mes, anio, hora, minuto, segundo);
-                    sentenciasTokens.nextToken(); //Magnetic variation 20.3 deg
+                    this->dateTime = new DateTime(day, month, year, hour, minute, second);
+                    tokenSentences.nextToken(); //Magnetic variation 20.3 deg
 
-                    sentenciasTokens.nextToken(); //East
+                    tokenSentences.nextToken(); //East
                 }
             }
         }
         else
         {
-            invalidar();
+            invalidate();
         }
     }
     catch (std::exception &e)
     {
         std::cout << e.what() << std::endl;
-        invalidar();
+        invalidate();
     }
 }
 
-std::string GPSData::calculateChecksum(std::string sentencias)
+std::string GPSData::calculateChecksum(std::string sentences)
 {
-    const char *s = sentencias.c_str();
+    const char *s = sentences.c_str();
     s++;
     int c = 0;
 
@@ -91,65 +91,65 @@ std::string GPSData::calculateChecksum(std::string sentencias)
     return std::string(buffer);
 }
 
-void GPSData::invalidar()
+void GPSData::invalidate()
 {
-    delete this->coordenada;
-    this->coordenada = nullptr;
+    delete this->coordinate;
+    this->coordinate = nullptr;
 
-    delete this->date_time;
-    this->date_time = nullptr;
+    delete this->dateTime;
+    this->dateTime = nullptr;
 }
 
-void GPSData::parsearTiempo(std::string tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio)
+void GPSData::parseTime(std::string time, unsigned int *hourDay, unsigned int *minuteMonth, unsigned int *secondYear)
 {
-    *horaDia = stringToNumber<unsigned int>(tiempo.substr(0, 2));
-    *minutoMes = stringToNumber<unsigned int>(tiempo.substr(2, 2));
-    *sengundoAnio = stringToNumber<unsigned int>(tiempo.substr(4, 2));
+    *hourDay = stringToNumber<unsigned int>(time.substr(0, 2));
+    *minuteMonth = stringToNumber<unsigned int>(time.substr(2, 2));
+    *secondYear = stringToNumber<unsigned int>(time.substr(4, 2));
 }
 
-double GPSData::parsearCoordenada(std::string coordenada)
+double GPSData::parseCoordinate(std::string coordinate)
 {
-    int separador = coordenada.find(".") - 2;
-    double grados = stringToNumber<double>(coordenada.substr(0, separador));
-    double minutos = stringToNumber<double>(coordenada.substr(separador, coordenada.length() - separador));
-    return grados + minutos / 60;
+    int separator = coordinate.find(".") - 2;
+    double degrees = stringToNumber<double>(coordinate.substr(0, separator));
+    double minutes = stringToNumber<double>(coordinate.substr(separator, coordinate.length() - separator));
+    return degrees + minutes / 60;
 }
 
-DateTime GPSData::dateTime()
+DateTime GPSData::getDateTime()
 {
-    if (!this->isValido())
+    if (!this->isValid())
     {
         throw InvalidReadGPSDataException();
     }
-    return *this->date_time;
+    return *this->dateTime;
 }
 
-Coordenada GPSData::getCoordenada()
+Coordinate GPSData::getCoordinate()
 {
-    if (!this->isValido())
+    if (!this->isValid())
     {
         throw InvalidReadGPSDataException();
     }
-    return *this->coordenada;
+    return *this->coordinate;
 }
 
-bool GPSData::isValido()
+bool GPSData::isValid()
 {
-    return this->coordenada != nullptr && this->date_time != nullptr;
+    return this->coordinate != nullptr && this->dateTime != nullptr;
 }
 
-void GPSData::inmovil()
+void GPSData::motionless()
 {
-    this->_inmovil = true;
+    this->_motionless = true;
 }
 
-bool GPSData::isInmovil()
+bool GPSData::isMotionless()
 {
-    if (!this->isValido())
+    if (!this->isValid())
     {
         throw InvalidReadGPSDataException();
     }
-    return this->_inmovil;
+    return this->_motionless;
 }
 
 std::string GPSData::getRawData()
@@ -159,25 +159,25 @@ std::string GPSData::getRawData()
 
 std::string GPSData::getNormalizedData()
 {
-    if (!this->isValido())
+    if (!this->isValid())
     {
         throw InvalidReadGPSDataException();
     }
     unsigned int t = 43;
     char buffer[t];
     snprintf(buffer, t, "%02d-%02d-%02d %02d:%02d:%02d,%c%09.5f,%c%09.5f,%c\n",
-             dateTime().getAnio(), dateTime().getMes(), dateTime().getDia(),
-             dateTime().getHora(), dateTime().getMinuto(), dateTime().getSegundo(),
-             getCoordenada().getLatitud() > 0 ? '+' : '-',
-             std::abs(getCoordenada().getLatitud()),
-             getCoordenada().getLongitud() > 0 ? '+' : '-',
-             std::abs(getCoordenada().getLongitud()),
-             this->isInmovil() ? '1' : '0');
+             getDateTime().getYear(), getDateTime().getMonth(), getDateTime().getDay(),
+             getDateTime().getHour(), getDateTime().getMinute(), getDateTime().getSecond(),
+             getCoordinate().getLatitude() > 0 ? '+' : '-',
+             std::abs(getCoordinate().getLatitude()),
+             getCoordinate().getLongitude() > 0 ? '+' : '-',
+             std::abs(getCoordinate().getLongitude()),
+             this->isMotionless() ? '1' : '0');
     return std::string(buffer);
 }
 
 GPSData::~GPSData()
 {
-    delete this->coordenada;
-    delete this->date_time;
+    delete this->coordinate;
+    delete this->dateTime;
 }

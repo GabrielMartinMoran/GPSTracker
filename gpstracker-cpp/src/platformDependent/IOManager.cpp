@@ -80,7 +80,7 @@ std::string IOManager::getFilenameToWrite(std::string line)
     filename.insert(0, CURRENT_FILE_IDENTIFIER);
     filename.insert(0, "/");
     filename.append(FILE_ESTENSION);
-    Serial.print("Nuevo archivo de almacenamiento de datos generado: ");
+    Serial.print("new archivo de almacenamiento de datos generado: ");
     Serial.println(filename.c_str());
     return filename;
 }

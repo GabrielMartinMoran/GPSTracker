@@ -111,7 +111,7 @@ void Orchestator::start()
 
     while (true)
     {
-        if (gps->actualizado())
+        if (gps->updated())
         {
             std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);

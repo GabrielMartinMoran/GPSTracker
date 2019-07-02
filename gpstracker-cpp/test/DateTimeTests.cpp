@@ -3,52 +3,52 @@
 
 TEST(DateTime, Coordenadas)
 {
-    unsigned int hora;
-    unsigned int minuto;
-    unsigned int segundo;
-    unsigned int dia;
-    unsigned int mes;
-    unsigned int anio;
+    unsigned int hour;
+    unsigned int minute;
+    unsigned int second;
+    unsigned int day;
+    unsigned int month;
+    unsigned int year;
 
     unsigned int esperado;
     unsigned int obtenido;
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    DateTime c = DateTime(dia, mes, anio, hora, minuto, segundo);
+    DateTime c = DateTime(day, month, year, hour, minute, second);
 
-    esperado = dia;
-    obtenido = c.getDia();
+    esperado = day;
+    obtenido = c.getDay();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = mes;
-    obtenido = c.getMes();
+    esperado = month;
+    obtenido = c.getMonth();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = anio;
-    obtenido = c.getAnio();
+    esperado = year;
+    obtenido = c.getYear();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = hora;
-    obtenido = c.getHora();
+    esperado = hour;
+    obtenido = c.getHour();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = minuto;
-    obtenido = c.getMinuto();
+    esperado = minute;
+    obtenido = c.getMinute();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 
-    esperado = segundo;
-    obtenido = c.getSegundo();
+    esperado = second;
+    obtenido = c.getSecond();
     ASSERT_EQ(esperado, obtenido) << "esperado: " << esperado << "\n"
                                   << "obtenido: " << obtenido;
 }
@@ -56,210 +56,210 @@ TEST(DateTime, Coordenadas)
 TEST(DateTime, InvalidTimeException)
 {
 
-    unsigned int hora;
-    unsigned int minuto;
-    unsigned int segundo;
-    unsigned int dia;
-    unsigned int mes;
-    unsigned int anio;
+    unsigned int hour;
+    unsigned int minute;
+    unsigned int second;
+    unsigned int day;
+    unsigned int month;
+    unsigned int year;
 
-    hora = 24;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 24;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidTimeException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidTimeException);
 
-    hora = 1;
-    minuto = 60;
-    segundo = 1;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 60;
+    second = 1;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidTimeException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidTimeException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 60;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 60;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidTimeException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidTimeException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 }
 
 TEST(DateTime, InvalidDateException)
 {
 
-    unsigned int hora;
-    unsigned int minuto;
-    unsigned int segundo;
-    unsigned int dia;
-    unsigned int mes;
-    unsigned int anio;
+    unsigned int hour;
+    unsigned int minute;
+    unsigned int second;
+    unsigned int day;
+    unsigned int month;
+    unsigned int year;
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 0;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 0;
+    month = 1;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 32;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 32;
+    month = 1;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 0;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 0;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 13;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 13;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 1;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 29;
-    mes = 2;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 29;
+    month = 2;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 3;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 3;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 4;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 4;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 5;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 5;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 6;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 6;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 7;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 7;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 8;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 8;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 9;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 9;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 10;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 10;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 11;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 11;
+    year = 1;
 
-    EXPECT_THROW(DateTime(dia, mes, anio, hora, minuto, segundo), InvalidDateException);
+    EXPECT_THROW(DateTime(day, month, year, hour, minute, second), InvalidDateException);
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 31;
-    mes = 12;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 31;
+    month = 12;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 
-    hora = 1;
-    minuto = 1;
-    segundo = 1;
-    dia = 1;
-    mes = 1;
-    anio = 1;
+    hour = 1;
+    minute = 1;
+    second = 1;
+    day = 1;
+    month = 1;
+    year = 1;
 
-    EXPECT_NO_THROW(DateTime(dia, mes, anio, hora, minuto, segundo));
+    EXPECT_NO_THROW(DateTime(day, month, year, hour, minute, second));
 }

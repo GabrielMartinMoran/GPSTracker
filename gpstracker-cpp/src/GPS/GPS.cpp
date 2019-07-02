@@ -1,18 +1,18 @@
 #include <GPS/GPS.h>
 
-GPS::GPS(IGPSController *GPSController, double metrosEntrePuntos) : GPSController(GPSController), metrosEntrePuntos(metrosEntrePuntos)
+GPS::GPS(IGPSController *GPSController, double metersBetweenPoints) : GPSController(GPSController), metersBetweenPoints(metersBetweenPoints)
 {
 }
 
-bool GPS::posicionValida(GPSData *gpsData)
+bool GPS::validPosition(GPSData *gpsData)
 {
-    double distancia = distance_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(),
-                       gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud());
+    double distance = distance_m(this->gpsData->getCoordinate().getLatitude(), this->gpsData->getCoordinate().getLongitude(),
+                       gpsData->getCoordinate().getLatitude(), gpsData->getCoordinate().getLongitude());
     //std::cout << "distancia en metros : " << distancia << std::endl;
-    return distancia > this->metrosEntrePuntos;
+    return distance > this->metersBetweenPoints;
 }
 
-bool GPS::actualizado()
+bool GPS::updated()
 {
     if (this->gpsDataBuffer != nullptr)
     {
@@ -22,45 +22,45 @@ bool GPS::actualizado()
         return true;
     }
 
-    while (this->GPSController->isDataWaiting())
+    while (this->GPSController->isWaitingData())
     {
-        GPSData *nuevo = new GPSData(this->GPSController->getInformation());
+        GPSData *newData = new GPSData(this->GPSController->getInformation());
 
-        if (nuevo->isValido())
+        if (newData->isValid())
         {
             if (this->gpsData == nullptr)
             {
-                this->posicionesInvariadas = 0;
-                this->gpsData = nuevo;
+                this->staticPositions = 0;
+                this->gpsData = newData;
                 return true;
             }
 
-            if (posicionValida(nuevo))
+            if (validPosition(newData))
             {
-                if (this->posicionesInvariadas >= this->maxPosicionesInvariadas)
+                if (this->staticPositions >= this->maxStaticPositions)
                 {
-                    this->gpsDataBuffer = nuevo;
+                    this->gpsDataBuffer = newData;
                 }
                 else
                 {
                     delete this->gpsData;
-                    this->gpsData = nuevo;
+                    this->gpsData = newData;
                 }
-                this->posicionesInvariadas = 0;
+                this->staticPositions = 0;
                 return true;
             }
 
-            if (this->posicionesInvariadas < this->maxPosicionesInvariadas)
+            if (this->staticPositions < this->maxStaticPositions)
             {
-                this->posicionesInvariadas++;
+                this->staticPositions++;
             }
             else
             {
-                this->gpsData->inmovil();
+                this->gpsData->motionless();
             }
         }
 
-        delete nuevo;
+        delete newData;
     }
     return false;
 }

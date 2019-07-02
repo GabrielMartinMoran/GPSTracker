@@ -17,8 +17,6 @@
 #include <platformDependent/HTTPClient.h>
 #include <platformDependent/LedBlinker.h>
 
-#include <Arduino.h>
-
 #define DEVICE_NAME "SRG-SVMI"
 #define HTTP_CODE_OK 200
 #define BLUETOOTH_SERVER_THREAD_STACK_SIZE (3 * 1024)

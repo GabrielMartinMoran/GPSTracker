@@ -1,58 +1,58 @@
 #include <GPS/DateTime.h>
 
-DateTime::DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsigned int hora, unsigned int minuto, unsigned int segundo)
+DateTime::DateTime(unsigned int day, unsigned int month, unsigned int year, unsigned int hour, unsigned int minute, unsigned int second)
 {
 
-    if (hora > 23 || minuto > 59 || segundo > 59)
+    if (hour > 23 || minute > 59 || second > 59)
     {
         throw InvalidTimeException();
     }
-    if (mes < 1 || mes > 12)
+    if (month < 1 || month > 12)
     {
         throw InvalidDateException();
     }
     unsigned int monthDays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (dia < 1 || dia > monthDays[mes - 1])
+    if (day < 1 || day > monthDays[month - 1])
     {
         throw InvalidDateException();
     }
 
-    this->dia = dia;
-    this->mes = mes;
-    this->anio = anio;
-    this->hora = hora;
-    this->minuto = minuto;
-    this->segundo = segundo;
+    this->day = day;
+    this->month = month;
+    this->year = year;
+    this->hour = hour;
+    this->minute = minute;
+    this->second = second;
 }
 
-unsigned int DateTime::getHora()
+unsigned int DateTime::getHour()
 {
-    return this->hora;
+    return this->hour;
 }
 
-unsigned int DateTime::getMinuto()
+unsigned int DateTime::getMinute()
 {
-    return this->minuto;
+    return this->minute;
 }
 
-unsigned int DateTime::getSegundo()
+unsigned int DateTime::getSecond()
 {
-    return this->segundo;
+    return this->second;
 }
 
-unsigned int DateTime::getDia()
+unsigned int DateTime::getDay()
 {
-    return this->dia;
+    return this->day;
 }
 
-unsigned int DateTime::getMes()
+unsigned int DateTime::getMonth()
 {
-    return this->mes;
+    return this->month;
 }
 
-unsigned int DateTime::getAnio()
+unsigned int DateTime::getYear()
 {
-    return this->anio;
+    return this->year;
 }
 
 DateTime::~DateTime()

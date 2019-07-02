@@ -7,21 +7,21 @@
 class DateTime
 {
 private:
-    unsigned int hora = 0;
-    unsigned int minuto = 0;
-    unsigned int segundo = 0;
-    unsigned int dia = 0;
-    unsigned int mes = 0;
-    unsigned int anio = 0;
+    unsigned int hour = 0;
+    unsigned int minute = 0;
+    unsigned int second = 0;
+    unsigned int day = 0;
+    unsigned int month = 0;
+    unsigned int year = 0;
 
 public:
-    DateTime(unsigned int dia, unsigned int mes, unsigned int anio, unsigned int hora, unsigned int minuto, unsigned int segundo);
-    unsigned int getDia();
-    unsigned int getMes();
-    unsigned int getAnio();
-    unsigned int getHora();
-    unsigned int getMinuto();
-    unsigned int getSegundo();
+    DateTime(unsigned int day, unsigned int month, unsigned int year, unsigned int hour, unsigned int minute, unsigned int second);
+    unsigned int getDay();
+    unsigned int getMonth();
+    unsigned int getYear();
+    unsigned int getHour();
+    unsigned int getMinute();
+    unsigned int getSecond();
     ~DateTime();
 };
 #endif

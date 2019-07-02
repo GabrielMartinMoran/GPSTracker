@@ -7,28 +7,28 @@
 #include <utils/StringTokenizer.h>
 #include <utils/StringToNumber.h>
 #include <GPS/DateTime.h>
-#include <GPS/Coordenada.h>
+#include <GPS/Coordinate.h>
 #include <exceptions/InvalidReadGPSDataException.ex>
 
 class GPSData
 {
 private:
-    DateTime *date_time = nullptr;
-    Coordenada *coordenada = nullptr;
-    void parsearTiempo(std::string tiempo, unsigned int *horaDia, unsigned int *minutoMes, unsigned int *sengundoAnio);
-    double parsearCoordenada(std::string coordenada);
+    DateTime *dateTime = nullptr;
+    Coordinate *coordinate = nullptr;
+    void parseTime(std::string time, unsigned int *hourDay, unsigned int *minuteMonth, unsigned int *secondYear);
+    double parseCoordinate(std::string coordinate);
     std::string rawData;
-    bool isInmovil();
-    bool _inmovil = false;
-    void invalidar();
-    std::string calculateChecksum(std::string sentencias);
+    bool isMotionless();
+    bool _motionless = false;
+    void invalidate();
+    std::string calculateChecksum(std::string sentences);
 
 public:
     GPSData(std::string data);
-    DateTime dateTime();
-    Coordenada getCoordenada();
-    bool isValido();
-    void inmovil();
+    DateTime getDateTime();
+    Coordinate getCoordinate();
+    bool isValid();
+    void motionless();
     std::string getRawData();
     std::string getNormalizedData();
     ~GPSData();
