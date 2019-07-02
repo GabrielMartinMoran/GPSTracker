@@ -1,4 +1,4 @@
-#include <platformioDependent/GPSController.h>
+#include <platformDependent/GPSController.h>
 
 GPSController::GPSController(int uartNumber)
 {

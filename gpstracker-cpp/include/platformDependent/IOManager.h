@@ -6,7 +6,7 @@
 #include <mutex>
 #include <Arduino.h>
 #include <interfaces/ISDManager.h>
-#include <platformioDependent/WiFiConnector.h>
+#include <platformDependent/WiFiConnector.h>
 
 #define LINE_DATE_LENGTH 17 //Largo fijo desde el inicio de la cadena a escribir que corresponde a la fecha y hora del GPS
 #define CURRENT_FILE_IDENTIFIER "C-" //Esta cadena se concatena al inicio del nombre del archivo en uso

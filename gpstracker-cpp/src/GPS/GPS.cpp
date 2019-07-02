@@ -8,7 +8,7 @@ bool GPS::posicionValida(GPSData *gpsData)
 {
     double distancia = distance_m(this->gpsData->getCoordenada().getLatitud(), this->gpsData->getCoordenada().getLongitud(),
                        gpsData->getCoordenada().getLatitud(), gpsData->getCoordenada().getLongitud());
-    std::cout << "distancia en metros : " << distancia << std::endl;
+    //std::cout << "distancia en metros : " << distancia << std::endl;
     return distancia > this->metrosEntrePuntos;
 }
 

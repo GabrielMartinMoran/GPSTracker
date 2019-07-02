@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Arduino.h>
-#include <platformioDependent/GPSController.h>
+#include <platformDependent/GPSController.h>
 #include <GPS/GPS.h>
 
 #define UART_USB 0

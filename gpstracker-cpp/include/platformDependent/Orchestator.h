@@ -4,18 +4,18 @@
 #include <pthread.h>
 #include <iostream>
 #include <interfaces/ISDManager.h>
-#include <platformioDependent/SDManager.h>
-#include <platformioDependent/SerialController.h>
+#include <platformDependent/SDManager.h>
+#include <platformDependent/SerialController.h>
 #include <BluetoothServer.h>
 #include <WiFiConfiguration.h>
-#include <platformioDependent/Bluetooth.h>
-#include <platformioDependent/WiFiConnector.h>
+#include <platformDependent/Bluetooth.h>
+#include <platformDependent/WiFiConnector.h>
 #include <EndConfigurationCallback.h>
 #include <GPS/GPS.h>
-#include <platformioDependent/GPSController.h>
-#include <platformioDependent/IOManager.h>
-#include <platformioDependent/HTTPClient.h>
-#include <platformioDependent/LedBlinker.h>
+#include <platformDependent/GPSController.h>
+#include <platformDependent/IOManager.h>
+#include <platformDependent/HTTPClient.h>
+#include <platformDependent/LedBlinker.h>
 
 #include <Arduino.h>
 

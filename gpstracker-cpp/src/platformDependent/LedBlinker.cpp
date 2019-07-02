@@ -1,4 +1,4 @@
-#include <platformioDependent/LedBlinker.h>
+#include <platformDependent/LedBlinker.h>
 
 void LedBlinker::blink(u_int times, u_int delayBetween, u_int activeDuration){
     pinMode(LED_BUILTIN, OUTPUT);

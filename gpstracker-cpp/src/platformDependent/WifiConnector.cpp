@@ -1,4 +1,4 @@
-#include <platformioDependent/WiFiConnector.h>
+#include <platformDependent/WiFiConnector.h>
 
 WiFiConnector::WiFiConnector(IWiFiConfiguration *wifiConfiguration)
 {

@@ -1,4 +1,4 @@
-#include "platformioDependent/SDManager.h"
+#include "platformDependent/SDManager.h"
 
 SDManager::SDManager(uint8_t ssPin) : ssPin(ssPin)
 {

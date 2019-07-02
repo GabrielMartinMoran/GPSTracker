@@ -3,7 +3,7 @@
 #include <iostream>
 #include <Arduino.h>
 
-#include <platformioDependent/IOManager.h>
+#include <platformDependent/IOManager.h>
 
 std::mutex sum2_mutex;
 long sum = 0;
