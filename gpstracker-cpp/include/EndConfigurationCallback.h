@@ -1,7 +1,7 @@
 #ifndef EndConfigurationCallback_h
 #define EndConfigurationCallback_h
 
-#define MAX_TIME_UNTIL_DONE 1500 //In milliseconds
+#define MAX_TIME_UNTIL_DONE 15000 //In milliseconds
 
 class EndConfigurationCallback
 {

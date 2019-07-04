@@ -57,6 +57,12 @@ void Orchestator::sendAvailableData()
             if (statusCode == HTTP_CODE_OK)
             {
                 ioManager->deleteFile(fileToSendData);
+                LedBlinker::blink(1, 200, 0);
+            }
+            else
+            {
+                LedBlinker::blink(1, 200, 600);
+                LedBlinker::blink(1, 0, 300);
             }
             serialController->print("Response status code: ");
             serialController->println(statusCode);
@@ -93,7 +99,7 @@ void Orchestator::startBluetoothConfiguration()
 void Orchestator::start()
 {
     serialController->println("Orchestator Start");
-    LedBlinker::blink(4, 100, 100);
+    LedBlinker::blink(4, 200, 200);
 
     /* ~~~  BLUETOOTH SERVER  ~~~ */
     this->startBluetoothConfiguration();
@@ -115,6 +121,7 @@ void Orchestator::start()
         {
             std::string line = gps->getGPSData()->getNormalizedData();
             ioManager->write(line);
+            LedBlinker::blink(1, 0, 200);
         }
         //Envio de datos por HTTP
         this->sendAvailableData();

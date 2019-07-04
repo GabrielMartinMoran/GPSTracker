@@ -7,6 +7,7 @@
 #include "SD.h"
 //#include "SPI.h"
 #include <Arduino.h>
+#include <platformDependent/LedBlinker.h>
 
 class SDManager : public ISDManager {
 

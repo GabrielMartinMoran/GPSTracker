@@ -9,11 +9,13 @@ bool SDManager::isValidSD()
     if (!SD.begin(this->ssPin))
     {
         Serial.println("SD Card Mount Failed");
+        LedBlinker::blink(2, 500, 1000);
         return false;
     }
     if (SD.cardType() == CARD_NONE)
     {
         Serial.println("No SD card attached");
+        LedBlinker::blink(2, 500, 1000);
         return false;
     }
     return true;
