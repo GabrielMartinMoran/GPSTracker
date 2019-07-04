@@ -15,7 +15,7 @@
 #define CHARACTERISTIC_UUID_TX "6E40F1B2-B5A3-F393-E0A9-E50E24DCCA9E"
 
 #define LED_PIN 2
-#define DEVICE_BT_NAME "ESP32 GPS Tracker"
+#define DEVICE_BT_NAME "SRG-SVMI"
 
 //Forward declaration
 class BluetoothServer;
