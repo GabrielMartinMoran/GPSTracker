@@ -4,7 +4,7 @@ click==6.7
 Flask==0.12.2
 gspread==0.6.2
 gunicorn==19.7.1
-httplib2==0.10.3
+httplib2==0.18.0
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.10
@@ -23,7 +23,7 @@ click==6.7
 Flask==0.12.2
 gspread==0.6.2
 gunicorn==19.7.1
-httplib2==0.10.3
+httplib2==0.18.0
 idna==2.6
 import-string==0.1.0
 itsdangerous==0.24
